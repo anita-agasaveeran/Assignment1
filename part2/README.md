@@ -6,7 +6,7 @@ using **Claude Code** as the coding assistant. Each project was built from the v
 prompt in the source repo's [`PROMPTS.md`](https://github.com/dlmastery/data_science_examples/blob/main/PROMPTS.md),
 with follow-up prompts as needed to get a working, tested result.
 
-**Video walkthrough:** _[YouTube link — to be added]_
+**Video walkthrough:** [https://youtu.be/GApvUAs4Mow](https://youtu.be/GApvUAs4Mow)
 
 Every experiment has its own README with full details (setup, results, CRISP-DM phases,
 design decisions). This page is just the index.

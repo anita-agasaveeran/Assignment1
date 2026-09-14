@@ -8,7 +8,7 @@ has its own README with full details; this page is the entry point.
 | Part | Folder | What it is | Deliverables |
 |---|---|---|---|
 | **1** | [`part1/`](part1/) | A CRISP-DM data science study on the Kaggle *All Exoplanets* dataset, run end-to-end through a staged ChatGPT (GPT-5 Thinking) session | [README](part1/README.md) · [chat transcript](part1/transcript/chat_history.pdf) · [Medium article](https://medium.com/@anita.agasaveeran/predicting-radiative-habitable-zone-membership-from-stellar-and-orbital-features-3481e68d6a66) |
-| **2** | [`part2/`](part2/) | Six data science experiments from [dlmastery/data_science_examples](https://github.com/dlmastery/data_science_examples) replicated with Claude Code from the repo's verbatim prompts | [README](part2/README.md) · YouTube walkthrough (see Part 2 README) |
+| **2** | [`part2/`](part2/) | Six data science experiments from [dlmastery/data_science_examples](https://github.com/dlmastery/data_science_examples) replicated with Claude Code from the repo's verbatim prompts | [README](part2/README.md) · [YouTube walkthrough](https://youtu.be/GApvUAs4Mow) |
 
 ---
 
@@ -40,7 +40,7 @@ Six projects rebuilt in Claude Code from the prompts in the source repo's `PROMP
 
 Every project follows CRISP-DM, ships a dashboard rendered from its run artifacts, and reports
 negative results as such. See [`part2/README.md`](part2/README.md) for the prompt-to-project
-mapping and the video walkthrough.
+mapping, and the [video walkthrough](https://youtu.be/GApvUAs4Mow) for a tour of each project.
 
 ---
 
