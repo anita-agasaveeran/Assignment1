@@ -7,7 +7,7 @@ has its own README with full details; this page is the entry point.
 
 | Part | Folder | What it is | Deliverables |
 |---|---|---|---|
-| **1** | [`part1/`](part1/) | A CRISP-DM data science study on the Kaggle *All Exoplanets* dataset, run end-to-end through a staged ChatGPT (GPT-5 Thinking) session | [README](part1/README.md) · [chat transcript](part1/transcript/chat_history.pdf) · [Medium article](https://medium.com/@anita.agasaveeran/predicting-radiative-habitable-zone-membership-from-stellar-and-orbital-features-3481e68d6a66) |
+| **1** | [`part1/`](part1/) | A CRISP-DM data science study on the Kaggle *All Exoplanets* dataset, run end-to-end through a staged ChatGPT (GPT-5 Thinking) session | [README](part1/README.md) · [YouTube walkthrough](https://youtu.be/jAAmJJt9CJE) · [chat transcript](part1/transcript/chat_history.pdf) · [Medium article](https://medium.com/@anita.agasaveeran/predicting-radiative-habitable-zone-membership-from-stellar-and-orbital-features-3481e68d6a66) |
 | **2** | [`part2/`](part2/) | Six data science experiments from [dlmastery/data_science_examples](https://github.com/dlmastery/data_science_examples) replicated with Claude Code from the repo's verbatim prompts | [README](part2/README.md) · [YouTube walkthrough](https://youtu.be/GApvUAs4Mow) |
 
 ---
@@ -23,7 +23,7 @@ forest and gradient boosting.
 Headline result: the simpler logistic model won (out-of-host PR-AUC **0.596** vs 0.475 for random
 forest and 0.366 for gradient boosting) — with only 26 host systems carrying positive labels, the
 flexible models had too little signal to exploit. Details, figures and per-phase results are in
-[`part1/README.md`](part1/README.md).
+[`part1/README.md`](part1/README.md), and the [video walkthrough](https://youtu.be/jAAmJJt9CJE) covers the study end to end.
 
 ## Part 2 — Replicated Data Science Experiments
 

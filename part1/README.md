@@ -10,6 +10,7 @@ A CRISP-DM data science study of 4,575 confirmed exoplanets, conducted end-to-en
 
 ## Project Links
 
+- **Video walkthrough:** [https://youtu.be/jAAmJJt9CJE](https://youtu.be/jAAmJJt9CJE)
 - **Full analysis transcript:** [`transcript/chat_history.pdf`](./transcript/chat_history.pdf) — the complete, chunk-by-chunk ChatGPT conversation this project was built from
 - **Medium article:** [Predicting Radiative Habitable-Zone Membership from Stellar and Orbital Features](https://medium.com/@anita.agasaveeran/predicting-radiative-habitable-zone-membership-from-stellar-and-orbital-features-3481e68d6a66)
 - **Source dataset:** [Kaggle — All Exoplanets Dataset](https://www.kaggle.com/datasets/shivamb/all-exoplanets-dataset) (`all_exoplanets_2021.csv`, sourced from the NASA Exoplanet Archive)
