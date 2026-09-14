@@ -1,0 +1,46 @@
+{
+  "n_documents": 52,
+  "n_chunks": 346,
+  "embedding_model": "all-MiniLM-L6-v2",
+  "embedding_dim": 384,
+  "reranker": "cross-encoder/ms-marco-MiniLM-L6-v2",
+  "n_eval_queries": 10,
+  "top_k": 20,
+  "final_k": 5,
+  "evaluation": [
+    {
+      "retriever": "dense only",
+      "recall@1": 0.4,
+      "recall@3": 0.7,
+      "recall@5": 0.7,
+      "recall@10": 0.8,
+      "mrr": 0.5619
+    },
+    {
+      "retriever": "sparse only (BM25)",
+      "recall@1": 0.4,
+      "recall@3": 0.8,
+      "recall@5": 0.9,
+      "recall@10": 1.0,
+      "mrr": 0.6183
+    },
+    {
+      "retriever": "hybrid (RRF)",
+      "recall@1": 0.6,
+      "recall@3": 0.8,
+      "recall@5": 0.9,
+      "recall@10": 1.0,
+      "mrr": 0.7393
+    },
+    {
+      "retriever": "hybrid + cross-encoder rerank",
+      "recall@1": 0.6,
+      "recall@3": 0.8,
+      "recall@5": 0.9,
+      "recall@10": 0.9,
+      "mrr": 0.711
+    }
+  ],
+  "best_retriever": "hybrid (RRF)",
+  "mrr_gain_over_dense_only": 0.1774
+}

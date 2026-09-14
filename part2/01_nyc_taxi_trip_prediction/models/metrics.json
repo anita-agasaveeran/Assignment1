@@ -1,0 +1,66 @@
+{
+  "trained_at": "2026-09-02T00:44:24.178109+00:00",
+  "n_train": 931870,
+  "n_test": 232968,
+  "train_period": [
+    "2016-01-01 00:00:44",
+    "2016-05-25 01:37:13"
+  ],
+  "test_period": [
+    "2016-05-25 01:37:56",
+    "2016-06-30 23:59:55"
+  ],
+  "split": "temporal (most recent 20% held out)",
+  "primary_metric": "rmsle",
+  "results": [
+    {
+      "model": "baseline_global_median",
+      "rmsle": 0.7426778315254877,
+      "mae_seconds": 476.24221352288725,
+      "median_abs_error_seconds": 315.0,
+      "rmse_seconds": 747.7556621050472,
+      "r2": -0.10252200069530693,
+      "within_2min_pct": 19.52671611551801,
+      "within_5min_pct": 47.78553277703376
+    },
+    {
+      "model": "baseline_constant_speed_12.9kmh",
+      "rmsle": 0.5309315670310062,
+      "mae_seconds": 405.5723690300619,
+      "median_abs_error_seconds": 203.310171938047,
+      "rmse_seconds": 724.2772647573366,
+      "r2": -0.03437389051513784,
+      "within_2min_pct": 34.40386662545929,
+      "within_5min_pct": 62.20639744514268
+    },
+    {
+      "model": "ridge_log",
+      "rmsle": 0.543592092540304,
+      "mae_seconds": 385.59520576999967,
+      "median_abs_error_seconds": 215.31154289410722,
+      "rmse_seconds": 772.4566237858036,
+      "r2": -0.17656533098067273,
+      "within_2min_pct": 29.094124514954846,
+      "within_5min_pct": 64.43331272964528
+    },
+    {
+      "model": "hist_gradient_boosting",
+      "rmsle": 0.30649124924574084,
+      "mae_seconds": 183.10981294278088,
+      "median_abs_error_seconds": 111.93155935663088,
+      "rmse_seconds": 305.2180650706671,
+      "r2": 0.8163088159175999,
+      "within_2min_pct": 52.61538065313691,
+      "within_5min_pct": 83.42089900758903
+    }
+  ],
+  "interval": {
+    "quantiles": [
+      0.1,
+      0.9
+    ],
+    "nominal_coverage_pct": 80.0,
+    "empirical_coverage_pct": 77.4166409120566
+  },
+  "n_features": 41
+}

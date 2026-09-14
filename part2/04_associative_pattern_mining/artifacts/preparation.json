@@ -1,0 +1,301 @@
+{
+  "drop_log": [
+    {
+      "step": "drop_exact_duplicates",
+      "rows_before": 541909,
+      "rows_after": 536641,
+      "rows_dropped": 5268,
+      "pct_dropped": 0.9721,
+      "rationale": "Identical (invoice, item, qty, price, ts) rows are double-scans, not two independent purchases; they would inflate support counts."
+    },
+    {
+      "step": "drop_credit_notes",
+      "rows_before": 536641,
+      "rows_after": 527390,
+      "rows_dropped": 9251,
+      "pct_dropped": 1.7239,
+      "rationale": "Invoices prefixed 'C' are cancellations. A returned basket is not evidence of co-purchase intent."
+    },
+    {
+      "step": "drop_non_positive_quantity",
+      "rows_before": 527390,
+      "rows_after": 526054,
+      "rows_dropped": 1336,
+      "pct_dropped": 0.2533,
+      "rationale": "Quantity <= 0 encodes returns/adjustments."
+    },
+    {
+      "step": "drop_non_positive_price",
+      "rows_before": 526054,
+      "rows_after": 524878,
+      "rows_dropped": 1176,
+      "pct_dropped": 0.2236,
+      "rationale": "UnitPrice <= 0 encodes freebies and stock adjustments, not sales."
+    },
+    {
+      "step": "drop_missing_description",
+      "rows_before": 524878,
+      "rows_after": 524878,
+      "rows_dropped": 0,
+      "pct_dropped": 0.0,
+      "rationale": "Rows with no product name cannot be interpreted by a merchandiser."
+    },
+    {
+      "step": "drop_service_and_adjustment_rows",
+      "rows_before": 524878,
+      "rows_after": 522286,
+      "rows_dropped": 2592,
+      "pct_dropped": 0.4938,
+      "rationale": "Postage, bank charges and manual stock adjustments are not products; leaving them in produces rules like {POSTAGE} => {x}."
+    },
+    {
+      "step": "TOTAL",
+      "rows_before": 541909,
+      "rows_after": 522286,
+      "rows_dropped": 19623,
+      "pct_dropped": 3.6211,
+      "rationale": "End of Phase 3 cleaning."
+    }
+  ],
+  "prep_log": [
+    {
+      "step": "item_frequency_floor",
+      "detail": "kept 2,547/3,793 items appearing in >= 30 baskets",
+      "rationale": "Items below the floor cannot reach any useful min_support, but they inflate the FP-tree and the search space."
+    },
+    {
+      "step": "basket_size_filter",
+      "detail": "kept 17,982/19,673 baskets with 2 <= size <= 200",
+      "rationale": "Size-1 baskets cannot support a rule; oversized baskets are wholesale orders whose co-occurrence is an artefact of bulk picking rather than shopper intent."
+    }
+  ],
+  "dataset": {
+    "n_transactions": 17982,
+    "n_items": 2547,
+    "avg_basket_size": 23.632243354465576,
+    "density": 0.009278462251458805
+  },
+  "split": {
+    "strategy": "temporal",
+    "holdout_fraction": 0.3,
+    "explore_n": 12587,
+    "holdout_n": 5395,
+    "explore_start": "2010-12-01T08:26:00.000000000",
+    "explore_end": "2011-09-27T08:57:00.000000000",
+    "holdout_start": "2011-09-27T09:05:00.000000000",
+    "holdout_end": "2011-12-09T12:50:00.000000000",
+    "rationale": "Exploratory / holdout split.\n\nTemporal by default.  Webb (2007, *Discovering Significant Patterns*, Mach.\nLearn. 68:1-33) shows that testing a rule on the same data that suggested it\ninflates the false-discovery rate arbitrarily; the holdout must be untouched\nduring search.  For retail we go further and split on *time*, because a\nrandom split lets December co-purchases vouch for a rule discovered in\nDecember.\n"
+  },
+  "top_items": [
+    {
+      "item_id": 0,
+      "code": "85123A",
+      "label": "WHITE HANGING HEART T-LIGHT HOLDER",
+      "count": 2265,
+      "support": 0.12595929262595928
+    },
+    {
+      "item_id": 1,
+      "code": "85099B",
+      "label": "JUMBO BAG RED RETROSPOT",
+      "count": 2089,
+      "support": 0.1161717272828384
+    },
+    {
+      "item_id": 2,
+      "code": "22423",
+      "label": "REGENCY CAKESTAND 3 TIER",
+      "count": 1988,
+      "support": 0.11055499944388833
+    },
+    {
+      "item_id": 3,
+      "code": "47566",
+      "label": "PARTY BUNTING",
+      "count": 1685,
+      "support": 0.09370481592703815
+    },
+    {
+      "item_id": 4,
+      "code": "20725",
+      "label": "LUNCH BAG RED RETROSPOT",
+      "count": 1565,
+      "support": 0.08703147592036481
+    },
+    {
+      "item_id": 5,
+      "code": "84879",
+      "label": "ASSORTED COLOUR BIRD ORNAMENT",
+      "count": 1455,
+      "support": 0.08091424758091424
+    },
+    {
+      "item_id": 6,
+      "code": "22197",
+      "label": "POPCORN HOLDER",
+      "count": 1392,
+      "support": 0.07741074407741075
+    },
+    {
+      "item_id": 7,
+      "code": "22720",
+      "label": "SET OF 3 CAKE TINS PANTRY DESIGN",
+      "count": 1385,
+      "support": 0.0770214659103548
+    },
+    {
+      "item_id": 8,
+      "code": "21212",
+      "label": "PACK OF 72 RETROSPOT CAKE CASES",
+      "count": 1320,
+      "support": 0.07340674007340674
+    },
+    {
+      "item_id": 9,
+      "code": "22383",
+      "label": "LUNCH BAG SUKI DESIGN",
+      "count": 1284,
+      "support": 0.07140473807140474
+    },
+    {
+      "item_id": 10,
+      "code": "20727",
+      "label": "LUNCH BAG  BLACK SKULL.",
+      "count": 1273,
+      "support": 0.07079301523745968
+    },
+    {
+      "item_id": 11,
+      "code": "22457",
+      "label": "NATURAL SLATE HEART CHALKBOARD",
+      "count": 1249,
+      "support": 0.06945834723612501
+    },
+    {
+      "item_id": 12,
+      "code": "23203",
+      "label": "JUMBO BAG VINTAGE DOILY",
+      "count": 1231,
+      "support": 0.06845734623512402
+    },
+    {
+      "item_id": 13,
+      "code": "22386",
+      "label": "JUMBO BAG PINK POLKADOT",
+      "count": 1218,
+      "support": 0.0677344010677344
+    },
+    {
+      "item_id": 14,
+      "code": "22469",
+      "label": "HEART OF WICKER SMALL",
+      "count": 1201,
+      "support": 0.06678901123345568
+    },
+    {
+      "item_id": 15,
+      "code": "21931",
+      "label": "JUMBO STORAGE BAG SUKI",
+      "count": 1184,
+      "support": 0.06584362139917696
+    },
+    {
+      "item_id": 16,
+      "code": "22411",
+      "label": "JUMBO SHOPPER VINTAGE RED PAISLEY",
+      "count": 1175,
+      "support": 0.06534312089867646
+    },
+    {
+      "item_id": 17,
+      "code": "22961",
+      "label": "JAM MAKING SET PRINTED",
+      "count": 1162,
+      "support": 0.06462017573128684
+    },
+    {
+      "item_id": 18,
+      "code": "22086",
+      "label": "PAPER CHAIN KIT 50'S CHRISTMAS",
+      "count": 1160,
+      "support": 0.06450895339784228
+    },
+    {
+      "item_id": 19,
+      "code": "22382",
+      "label": "LUNCH BAG SPACEBOY DESIGN",
+      "count": 1157,
+      "support": 0.06434211989767545
+    },
+    {
+      "item_id": 20,
+      "code": "20728",
+      "label": "LUNCH BAG CARS BLUE",
+      "count": 1150,
+      "support": 0.0639528417306195
+    },
+    {
+      "item_id": 21,
+      "code": "23298",
+      "label": "SPOTTY BUNTING",
+      "count": 1146,
+      "support": 0.06373039706373039
+    },
+    {
+      "item_id": 22,
+      "code": "22960",
+      "label": "JAM MAKING SET WITH JARS",
+      "count": 1132,
+      "support": 0.06295184072961851
+    },
+    {
+      "item_id": 23,
+      "code": "22666",
+      "label": "RECIPE BOX PANTRY YELLOW DESIGN",
+      "count": 1111,
+      "support": 0.06178400622845067
+    },
+    {
+      "item_id": 24,
+      "code": "82482",
+      "label": "WOODEN PICTURE FRAME WHITE FINISH",
+      "count": 1100,
+      "support": 0.06117228339450562
+    },
+    {
+      "item_id": 25,
+      "code": "23209",
+      "label": "LUNCH BAG VINTAGE DOILY",
+      "count": 1098,
+      "support": 0.06106106106106106
+    },
+    {
+      "item_id": 26,
+      "code": "22384",
+      "label": "LUNCH BAG PINK POLKADOT",
+      "count": 1090,
+      "support": 0.06061617172728284
+    },
+    {
+      "item_id": 27,
+      "code": "22993",
+      "label": "SET OF 4 PANTRY JELLY MOULDS",
+      "count": 1073,
+      "support": 0.059670781893004114
+    },
+    {
+      "item_id": 28,
+      "code": "22699",
+      "label": "ROSES REGENCY TEACUP AND SAUCER",
+      "count": 1065,
+      "support": 0.05922589255922589
+    },
+    {
+      "item_id": 29,
+      "code": "22727",
+      "label": "ALARM CLOCK BAKELIKE RED",
+      "count": 1051,
+      "support": 0.058447336225114006
+    }
+  ]
+}

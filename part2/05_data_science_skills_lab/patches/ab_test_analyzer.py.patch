@@ -1,0 +1,12 @@
+--- /tmp/ab_test_analyzer.py.orig	2026-09-01 17:51:57
++++ /Users/anitaagasaveeran/.claude/skills/ab-test-analysis/scripts/ab_test_analyzer.py	2026-09-01 17:51:57
+@@ -156,6 +156,9 @@
+ 
+ 
+ if __name__ == "__main__":
++    if len(sys.argv) > 1:
++        main()
++        sys.exit(0)
+     # Demo: checkout flow redesign
+     srm = srm_check(10_000, 10_142)
+     result = analyze_binary_metric(

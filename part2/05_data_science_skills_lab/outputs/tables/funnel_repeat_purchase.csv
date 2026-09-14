@@ -1,0 +1,6 @@
+step,users,step_conv,overall_conv,dropped
+Placed 1st order,4338,,100.0,0
+Placed 2nd order,2845,65.6,65.6,1493
+Placed 3rd order,2010,70.7,46.3,835
+Placed 5th order,1114,55.4,25.7,896
+Placed 10th order,391,35.1,9.0,723

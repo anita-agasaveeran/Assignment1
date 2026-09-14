@@ -1,0 +1,366 @@
+/Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/.venv/lib/python3.14/site-packages/statsmodels/tsa/statespace/mlemodel.py:679: EstimationWarning: Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.
+  start_params = self.start_params
+
+==============================================================================
+[CRISP-DM Phase 4 - Modeling]  skill: cohort-analysis
+  monthly acquisition cohorts; retention event = any purchase==============================================================================
+  cohort grouping : month of first purchase
+  retention event : placed >=1 order in that month
+  granularity     : monthly, 13 periods (2010-12 .. 2011-12)
+
+    $ python cohort-analysis/scripts/cohort_builder.py ...
+    Built cohort table: 13,054 rows, 13 cohorts
+     user_id cohort_period activity_period  period_number
+       17850    2010-12-01      2010-12-01              0
+       13047    2010-12-01      2010-12-01              0
+       12583    2010-12-01      2010-12-01              0
+       13748    2010-12-01      2010-12-01              0
+       15100    2010-12-01      2010-12-01              0
+       15291    2010-12-01      2010-12-01              0
+       14688    2010-12-01      2010-12-01              0
+       17809    2010-12-01      2010-12-01              0
+       15311    2010-12-01      2010-12-01              0
+       16098    2010-12-01      2010-12-01              0
+    
+    Saved to /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/crisp-dm-skills-demo/data/processed/cohort_table.csv
+
+    $ python cohort-analysis/scripts/retention_matrix.py ...
+    === Retention Matrix ===
+                   Cohort Size  Period 0  Period 1  Period 2  Period 3  Period 4  Period 5  Period 6  Period 7  Period 8  Period 9  Period 10  Period 11  Period 12
+    cohort_period                                                                                                                                                  
+    2010-12-01             885     100.0      36.6      32.3      38.4      36.3      39.8      36.3      34.9      35.4      39.5       37.4       50.3       26.6
+    2011-01-01             417     100.0      22.1      26.6      23.0      32.1      28.8      24.7      24.2      30.0      32.6       36.5       11.8        NaN
+    2011-02-01             380     100.0      18.7      18.7      28.4      27.1      24.7      25.3      27.9      24.7      30.5        6.8        NaN        NaN
+    2011-03-01             452     100.0      15.0      25.2      19.9      22.3      16.8      26.8      23.0      27.9       8.6        NaN        NaN        NaN
+    2011-04-01             300     100.0      21.3      20.3      21.0      19.7      22.7      21.7      26.0       7.3       NaN        NaN        NaN        NaN
+    2011-05-01             284     100.0      19.0      17.3      17.3      20.8      23.2      26.4       9.5       NaN       NaN        NaN        NaN        NaN
+    2011-06-01             242     100.0      17.4      15.7      26.4      23.1      33.5       9.5       NaN       NaN       NaN        NaN        NaN        NaN
+    2011-07-01             188     100.0      18.1      20.7      22.3      27.1      11.2       NaN       NaN       NaN       NaN        NaN        NaN        NaN
+    2011-08-01             169     100.0      20.7      24.9      24.3      12.4       NaN       NaN       NaN       NaN       NaN        NaN        NaN        NaN
+    2011-09-01             299     100.0      23.4      30.1      11.4       NaN       NaN       NaN       NaN       NaN       NaN        NaN        NaN        NaN
+    2011-10-01             358     100.0      24.0      11.5       NaN       NaN       NaN       NaN       NaN       NaN       NaN        NaN        NaN        NaN
+    2011-11-01             323     100.0      11.1       NaN       NaN       NaN       NaN       NaN       NaN       NaN       NaN        NaN        NaN        NaN
+    2011-12-01              41     100.0       NaN       NaN       NaN       NaN       NaN       NaN       NaN       NaN       NaN        NaN        NaN        NaN
+    
+    Saved to /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/crisp-dm-skills-demo/outputs/tables/retention_matrix.csv
+
+    $ python cohort-analysis/scripts/cohort_visualizer.py ...
+    Heatmap saved to /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/crisp-dm-skills-demo/outputs/figures/p4c_retention_heatmap.png
+
+  interpretation:
+  month-1 retention ranges 11.1% - 36.6% (mean 20.6%)
+  largest cohort  : 2010-12 with 885 customers
+  cohorts under the skill's n>=100 reliability floor: ['2011-12']
+  2010-12 cohort month-1 retention 36.6% vs 19.2% mean for every later cohort
+  it also holds up: 26.6% still active at month 12
+  -> these are pre-existing wholesale buyers captured at the dataset's start,
+     not a genuine acquisition cohort. Exclude it from retention benchmarks.
+
+==============================================================================
+[CRISP-DM Phase 4 - Modeling]  skill: segmentation-analysis
+  RFM + k-means, silhouette-validated, mapped to strategy==============================================================================
+  step 2 variables: Recency / Frequency / Monetary on 4,338 customers
+          snapshot date 2011-12-10
+            count     mean      std   min     25%     50%      75%        max
+recency    4338.0    92.54   100.01  1.00   18.00   51.00   142.00     374.00
+frequency  4338.0     4.27     7.70  1.00    1.00    2.00     5.00     209.00
+monetary   4338.0  2054.27  8989.23  3.75  307.41  674.48  1661.74  280206.02
+
+  step 5 validate k by silhouette (the skill's >0.3 gate):
+          k=2  silhouette 0.4070  <- best
+          k=3  silhouette 0.4140  <- best
+          k=4  silhouette 0.3811
+          k=5  silhouette 0.3403
+          k=6  silhouette 0.3285
+          k=7  silhouette 0.2972
+  -> silhouette peaks at k=3 (0.414), but k=2 is not actionable.
+     Choosing k=4 (silhouette 0.381, above the 0.3 gate) because the
+     skill's step 1 says the goal decides k: marketing needs 3-7 treatable groups.
+
+  step 4 segment profiles (medians; % vs overall median):
+     [0] Loyal            n=1447 (33.4%)  R    30d (   -41%)  F    4 (  +100%)  M GBP    1,339 (    +99%)  -> 27.1% of revenue  |  Monetise
+     [1] New / Low-value  n=1392 (32.1%)  R    51d (    +0%)  F    1 (   -50%)  M GBP      348 (    -48%)  ->  6.1% of revenue  |  Activate
+     [2] Lapsed           n= 941 (21.7%)  R   255d (  +400%)  F    1 (   -50%)  M GBP      298 (    -56%)  ->  4.1% of revenue  |  Win-Back
+     [3] Champions        n= 558 (12.9%)  R    10d (   -80%)  F   12 (  +500%)  M GBP    4,629 (   +586%)  -> 62.7% of revenue  |  Retain & Expand
+
+  -> 12.9% of customers generate 62.7% of revenue.
+  -> wrote outputs/tables/rfm_segment_profiles.csv
+
+    $ python segmentation-analysis/scripts/segmentation_runner.py ...
+    ======================================================================
+      SEGMENTATION ANALYSIS: VALUE by SEGMENT
+      Aggregation: mean  |  Overall mean: 2,054.27  |  N=4,338
+    ======================================================================
+    
+      Segment                      N   Share         Value    Index   Notable
+      ----------------------------------------------------------------
+      3                          558   12.9%     10,007.54     487   *** 
+      2                          941   21.7%        390.20      19   *** 
+      1                        1,392   32.1%        392.89      19   *** 
+      0                        1,447   33.4%      1,667.67      81   *** 
+    
+      OVER-INDEXING SEGMENTS (index ≥ 120):
+        - 3: index 487
+    
+      UNDER-INDEXING SEGMENTS (index ≤ 80):
+        - 2: index 19
+        - 1: index 19
+    ======================================================================
+
+==============================================================================
+[CRISP-DM Phase 4 - Modeling]  skill: funnel-analysis
+  repeat-purchase progression funnel (this dataset has orders, not page events)==============================================================================
+  NOTE: Online Retail is a transaction log with no browse/cart events, so a
+  classic acquisition funnel cannot be built from it honestly. The funnel below
+  is a real *purchase-progression* funnel over the full 12-month window.
+
+    $ python funnel-analysis/scripts/funnel_analyzer.py ...
+    =================================================================
+      ONLINE RETAIL - REPEAT PURCHASE FUNNEL
+    =================================================================
+      Step                      Users   Step Conv   Overall    Drop-off
+      -------------------------------------------------------------
+      Placed 1st order          4,338      100.0%    100.0%           —
+      Placed 2nd order          2,845       65.6%     65.6%  -1,493 (34.4%)
+      Placed 3rd order          2,010       70.7%     46.3%  -835 (29.4%)
+      Placed 5th order          1,114       55.4%     25.7%  -896 (44.6%)
+      Placed 10th order           391       35.1%      9.0%  -723 (64.9%)
+      -------------------------------------------------------------
+      Overall funnel conversion: 9.0%
+    
+      HIGHEST IMPACT DROP-OFF:
+      → Placed 2nd order: lost 1,493 users (34.4% of prior step)
+      This is the best place to focus optimisation effort.
+    =================================================================
+
+  step 4 time from 1st to 2nd order: median 50d, P75 112d, P95 241d
+
+  step 5 funnel by market (1st -> 2nd order conversion):
+          United Kingdom    3920 ->  2570   65.6%
+          Rest of world      418 ->   275   65.8%
+
+  step 6 biggest drop-off: 'Placed 1st order' -> 'Placed 2nd order'
+          1,493 customers lost; at AOV GBP480.87 that is GBP717,933 of un-realised second-order revenue
+          a 5pp lift in 1st->2nd conversion = 216 more repeat buyers = GBP104,300
+
+             step  users  step_conv  overall_conv  dropped
+ Placed 1st order   4338        NaN         100.0        0
+ Placed 2nd order   2845       65.6          65.6     1493
+ Placed 3rd order   2010       70.7          46.3      835
+ Placed 5th order   1114       55.4          25.7      896
+Placed 10th order    391       35.1           9.0      723
+  -> wrote outputs/tables/funnel_repeat_purchase.csv
+
+==============================================================================
+[CRISP-DM Phase 4 - Modeling]  skill: time-series-analysis
+  stationarity -> decomposition -> anomalies -> ARIMA forecast==============================================================================
+  step 1 series: 365 daily points, 2010-12-01 .. 2011-11-30
+          68 zero-revenue days (the shop is closed on Saturdays and holidays -- a real pattern, not missing data)
+
+  step 2 ADF test: statistic -2.4981, p-value 0.1159
+          -> NON-stationary at alpha=0.05
+
+  step 3 decomposition (additive, period=7):
+          seasonal strength 0.551  (moderate)
+          trend strength    0.434
+          mean revenue by weekday: Mon 25k  Tue 32k  Wed 29k  Thu 36k  Fri 24k  Sat 0k  Sun 15k
+
+  step 4 anomalies (>3 sd from the 14-day rolling median): 2
+          2011-09-20  revenue GBP   103,436  z=+4.61
+          2011-01-18  revenue GBP    87,589  z=+4.54
+
+  step 5 ARIMA(7,1,1) validated on a held-out 28-day tail:
+          MAPE 28.1% (non-zero days), MAE GBP14,771
+          -> usable for planning; report the interval, not the point estimate
+          next-7-day forecast: GBP227,929 [43,031 .. 412,827] at 95%
+
+    $ python time-series-analysis/scripts/ts_analyzer.py ...
+    =================================================================
+      TIME SERIES ANALYSIS: VALUE  (weekly)
+    =================================================================
+    
+    --- Summary Statistics ---
+      Periods:  53
+      Mean:     158,362.55
+      Median:   146,976.90
+      Min:      0.00
+      Max:      309,569.21
+      Std dev:  61,397.47
+      Total:    8,393,215.11
+    
+    --- Trend ---
+      Direction: UPWARD
+      Slope: +2,514.5153 per period (+1.59%/period)
+    
+    --- Recent Periods ---
+      Date                    Value      Growth   Rolling Avg
+      ------------------------------------------------------
+      2011-10-16         204,423.28      -31.2%     251279.30
+      2011-10-23         255,461.64      +25.0%     237752.41
+      2011-10-30         237,685.49       -7.0%     248671.82
+      2011-11-06         260,628.77       +9.7%     239549.79
+      2011-11-13         264,765.98       +1.6%     254635.47
+      2011-11-20         277,773.94       +4.9%     260213.54
+      2011-11-27         249,532.68      -10.2%     263175.34
+      2011-12-04         142,164.58      -43.0%     233559.29
+    
+    --- Anomalies Detected (|z| ≥ 2.5) ---
+      2011-01-02: 0.00  [DIP, z=-2.58]
+    =================================================================
+
+==============================================================================
+[CRISP-DM Phase 4 - Modeling]  skill: root-cause-investigation
+  December 2011 revenue fell 70% month-on-month. Why?==============================================================================
+  step 1 validate the change:
+          Nov 2011 GBP1,461,756 -> Dec 2011 GBP433,668  (-70.3%)
+          z-score vs the prior 11 months: -1.51
+          -> beyond normal variance, investigate
+
+  step 2 establish the timeline:
+          December has data on 8 days; last invoice 2011-12-09 12:50:00
+          November had 26 active days
+          -> a hard stop mid-month, not a gradual decline. That shape points at
+             collection, not demand.
+
+  step 3 decompose the metric (revenue = orders x AOV):
+          orders  3,462 -> 1,015  (-70.7%)
+          AOV     GBP422.23 -> GBP427.26  (+1.2%)
+          -> ORDER VOLUME is the driver. AOV is essentially unchanged, which rules
+             out a pricing, mix or discounting explanation.
+
+  step 4 drill down by dimension (Nov vs Dec):
+          top Country contributors to the change:
+            United Kingdom             -894,070  ( -69.7%)   87.0% of the total change
+            France                      -23,649  ( -77.0%)    2.3% of the total change
+            EIRE                        -23,090  ( -75.9%)    2.2% of the total change
+            Germany                     -18,240  ( -70.0%)    1.8% of the total change
+            Netherlands                 -14,128  ( -54.6%)    1.4% of the total change
+            Japan                        -8,577  (-101.4%)    0.8% of the total change
+          -> the decline is uniform across every market. A demand shock, a
+             competitor, or a campaign change would hit some markets and not others.
+
+  step 5 hypotheses, tested:
+          [REJECTED] Genuine demand collapse
+                     the decline is uniform across all 38 countries and AOV is flat; real demand shocks are uneven
+          [REJECTED] Price or product-mix change
+                     AOV moved only +1.2%; the loss is entirely order count
+          [REJECTED] Seasonal (post-Christmas) drop
+                     Dec 2010 was the strongest month in the series; this business peaks in Nov-Dec
+          [ACCEPTED] Data extraction cut-off
+                     the file ends 2011-12-09 -- December is only 9 of 31 days
+
+  step 6 root cause: December 2011 is a PARTIAL MONTH, not a business event.
+          9 of 31 days present (29% of the month)
+          observed GBP433,668 -> pro-rated full-month run rate GBP1,493,745
+          vs November GBP1,461,756  =  +2.2% on a like-for-like basis
+          -> the 'collapse' is a reporting artefact. Recommendation: exclude partial
+             periods from month-on-month charts, or label them explicitly.
+
+==============================================================================
+[CRISP-DM Phase 4 - Modeling]  skill: ab-test-analysis
+  SRM -> significance -> power -> guardrails==============================================================================
+  IMPORTANT: Online Retail contains no experiment. The variant assignment below is
+  SIMULATED, but every input rate is measured from the real data, so the arithmetic,
+  the SRM check and the decision rule are exercised exactly as they would be in
+  production. Nothing here is presented as a finding about the business.
+
+  measured baseline (real): repeat-purchase rate = 0.6558 (2,845 of 4,338 customers)
+  simulated arms: control n=8,000 conv=5,324 | treatment n=7,840 conv=5,474
+
+    $ python ab-test-analysis/scripts/ab_test_analyzer.py ...
+    ============================================================
+    A/B TEST ANALYSIS REPORT
+    ============================================================
+    
+    --- Sample Ratio Mismatch (SRM) Check ---
+      Control:   8,000  (expected 7,920)
+      Treatment: 7,840  (expected 7,920)
+      Chi2: 1.6162  |  p-value: 0.203628
+      SRM detected: No
+    
+    --- Metric: repeat_purchase_rate ---
+      Control rate:   66.5500%
+      Treatment rate: 69.8214%
+      Absolute diff:  +3.2714%
+      Relative lift:  +4.92%
+      Z-score: 4.4192  |  p-value: 1e-05
+      95% CI for diff: [+1.8218%, +4.7211%]
+    
+      VERDICT: SIGNIFICANT at alpha=0.05
+      Recommendation: Treatment shows a positive, statistically significant lift.
+    ============================================================
+
+  step 2 SRM chi-square p = 0.2036 -> PASS, split is within chance
+  step 3 control 0.6655  treatment 0.6982  absolute +0.0327  relative +4.92%
+  step 4 two-proportion z = 4.419, p = 0.0000, 95% CI on the difference [+0.0182, +0.0472]
+         -> SIGNIFICANT at alpha=0.05
+  step 5 guardrail (AOV, simulated as flat): no degradation -> not a blocker
+  step 6 recommendation: SHIP -- the CI excludes zero
+
+==============================================================================
+[CRISP-DM Phase 4 - Modeling]  skill: business-metrics-calculator
+  e-commerce KPIs with explicit definitions and benchmarks==============================================================================
+  metric                                                value   definition
+  GMV (12 months, identified customers)         GBP 8,911,408   SUM(qty x price), mart scope
+  Orders                                               18,532   COUNT(DISTINCT InvoiceNo)
+  Active customers                                      4,338   COUNT(DISTINCT CustomerID)
+  AOV                                              GBP 480.87   GMV / orders
+                                                                benchmark: UK online retail typical GBP 60-90: ABOVE
+  Orders per customer                                    4.27   orders / customers
+                                                                benchmark: e-comm median ~1.5-2.0: GOOD
+  Revenue per customer                           GBP 2,054.27   GMV / customers
+  Repeat-purchase rate                                  65.6%   customers with >=2 orders
+                                                                benchmark: e-comm benchmark 20-30%: STRONG
+  Return rate (by value)                                10.1%   |cancellations| / GMV
+                                                                benchmark: retail typical 8-10%: NORMAL
+  Observation window                              12.3 months   max(date) - min(date)
+
+  unit economics (assumptions stated explicitly, per the skill's step 4):
+     12-month revenue per customer  GBP 2,054.27
+     assumed gross margin           45%  (not in the data; industry placeholder)
+     12-month gross-profit LTV      GBP 924.42
+     CAC                            NOT AVAILABLE - the dataset contains no marketing spend.
+     -> LTV:CAC and payback period CANNOT be computed. Reporting them would require
+        inventing the denominator. Flagged as a data gap, not estimated.
+
+  mapping onto the skill's subscription calculator (monthly revenue as the recurring base):
+
+    $ python business-metrics-calculator/scripts/saas_metrics.py ...
+    ============================================================
+    SAAS METRICS DASHBOARD
+    ============================================================
+    
+    --- MRR / ARR ---
+      Starting MRR:     $     727,247
+      + New:            $           0
+      + Expansion:      $           0
+      - Contraction:    $           0
+      - Churned:        $           0
+      = Net New MRR:    $           0
+      Ending MRR:       $     727,247
+      ARR:              $   8,726,968
+    
+    --- Churn ---
+      Logo churn rate:    34.42%/month
+      Revenue churn rate: 0.00%/month
+    
+    --- Net Revenue Retention (NRR) ---
+      NRR: 100.0%  (healthy — expansion covers churn)
+    
+    --- LTV / CAC ---
+      LTV:              $     2,187
+      CAC:              $         1
+      LTV:CAC ratio:    2186.7x  (good (>3x))
+      Payback period:   0 months
+    
+    --- Engagement ---
+      DAU: 0  |  MAU: 0
+      DAU/MAU: 0.0%  — low engagement (<10%)
+    ============================================================
+  CAVEAT on the tool output above: with --cac defaulting to 0 the script reports
+  'LTV:CAC 2186.7x (good)' and 'payback 0 months'. Both are artefacts of dividing by
+  a zero/floored denominator, not findings. This is precisely the failure the
+  analysis-qa-checklist skill screens for -- the number is discarded, not reported.
+
+  -> wrote p4c_retail_analytics.png
+  -> wrote outputs/tables/p4c_retail_analytics_results.json

@@ -1,0 +1,10 @@
+--- /tmp/assumptions_tracker.py.orig	2026-09-01 17:51:57
++++ /Users/anitaagasaveeran/.claude/skills/analysis-assumptions-log/scripts/assumptions_tracker.py	2026-09-01 17:51:57
+@@ -179,4 +179,7 @@
+ 
+ 
+ if __name__ == "__main__":
++    if len(sys.argv) > 1:
++        main()
++        sys.exit(0)
+     _demo()

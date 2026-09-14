@@ -1,0 +1,5 @@
+segment,customers,recency,frequency,monetary,revenue,revenue_share,cust_share,name,strategy
+0,1447,30.0,4.0,1339.41,2413117.99,27.1,33.4,Loyal,Monetise
+1,1392,51.0,1.0,348.35,546901.18,6.1,32.1,New / Low-value,Activate
+2,941,255.0,1.0,298.11,367180.86,4.1,21.7,Lapsed,Win-Back
+3,558,10.0,12.0,4628.52,5584207.87,62.7,12.9,Champions,Retain & Expand

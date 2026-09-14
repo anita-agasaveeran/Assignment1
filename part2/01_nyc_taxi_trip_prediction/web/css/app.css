@@ -1,0 +1,301 @@
+/* NYC Taxi trip-duration front end.
+   Dark canvas so the map carries the colour; taxi yellow reserved for the
+   things that matter (the estimate, the pickup pin, the call to action). */
+
+:root {
+  --bg:        #070b14;
+  --surface:   #0e1524;
+  --surface-2: #141d30;
+  --line:      #1f2b45;
+  --line-soft: #16203450;
+  --text:      #e8edf7;
+  --muted:     #8b9ab8;
+  --faint:     #5d6b8a;
+
+  --taxi:      #f7b500;
+  --taxi-dim:  #a87c07;
+  --blue:      #4c8dff;
+  --green:     #34d399;
+  --red:       #f87171;
+  --violet:    #a78bfa;
+
+  --radius: 14px;
+  --shadow: 0 10px 30px -12px #000d;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+h1, h2 { margin: 0; font-weight: 650; letter-spacing: -0.01em; }
+
+/* ---------------------------------------------------------------- topbar */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  height: 60px; padding: 0 18px;
+  background: linear-gradient(180deg, #101a2e, #0b1220);
+  border-bottom: 1px solid var(--line);
+  position: relative; z-index: 500;
+}
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.brand-mark {
+  font-size: 22px; line-height: 1;
+  width: 38px; height: 38px; display: grid; place-items: center;
+  background: var(--taxi); border-radius: 11px;
+  box-shadow: 0 0 24px -4px #f7b50077;
+}
+.brand h1 { font-size: 15px; }
+.brand p { margin: 1px 0 0; font-size: 11.5px; color: var(--muted); }
+
+.topbar-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.ghost-link {
+  color: var(--muted); text-decoration: none; font-size: 12px;
+  padding: 5px 10px; border: 1px solid var(--line); border-radius: 8px;
+}
+.ghost-link:hover { color: var(--text); border-color: var(--faint); }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 11px; border-radius: 999px; font-size: 11.5px;
+  background: var(--surface-2); border: 1px solid var(--line); color: var(--muted);
+  white-space: nowrap;
+}
+.pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--faint); }
+.pill-ok    { color: var(--green); border-color: #34d39944; }
+.pill-ok .dot    { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.pill-bad   { color: var(--red);   border-color: #f8717144; }
+.pill-bad .dot   { background: var(--red); }
+
+/* ---------------------------------------------------------------- layout */
+.layout {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr) 400px;
+  height: calc(100vh - 60px);
+}
+
+.panel {
+  overflow-y: auto; overflow-x: hidden;
+  background: var(--bg);
+  border-right: 1px solid var(--line);
+  padding: 14px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+#insights { border-right: 0; border-left: 1px solid var(--line); padding-top: 0; }
+
+.panel::-webkit-scrollbar { width: 9px; }
+.panel::-webkit-scrollbar-thumb { background: #24314e; border-radius: 9px; }
+.panel::-webkit-scrollbar-track { background: transparent; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 15px;
+}
+.card h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+.hint { margin: 7px 0 13px; font-size: 12px; color: var(--faint); line-height: 1.5; }
+.hint b { color: var(--muted); font-weight: 600; }
+
+/* ------------------------------------------------------------- endpoints */
+.endpoint { display: flex; gap: 11px; margin-bottom: 12px; }
+.endpoint-dot {
+  width: 11px; height: 11px; border-radius: 50%; margin-top: 9px; flex-shrink: 0;
+  position: relative;
+}
+.endpoint-dot::after {
+  content: ""; position: absolute; inset: -4px; border-radius: 50%;
+  border: 1px solid currentColor; opacity: .35;
+}
+.endpoint-dot.pickup  { background: var(--taxi); color: var(--taxi); }
+.endpoint-dot.dropoff { background: var(--blue); color: var(--blue); }
+.endpoint-body { flex: 1; min-width: 0; }
+.endpoint-body label,
+.field label {
+  display: block; font-size: 10.5px; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--faint); margin-bottom: 5px;
+}
+.coords { font: 11px/1.4 var(--mono); color: var(--muted); margin-top: 5px; }
+.coords.unset { color: var(--faint); font-style: italic; }
+
+select, input[type="datetime-local"] {
+  width: 100%; padding: 8px 10px;
+  background: var(--surface-2); color: var(--text);
+  border: 1px solid var(--line); border-radius: 9px;
+  font: inherit; font-size: 12.5px;
+}
+select:focus, input:focus { outline: 2px solid var(--taxi); outline-offset: -1px; border-color: transparent; }
+
+.row { display: flex; gap: 10px; margin-top: 4px; }
+.field { flex: 1; min-width: 0; }
+.field-sm { width: 78px; flex: 0 0 78px; }
+
+.btn-row { display: flex; gap: 8px; margin-top: 14px; }
+.btn {
+  padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--surface-2); color: var(--text);
+  font: inherit; font-weight: 600; font-size: 13px; cursor: pointer;
+  transition: transform .06s ease, filter .15s ease;
+}
+.btn:hover { filter: brightness(1.18); }
+.btn:active { transform: translateY(1px); }
+.btn-primary {
+  flex: 1; background: var(--taxi); color: #1a1200; border-color: var(--taxi);
+  box-shadow: 0 6px 20px -8px #f7b50099;
+}
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; filter: none; }
+.btn-ghost { color: var(--muted); }
+
+.error {
+  margin-top: 11px; padding: 9px 11px; font-size: 12px;
+  background: #f8717118; border: 1px solid #f8717144; border-radius: 9px; color: #fca5a5;
+}
+
+/* ---------------------------------------------------------------- result */
+.result { border-color: #f7b50040; background: linear-gradient(165deg, #1a1608, var(--surface) 55%); }
+.result-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.result-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); }
+.result-big { font-size: 46px; font-weight: 700; line-height: 1.05; color: var(--taxi); letter-spacing: -0.03em; }
+.result-big .unit { font-size: 16px; font-weight: 600; color: var(--taxi-dim); margin-left: 6px; }
+.result-range { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.result-eta { text-align: right; }
+.eta { font-size: 22px; font-weight: 650; font-variant-numeric: tabular-nums; margin-top: 2px; }
+
+.stale-badge {
+  margin-left: 7px; padding: 2px 7px; border-radius: 999px;
+  background: #f8717122; border: 1px solid #f8717155; color: #fca5a5;
+  font-size: 9px; letter-spacing: .06em;
+}
+/* Dim, not hidden: the old estimate is still useful context while the rider
+   decides whether the new route is the one they meant. */
+.result.is-stale .result-big,
+.result.is-stale .eta,
+.result.is-stale .metric-row,
+.result.is-stale .notes { opacity: .42; }
+
+.metric-row { display: flex; gap: 8px; margin: 15px 0 0; }
+.metric {
+  flex: 1; background: #ffffff08; border: 1px solid var(--line);
+  border-radius: 10px; padding: 9px 6px; text-align: center;
+}
+.metric span { display: block; font-size: 16px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.metric label { display: block; font-size: 9.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--faint); margin-top: 2px; }
+
+.notes { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+.notes li {
+  font-size: 12px; color: var(--muted); line-height: 1.5;
+  padding-left: 16px; position: relative;
+}
+.notes li::before { content: "▸"; position: absolute; left: 2px; color: var(--taxi-dim); }
+
+.toggle { display: flex; align-items: center; gap: 9px; padding: 6px 0; font-size: 12.5px; cursor: pointer; }
+.toggle input { accent-color: var(--taxi); width: 15px; height: 15px; cursor: pointer; }
+.toggle em { color: var(--faint); font-style: normal; font-size: 11px; }
+
+/* ----------------------------------------------------------------- stage */
+.stage { position: relative; }
+#map { position: absolute; inset: 0; background: #0a0f1c; }
+
+.map-legend {
+  position: absolute; left: 12px; bottom: 22px; z-index: 450;
+  display: flex; gap: 14px; padding: 8px 12px;
+  background: #0b1220e8; border: 1px solid var(--line); border-radius: 10px;
+  font-size: 11px; color: var(--muted); backdrop-filter: blur(8px);
+}
+.map-legend span { display: flex; align-items: center; gap: 6px; }
+.sw { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.sw.pickup { background: var(--taxi); }
+.sw.dropoff { background: var(--blue); }
+.sw.route { width: 16px; height: 3px; border-radius: 2px; background: var(--taxi); }
+
+.leaflet-container { background: #0a0f1c; font: inherit; }
+/* Esri's "dark" canvas is really mid-grey. Knocking it back lets the
+   taxi-yellow route stay the brightest thing on the map. */
+.leaflet-tile-pane { filter: brightness(0.62) contrast(1.12) saturate(0.85); }
+.leaflet-control-zoom a {
+  background: var(--surface-2) !important; color: var(--text) !important;
+  border-color: var(--line) !important;
+}
+.leaflet-control-attribution {
+  background: #0b1220cc !important; color: var(--faint) !important; font-size: 10px !important;
+}
+.leaflet-control-attribution a { color: var(--muted) !important; }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: var(--surface-2); color: var(--text); border: 1px solid var(--line);
+}
+.pin { display: grid; place-items: center; font-size: 15px; }
+
+/* ------------------------------------------------------------------ tabs */
+.tabs {
+  display: flex; gap: 4px; position: sticky; top: 0; z-index: 10;
+  background: var(--bg); padding: 14px 0 10px; border-bottom: 1px solid var(--line);
+  margin-bottom: 2px;
+}
+.tab {
+  flex: 1; padding: 8px 6px; border-radius: 9px; border: 1px solid transparent;
+  background: transparent; color: var(--faint);
+  font: inherit; font-size: 12px; font-weight: 600; cursor: pointer;
+}
+.tab:hover { color: var(--muted); }
+.tab.is-active { background: var(--surface-2); border-color: var(--line); color: var(--taxi); }
+
+.tabpanel { display: none; flex-direction: column; gap: 12px; }
+.tabpanel.is-active { display: flex; }
+
+/* ---------------------------------------------------------------- charts */
+.chart { width: 100%; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart .empty { color: var(--faint); font-size: 12px; padding: 22px 0; text-align: center; }
+
+.callout {
+  margin-top: 12px; padding: 10px 12px; font-size: 12px; line-height: 1.55;
+  background: #f7b5000f; border: 1px solid #f7b50033; border-radius: 10px; color: #f3d999;
+}
+.callout b { color: var(--taxi); }
+
+.kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.kpi { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 11px; }
+.kpi .v { font-size: 19px; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.kpi .k { font-size: 10px; text-transform: uppercase; letter-spacing: .07em; color: var(--faint); margin-top: 2px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th, td { padding: 7px 6px; text-align: right; border-bottom: 1px solid var(--line-soft); }
+th { color: var(--faint); font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+th:first-child, td:first-child { text-align: left; }
+td { font-variant-numeric: tabular-nums; color: var(--muted); }
+tr.best td { color: var(--text); }
+tr.best td:first-child { color: var(--taxi); font-weight: 650; }
+td.mono { font-family: var(--mono); font-size: 11px; }
+
+/* ------------------------------------------------------------ responsive */
+@media (max-width: 1240px) {
+  body { overflow: auto; }
+  .layout { grid-template-columns: 1fr; height: auto; }
+  .panel { border: 0; border-bottom: 1px solid var(--line); max-height: none; }
+  #insights { border-left: 0; }
+  .stage { height: 62vh; min-height: 380px; }
+}
+
+@media (max-width: 700px) {
+  /* The strapline is the first thing to go: on a phone the title and the
+     model-status pill are what matter, and a fixed-height bar cannot hold
+     four wrapped lines of subtitle. */
+  .topbar { height: auto; min-height: 56px; padding: 10px 12px; gap: 10px; }
+  .brand p { display: none; }
+  .brand h1 { font-size: 14px; line-height: 1.25; }
+  .brand-mark { width: 32px; height: 32px; font-size: 18px; }
+  .ghost-link { display: none; }
+  .stage { height: 58vh; min-height: 320px; }
+  .result-big { font-size: 38px; }
+  .eta { font-size: 19px; }
+  .tabs { padding-top: 10px; }
+}

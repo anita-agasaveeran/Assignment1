@@ -1,0 +1,76 @@
+{
+  "decisions": [
+    {
+      "step": "split",
+      "decision": "train_test_split(stratify=y) BEFORE any imputation",
+      "rationale": "cleaning before splitting leaks test information into train statistics"
+    },
+    {
+      "step": "deduplicate",
+      "decision": "none removed (0 exact duplicates found)",
+      "rationale": "Titanic is one row per passenger; no fan-out to collapse"
+    },
+    {
+      "step": "types",
+      "decision": "downcast Pclass/SibSp/Parch to int8",
+      "rationale": "they are bounded small integers; keeps memory and dtype intent explicit"
+    },
+    {
+      "step": "standardise",
+      "decision": "trim + case-normalise Sex and Embarked",
+      "rationale": "prevents 'male'/'Male ' splitting into two one-hot columns"
+    },
+    {
+      "step": "impute Age",
+      "decision": "median 28.5 from train + `Age_was_missing` indicator",
+      "rationale": "19.9% missing, right-skewed -> median is robust; missingness may carry signal"
+    },
+    {
+      "step": "impute Embarked",
+      "decision": "mode 'S' from train",
+      "rationale": "only 2 rows missing; mode imputation is immaterial either way"
+    },
+    {
+      "step": "Cabin",
+      "decision": "kept only as the binary `CabinKnown`; raw column dropped",
+      "rationale": "77.1% missing so the raw value is unusable, but EDA showed a +0.367 survival delta between recorded and missing -- the indicator is the signal"
+    },
+    {
+      "step": "outliers",
+      "decision": "winsorise Fare to train [0.00, 227.53]",
+      "rationale": "first-class fares up to 512 are real signal, not errors -- cap, never delete"
+    },
+    {
+      "step": "target encoding",
+      "decision": "cross-fitted KFold(5) with smoothing=10 on TicketPrefix",
+      "rationale": "in-fold encoding correlates 0.262 with y vs 0.180 out-of-fold -- the difference is pure leakage that would collapse in production"
+    }
+  ],
+  "target_encoding": {
+    "naive_corr": 0.26155136851324884,
+    "oof_corr": 0.18049585978498905,
+    "prior": 0.38342696629213485,
+    "ticket_prefix_cardinality": 27
+  },
+  "train_rows": 712,
+  "test_rows": 179,
+  "features": [
+    "Pclass",
+    "Sex",
+    "Age",
+    "SibSp",
+    "Parch",
+    "Fare",
+    "Embarked",
+    "Age_was_missing",
+    "CabinKnown",
+    "Title",
+    "FamilySize",
+    "IsAlone",
+    "FarePerPerson",
+    "FareLog",
+    "Deck",
+    "AgeBand",
+    "TicketPrefix_te"
+  ]
+}

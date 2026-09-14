@@ -1,0 +1,32 @@
+{
+  "best_val_loss": 1.6559755934391747,
+  "best_val_ppl": 5.238187771803983,
+  "best_step": 1499,
+  "elapsed_s": 554.8,
+  "steps": 1500,
+  "base_ckpt": "runs/20260913-113355-67bbb0/best.pt",
+  "n_train_examples": 38349,
+  "n_val_examples": 1982,
+  "supervised_fraction": 0.3739,
+  "n_params_total": 16914048,
+  "peak_mem_mb": 4642.881536,
+  "optimizer": "muon",
+  "n_decay": 6291456,
+  "n_no_decay": 5760,
+  "n_muon": 10616832,
+  "n_muon_tensors": 36,
+  "muon_param_names": [
+    "blocks.0.attn.q_proj.weight",
+    "blocks.0.attn.k_proj.weight",
+    "blocks.0.attn.v_proj.weight",
+    "blocks.0.attn.o_proj.weight",
+    "blocks.0.mlp.up.weight",
+    "blocks.0.mlp.down.weight",
+    "blocks.1.attn.q_proj.weight",
+    "blocks.1.attn.k_proj.weight",
+    "blocks.1.attn.v_proj.weight",
+    "blocks.1.attn.o_proj.weight",
+    "blocks.1.mlp.up.weight",
+    "blocks.1.mlp.down.weight"
+  ]
+}

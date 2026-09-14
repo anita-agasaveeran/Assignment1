@@ -1,0 +1,617 @@
+{
+  "n_rows": 541909,
+  "n_columns": 8,
+  "n_invoices": 25900,
+  "n_items": 4070,
+  "n_customers": 4372,
+  "n_countries": 38,
+  "date_min": "2010-12-01 08:26:00",
+  "date_max": "2011-12-09 12:50:00",
+  "span_days": 373,
+  "gross_revenue": 9747747.934,
+  "basket_size": {
+    "mean": 20.51061776061776,
+    "median": 10.0,
+    "p90": 45.0,
+    "max": 1110,
+    "n_singleton": 5894
+  },
+  "basket_size_hist": [
+    {
+      "bin_start": 1.0,
+      "bin_end": 2.966666666666667,
+      "count": 7481
+    },
+    {
+      "bin_start": 2.966666666666667,
+      "bin_end": 4.933333333333334,
+      "count": 1893
+    },
+    {
+      "bin_start": 4.933333333333334,
+      "bin_end": 6.8999999999999995,
+      "count": 1464
+    },
+    {
+      "bin_start": 6.8999999999999995,
+      "bin_end": 8.866666666666667,
+      "count": 1288
+    },
+    {
+      "bin_start": 8.866666666666667,
+      "bin_end": 10.833333333333332,
+      "count": 1193
+    },
+    {
+      "bin_start": 10.833333333333332,
+      "bin_end": 12.799999999999999,
+      "count": 1075
+    },
+    {
+      "bin_start": 12.799999999999999,
+      "bin_end": 14.766666666666666,
+      "count": 1046
+    },
+    {
+      "bin_start": 14.766666666666666,
+      "bin_end": 16.733333333333334,
+      "count": 1115
+    },
+    {
+      "bin_start": 16.733333333333334,
+      "bin_end": 18.7,
+      "count": 912
+    },
+    {
+      "bin_start": 18.7,
+      "bin_end": 20.666666666666664,
+      "count": 929
+    },
+    {
+      "bin_start": 20.666666666666664,
+      "bin_end": 22.633333333333333,
+      "count": 758
+    },
+    {
+      "bin_start": 22.633333333333333,
+      "bin_end": 24.599999999999998,
+      "count": 661
+    },
+    {
+      "bin_start": 24.599999999999998,
+      "bin_end": 26.566666666666666,
+      "count": 510
+    },
+    {
+      "bin_start": 26.566666666666666,
+      "bin_end": 28.53333333333333,
+      "count": 486
+    },
+    {
+      "bin_start": 28.53333333333333,
+      "bin_end": 30.5,
+      "count": 497
+    },
+    {
+      "bin_start": 30.5,
+      "bin_end": 32.46666666666667,
+      "count": 388
+    },
+    {
+      "bin_start": 32.46666666666667,
+      "bin_end": 34.43333333333333,
+      "count": 340
+    },
+    {
+      "bin_start": 34.43333333333333,
+      "bin_end": 36.4,
+      "count": 271
+    },
+    {
+      "bin_start": 36.4,
+      "bin_end": 38.36666666666667,
+      "count": 253
+    },
+    {
+      "bin_start": 38.36666666666667,
+      "bin_end": 40.33333333333333,
+      "count": 262
+    },
+    {
+      "bin_start": 40.33333333333333,
+      "bin_end": 42.3,
+      "count": 227
+    },
+    {
+      "bin_start": 42.3,
+      "bin_end": 44.266666666666666,
+      "count": 202
+    },
+    {
+      "bin_start": 44.266666666666666,
+      "bin_end": 46.233333333333334,
+      "count": 191
+    },
+    {
+      "bin_start": 46.233333333333334,
+      "bin_end": 48.199999999999996,
+      "count": 174
+    },
+    {
+      "bin_start": 48.199999999999996,
+      "bin_end": 50.166666666666664,
+      "count": 178
+    },
+    {
+      "bin_start": 50.166666666666664,
+      "bin_end": 52.13333333333333,
+      "count": 123
+    },
+    {
+      "bin_start": 52.13333333333333,
+      "bin_end": 54.099999999999994,
+      "count": 149
+    },
+    {
+      "bin_start": 54.099999999999994,
+      "bin_end": 56.06666666666666,
+      "count": 121
+    },
+    {
+      "bin_start": 56.06666666666666,
+      "bin_end": 58.03333333333333,
+      "count": 117
+    },
+    {
+      "bin_start": 58.03333333333333,
+      "bin_end": 60.0,
+      "count": 1596
+    }
+  ],
+  "top_items": [
+    {
+      "stock_code": "85123A",
+      "count": 2313
+    },
+    {
+      "stock_code": "22423",
+      "count": 2203
+    },
+    {
+      "stock_code": "85099B",
+      "count": 2159
+    },
+    {
+      "stock_code": "47566",
+      "count": 1727
+    },
+    {
+      "stock_code": "20725",
+      "count": 1639
+    },
+    {
+      "stock_code": "84879",
+      "count": 1502
+    },
+    {
+      "stock_code": "22720",
+      "count": 1477
+    },
+    {
+      "stock_code": "22197",
+      "count": 1476
+    },
+    {
+      "stock_code": "21212",
+      "count": 1385
+    },
+    {
+      "stock_code": "20727",
+      "count": 1350
+    },
+    {
+      "stock_code": "22383",
+      "count": 1348
+    },
+    {
+      "stock_code": "22457",
+      "count": 1280
+    },
+    {
+      "stock_code": "23203",
+      "count": 1267
+    },
+    {
+      "stock_code": "POST",
+      "count": 1256
+    },
+    {
+      "stock_code": "22386",
+      "count": 1251
+    },
+    {
+      "stock_code": "22469",
+      "count": 1239
+    },
+    {
+      "stock_code": "22960",
+      "count": 1229
+    },
+    {
+      "stock_code": "21931",
+      "count": 1214
+    },
+    {
+      "stock_code": "22086",
+      "count": 1210
+    },
+    {
+      "stock_code": "22411",
+      "count": 1202
+    }
+  ],
+  "by_country": [
+    {
+      "country": "United Kingdom",
+      "invoices": 23494
+    },
+    {
+      "country": "Germany",
+      "invoices": 603
+    },
+    {
+      "country": "France",
+      "invoices": 461
+    },
+    {
+      "country": "EIRE",
+      "invoices": 360
+    },
+    {
+      "country": "Belgium",
+      "invoices": 119
+    },
+    {
+      "country": "Spain",
+      "invoices": 105
+    },
+    {
+      "country": "Netherlands",
+      "invoices": 101
+    },
+    {
+      "country": "Switzerland",
+      "invoices": 74
+    },
+    {
+      "country": "Portugal",
+      "invoices": 71
+    },
+    {
+      "country": "Australia",
+      "invoices": 69
+    },
+    {
+      "country": "Italy",
+      "invoices": 55
+    },
+    {
+      "country": "Finland",
+      "invoices": 48
+    },
+    {
+      "country": "Sweden",
+      "invoices": 46
+    },
+    {
+      "country": "Norway",
+      "invoices": 40
+    },
+    {
+      "country": "Channel Islands",
+      "invoices": 33
+    }
+  ],
+  "monthly_invoices": [
+    {
+      "month": "2010-12",
+      "invoices": 2025
+    },
+    {
+      "month": "2011-01",
+      "invoices": 1476
+    },
+    {
+      "month": "2011-02",
+      "invoices": 1393
+    },
+    {
+      "month": "2011-03",
+      "invoices": 1983
+    },
+    {
+      "month": "2011-04",
+      "invoices": 1744
+    },
+    {
+      "month": "2011-05",
+      "invoices": 2162
+    },
+    {
+      "month": "2011-06",
+      "invoices": 2012
+    },
+    {
+      "month": "2011-07",
+      "invoices": 1927
+    },
+    {
+      "month": "2011-08",
+      "invoices": 1737
+    },
+    {
+      "month": "2011-09",
+      "invoices": 2327
+    },
+    {
+      "month": "2011-10",
+      "invoices": 2637
+    },
+    {
+      "month": "2011-11",
+      "invoices": 3462
+    },
+    {
+      "month": "2011-12",
+      "invoices": 1015
+    }
+  ],
+  "columns": [
+    {
+      "column": "InvoiceNo",
+      "dtype": "string",
+      "n_missing": 0,
+      "pct_missing": 0.0,
+      "n_unique": 25900,
+      "top_values": [
+        {
+          "value": "573585",
+          "count": 1114
+        },
+        {
+          "value": "581219",
+          "count": 749
+        },
+        {
+          "value": "581492",
+          "count": 731
+        },
+        {
+          "value": "580729",
+          "count": 721
+        },
+        {
+          "value": "558475",
+          "count": 705
+        }
+      ]
+    },
+    {
+      "column": "StockCode",
+      "dtype": "string",
+      "n_missing": 0,
+      "pct_missing": 0.0,
+      "n_unique": 4070,
+      "top_values": [
+        {
+          "value": "85123A",
+          "count": 2313
+        },
+        {
+          "value": "22423",
+          "count": 2203
+        },
+        {
+          "value": "85099B",
+          "count": 2159
+        },
+        {
+          "value": "47566",
+          "count": 1727
+        },
+        {
+          "value": "20725",
+          "count": 1639
+        }
+      ]
+    },
+    {
+      "column": "Description",
+      "dtype": "string",
+      "n_missing": 1454,
+      "pct_missing": 0.2683,
+      "n_unique": 4223,
+      "top_values": [
+        {
+          "value": "WHITE HANGING HEART T-LIGHT HOLDER",
+          "count": 2369
+        },
+        {
+          "value": "REGENCY CAKESTAND 3 TIER",
+          "count": 2200
+        },
+        {
+          "value": "JUMBO BAG RED RETROSPOT",
+          "count": 2159
+        },
+        {
+          "value": "PARTY BUNTING",
+          "count": 1727
+        },
+        {
+          "value": "LUNCH BAG RED RETROSPOT",
+          "count": 1638
+        }
+      ]
+    },
+    {
+      "column": "Quantity",
+      "dtype": "int64",
+      "n_missing": 0,
+      "pct_missing": 0.0,
+      "n_unique": 722,
+      "min": -80995.0,
+      "max": 80995.0,
+      "mean": 9.55224954743324,
+      "std": 218.08115785023386,
+      "p01": -2.0,
+      "p25": 1.0,
+      "p50": 3.0,
+      "p75": 10.0,
+      "p99": 100.0,
+      "n_negative": 10624,
+      "n_zero": 0
+    },
+    {
+      "column": "InvoiceDate",
+      "dtype": "datetime64[ns]",
+      "n_missing": 0,
+      "pct_missing": 0.0,
+      "n_unique": 23260,
+      "top_values": [
+        {
+          "value": "2011-10-31 14:41:00",
+          "count": 1114
+        },
+        {
+          "value": "2011-12-08 09:28:00",
+          "count": 749
+        },
+        {
+          "value": "2011-12-09 10:03:00",
+          "count": 731
+        },
+        {
+          "value": "2011-12-05 17:24:00",
+          "count": 721
+        },
+        {
+          "value": "2011-06-29 15:58:00",
+          "count": 705
+        }
+      ]
+    },
+    {
+      "column": "UnitPrice",
+      "dtype": "float64",
+      "n_missing": 0,
+      "pct_missing": 0.0,
+      "n_unique": 1630,
+      "min": -11062.06,
+      "max": 38970.0,
+      "mean": 4.611113626088514,
+      "std": 96.75985306117937,
+      "p01": 0.19,
+      "p25": 1.25,
+      "p50": 2.08,
+      "p75": 4.13,
+      "p99": 18.0,
+      "n_negative": 2,
+      "n_zero": 2515
+    },
+    {
+      "column": "CustomerID",
+      "dtype": "float64",
+      "n_missing": 135080,
+      "pct_missing": 24.9267,
+      "n_unique": 4372,
+      "min": 12346.0,
+      "max": 18287.0,
+      "mean": 15287.690570239585,
+      "std": 1713.600303321598,
+      "p01": 12415.0,
+      "p25": 13953.0,
+      "p50": 15152.0,
+      "p75": 16791.0,
+      "p99": 18212.0,
+      "n_negative": 0,
+      "n_zero": 0
+    },
+    {
+      "column": "Country",
+      "dtype": "string",
+      "n_missing": 0,
+      "pct_missing": 0.0,
+      "n_unique": 38,
+      "top_values": [
+        {
+          "value": "United Kingdom",
+          "count": 495478
+        },
+        {
+          "value": "Germany",
+          "count": 9495
+        },
+        {
+          "value": "France",
+          "count": 8557
+        },
+        {
+          "value": "EIRE",
+          "count": 8196
+        },
+        {
+          "value": "Spain",
+          "count": 2533
+        }
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "gate": "rows_present",
+      "status": "pass",
+      "detail": "541,909 rows loaded"
+    },
+    {
+      "gate": "no_missing_invoice",
+      "status": "pass",
+      "detail": "0 missing InvoiceNo"
+    },
+    {
+      "gate": "no_missing_stockcode",
+      "status": "pass",
+      "detail": "0 missing StockCode"
+    },
+    {
+      "gate": "description_complete",
+      "status": "warn",
+      "detail": "1,454 missing Description (0.2683%)"
+    },
+    {
+      "gate": "customer_id_complete",
+      "status": "warn",
+      "detail": "135,080 missing CustomerID (24.9267%) -- guest checkouts"
+    },
+    {
+      "gate": "quantity_positive",
+      "status": "warn",
+      "detail": "10,624 rows with Quantity <= 0 (returns)"
+    },
+    {
+      "gate": "price_positive",
+      "status": "warn",
+      "detail": "2,517 rows with UnitPrice <= 0"
+    },
+    {
+      "gate": "no_credit_notes",
+      "status": "warn",
+      "detail": "9,288 credit-note invoices (prefix 'C')"
+    },
+    {
+      "gate": "no_exact_duplicates",
+      "status": "warn",
+      "detail": "5,268 fully duplicated rows"
+    }
+  ]
+}

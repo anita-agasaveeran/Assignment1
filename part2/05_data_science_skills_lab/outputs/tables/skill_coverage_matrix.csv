@@ -1,0 +1,47 @@
+skill,pack,phase,crisp_dm_phase,dataset,script,evidence,evidence_exists,demonstrated
+analysis-planning,DA,1,Business Understanding,Both,p1_business_understanding.py,reports/analysis_plan.md,True,"8 sub-questions decomposed, sequenced and effort-estimated; 5 risks logged, 2 of which materialised as predicted"
+stakeholder-requirements-gathering,DA,1,Business Understanding,Retail + Titanic,p1_business_understanding.py,reports/brief_retail.md,True,Two vague asks converted into scoped briefs with success criteria; CAC declared out of scope at intake
+data-catalog-entry,DA,2,Data Understanding,Retail,p2b_retail_profile.py,reports/catalog_invoice_lines.md,True,"Real schema extracted from SQLite (397,884 rows, 7 cols) after fixing the extractor"
+data-quality-audit,DA,2,Data Understanding,Retail,p2b_retail_profile.py,reports/p2b_skill_script_console_log.txt,True,"5 checks: 5,268 dup rows, 10,624 sub-min quantities, 0% orphans, data stale by design"
+metric-reconciliation,DA,2,Data Understanding,Retail,p2c_warehouse_skills.py,reports/metric_reconciliation.md,True,8.58% raw-vs-mart gap decomposed to a ZERO residual
+programmatic-eda,DA,2,Data Understanding,Retail,p2b_retail_profile.py,tables/retail_null_profile.csv,True,"All 5 bundled scripts run on 541,909 rows; CustomerID 24.93% null flagged"
+query-validation,DA,2,Data Understanding,Retail,p2c_warehouse_skills.py,reports/query_review.md,True,5 anti-patterns found; sargability fix measured at 2.8x faster
+schema-mapper,DA,2,Data Understanding,Retail,p2c_warehouse_skills.py,reports/schema_map.md,True,"4 tables discovered, FKs inferred, data dictionary, 3 join paths, mermaid ERD"
+semantic-model-builder,DA,2,Data Understanding,Retail,p2c_warehouse_skills.py,tables/semantic_model.yaml,True,"3 entities, 3 dimensions, 3 metrics; validator-clean after a fix round"
+sql-to-business-logic,DA,2,Data Understanding,Retail,p2c_warehouse_skills.py,reports/query_business_logic.md,True,Query translated to plain language with 5 validation questions for the author
+exploratory-data-analysis,ML,2,Data Understanding,Titanic,p2a_titanic_eda.py,figures/p2a_titanic_eda.png,True,All 7 workflow steps; Cabin missingness proven predictive (+0.367); leakage scan clean
+pandas-patterns,ML,2,Data Understanding,Titanic,p2a_titanic_eda.py,tables/titanic_pclass_sex_summary.csv,True,All 5 core rules applied; 26.2% memory cut via category dtype; validated m:1 merge
+data-cleaning,ML,3,Data Preparation,Titanic,p3a_titanic_prep.py,tables/p3a_titanic_prep_decisions.json,True,Split BEFORE cleaning; 9 decisions logged; train-only medians and winsorisation bounds
+feature-engineering,ML,3,Data Preparation,Titanic,p3a_titanic_prep.py,tables/p3a_titanic_prep_decisions.json,True,"Title/FamilySize/Deck/log1p; cross-fitted target encoding, leakage measured at +0.081 corr"
+ab-test-analysis,DA,4,Modeling,Retail,p4c_retail_analytics.py,tables/p4c_retail_analytics_results.json,True,"SRM chi-square, two-proportion z-test, CI and ship decision (assignment simulated, labelled)"
+business-metrics-calculator,DA,4,Modeling,Retail,p4c_retail_analytics.py,tables/p4c_retail_analytics_results.json,True,9 e-commerce KPIs vs benchmarks; CAC declared incomputable rather than invented
+cohort-analysis,DA,4,Modeling,Retail,p4c_retail_analytics.py,figures/p4c_retention_heatmap.png,True,13 monthly cohorts; month-1 retention 20.6% mean; 2010-12 identified as a non-cohort
+funnel-analysis,DA,4,Modeling,Retail,p4c_retail_analytics.py,tables/funnel_repeat_purchase.csv,True,"5-step repeat-purchase funnel; biggest drop sized at GBP 717,933"
+root-cause-investigation,DA,4,Modeling,Retail,p4c_retail_analytics.py,tables/p4c_retail_analytics_results.json,True,70% December fall diagnosed as a partial-month artefact; 3 hypotheses rejected with evidence
+segmentation-analysis,DA,4,Modeling,Retail,p4c_retail_analytics.py,tables/rfm_segment_profiles.csv,True,"RFM + k-means k=4 (silhouette 0.381); Champions = 12.9% of customers, 62.7% of revenue"
+time-series-analysis,DA,4,Modeling,Retail,p4c_retail_analytics.py,tables/p4c_retail_analytics_results.json,True,"ADF non-stationary; STL decomposition; 2 anomalies; ARIMA(7,1,1) MAPE 28.1%"
+experiment-tracking,ML,4,Modeling,Titanic,p4a_titanic_model.py,tables/mlruns.jsonl,True,"7 runs logged to MLflow + JSONL with params, metrics, git SHA, data hash and env"
+hyperparameter-tuning,ML,4,Modeling,Titanic,p4a_titanic_model.py,tables/p4a_titanic_model_results.json,True,"Optuna TPE 60 trials over the pipeline, log-scale spaces; learning_rate 68% of importance"
+imbalanced-data,ML,4,Modeling,Titanic,p4a_titanic_model.py,tables/p4a_titanic_model_results.json,True,PR-AUC over accuracy; SMOTE in-fold tested and REJECTED as inside noise; threshold tuned on validation
+llm-finetuning,ML,4,Modeling,Retail,p4e_llm_finetuning.py,tables/p4e_llm_finetuning_results.json,True,"Real LoRA on distilgpt2, 0.359% of params; format 0%->100%, facts 0% (the expected split)"
+ml-debugging,ML,4,Modeling,Titanic,p4b_titanic_pytorch.py,tables/p4b_pytorch_debug_results.json,True,One-batch overfit PASS; LR sweep to divergence; injected leak caught by the 5-point checklist
+model-evaluation,ML,4,Modeling,Titanic,p4a_titanic_model.py,tables/titanic_slice_metrics.csv,True,Holdout scored once; calibration; slice metrics exposed male recall 0.417; gain tested against fold noise
+pytorch-training-loop,ML,4,Modeling,Titanic,p4b_titanic_pytorch.py,figures/p4b_pytorch_debug.png,True,Canonical loop on MPS; forgetting .eval() shown to cost 0.050 PR-AUC silently
+rag-pipeline,ML,4,Modeling,Project docs,p4d_rag_pipeline.py,figures/p4d_rag_eval.png,True,"346 chunks (pinned corpus), real embeddings + BM25 + cross-encoder; hybrid +0.177 MRR, reranker -0.028 (reported)"
+reproducible-ml,ML,4,Modeling,Titanic,p4a_titanic_model.py,requirements.txt,True,"Seeded, SHA-256 data hashes, git SHA, 143 pinned deps, one-command rerun"
+sklearn-pipelines,ML,4,Modeling,Titanic,p4a_titanic_model.py,figures/p4a_titanic_model.png,True,ColumnTransformer over 10/4/3 cols; 4 baselines cross-validated with preprocessing inside each fold
+analysis-assumptions-log,DA,5,Evaluation,Both,p5_evaluation.py,tables/assumptions_log.json,True,6 assumptions; 2 validated and closed; 2 critical (low confidence x high impact) gating conclusions
+analysis-qa-checklist,DA,5,Evaluation,Both,p5_evaluation.py,reports/qa_signoff.md,True,9-point gate: 1 FAIL (subgroup recall) blocks automated use; 2 WARN; delivered with caveats
+context-packager,DA,5,Evaluation,Both,p5_evaluation.py,tables/p5_evaluation_results.json,True,"Layered bundle from 4 docs, token-counted against a 100k budget (3% used)"
+impact-quantification,DA,5,Evaluation,Retail,p5_evaluation.py,tables/p5_evaluation_results.json,True,GBP 52K/104K/156K low-base-high with sensitivity on the one assumed input
+insight-synthesis,DA,5,Evaluation,Both,p5_evaluation.py,tables/p5_evaluation_results.json,True,"6 findings -> So What/Why/Now What, scored on impact x confidence x actionability"
+methodology-explainer,DA,5,Evaluation,Titanic,p5_evaluation.py,reports/methodology.md,True,Three audience tiers plus five honest limitations
+peer-review-template,DA,5,Evaluation,Both,p5_evaluation.py,reports/peer_review.md,True,"2 must-fix, 3 should-fix, 2 optional, each with an author response"
+technical-to-business-translator,DA,5,Evaluation,Titanic,p5_evaluation.py,reports/technical_to_business.md,True,Grade 14.3 -> 8.7 Flesch-Kincaid; 3 jargon terms -> 0
+visualization-builder,DA,5,Evaluation,Both,p5_evaluation.py,figures/p5_evaluation.png,True,Message-first chart selection; annotated titles; Okabe-Ito colourblind-safe palette throughout
+analysis-documentation,DA,6,Deployment,Both,p6b_deployment_docs.py,reports/analysis_documentation.md,True,"Context, sources with hashes, methodology, results, reproduction commands, limitations"
+analysis-retrospective,DA,6,Deployment,Both,p6b_deployment_docs.py,reports/retrospective.md,True,Start/Stop/Continue with 5-whys on the 16 broken scripts and 4 tracked actions
+dashboard-specification,DA,6,Deployment,Retail,p6b_deployment_docs.py,reports/dashboard_spec.md,True,"One-sentence purpose, 2 audiences -> 2 tabs, 8 metrics, 2 filters rejected with reasons"
+data-narrative-builder,DA,6,Deployment,Retail,p6b_deployment_docs.py,reports/data_narrative.md,True,"Situation-Complication-Resolution, 6 beats with intended feeling and one visual each"
+executive-summary-generator,DA,6,Deployment,Retail,p6b_deployment_docs.py,reports/executive_summary.md,True,"One page, 3 quantified insights, a decision block, and a 'what this cannot tell you' section"
+model-serving,ML,6,Deployment,Titanic,p6_model_serving.py,tables/p6_serving_results.json,True,FastAPI over the whole pipeline; 422 on bad payloads; p50 20.9ms; batching 180x cheaper/row; drift z-scores

@@ -1,0 +1,7 @@
+Pclass,Sex,n,survival,median_fare_pp
+1,female,94,0.968,43.833
+1,male,117,0.385,30.5
+2,female,76,0.921,12.175
+2,male,102,0.167,13.0
+3,female,144,0.5,7.25
+3,male,343,0.134,7.796

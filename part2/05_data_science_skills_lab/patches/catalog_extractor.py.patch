@@ -1,0 +1,12 @@
+--- patches/catalog_extractor.py.orig	2026-09-01 17:39:10
++++ /Users/anitaagasaveeran/.claude/skills/data-catalog-entry/scripts/catalog_extractor.py	2026-09-01 17:39:10
+@@ -161,6 +161,9 @@
+ 
+ 
+ if __name__ == "__main__":
++    if len(sys.argv) > 1:
++        main()
++        sys.exit(0)
+     # Demo: generate a skeleton catalog entry from a static schema description
+     demo_meta = {
+         "table_name": "orders_fact",

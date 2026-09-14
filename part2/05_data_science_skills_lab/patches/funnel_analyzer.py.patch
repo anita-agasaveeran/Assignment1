@@ -1,0 +1,10 @@
+--- /tmp/funnel_analyzer.py.orig	2026-09-01 17:51:57
++++ /Users/anitaagasaveeran/.claude/skills/funnel-analysis/scripts/funnel_analyzer.py	2026-09-01 17:51:57
+@@ -146,4 +146,7 @@
+ 
+ 
+ if __name__ == "__main__":
++    if len(sys.argv) > 1:
++        main()
++        sys.exit(0)
+     _demo()

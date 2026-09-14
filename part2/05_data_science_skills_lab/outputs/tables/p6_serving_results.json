@@ -1,0 +1,44 @@
+{
+  "validation": {
+    "Age = -5": 422,
+    "Pclass = 9": 422,
+    "missing Fare": 422
+  },
+  "predictions": {
+    "1st-class woman": {
+      "probability": 0.9992,
+      "label": 1,
+      "threshold": 0.4647,
+      "model_version": "1.0.0"
+    },
+    "3rd-class man": {
+      "probability": 0.0436,
+      "label": 0,
+      "threshold": 0.4647,
+      "model_version": "1.0.0"
+    },
+    "child with family": {
+      "probability": 0.9169,
+      "label": 1,
+      "threshold": 0.4647,
+      "model_version": "1.0.0"
+    }
+  },
+  "latency_p50_ms": 9.220895473845303,
+  "latency_p95_ms": 11.95259594824165,
+  "batch_ms_per_row": 0.06883124995511025,
+  "drift": {
+    "Age": 0.034,
+    "SibSp": 0.465,
+    "Parch": 0.466,
+    "Fare": 0.559,
+    "FarePerPerson": 0.398,
+    "FareLog": 0.785,
+    "FamilySize": 0.556,
+    "AgeBand": 0.06,
+    "TicketPrefix_te": 0.12,
+    "Pclass": 0.829
+  },
+  "model_version": "1.0.0",
+  "threshold": 0.46470072382253247
+}

@@ -1,0 +1,1352 @@
+{
+  "nodes": [
+    {
+      "id": 32,
+      "label": "RED RETROSPOT CHARLOTTE BAG",
+      "code": "20724",
+      "weight": 91.595,
+      "support": 0.08198935409549535
+    },
+    {
+      "id": 19,
+      "label": "LUNCH BAG SPACEBOY DESIGN",
+      "code": "22382",
+      "weight": 79.356,
+      "support": 0.09192023516326368
+    },
+    {
+      "id": 20,
+      "label": "LUNCH BAG CARS BLUE",
+      "code": "20728",
+      "weight": 77.337,
+      "support": 0.09136410582346866
+    },
+    {
+      "id": 26,
+      "label": "LUNCH BAG PINK POLKADOT",
+      "code": "22384",
+      "weight": 76.889,
+      "support": 0.08659728291093986
+    },
+    {
+      "id": 10,
+      "label": "LUNCH BAG  BLACK SKULL.",
+      "code": "20727",
+      "weight": 75.563,
+      "support": 0.1011360927941527
+    },
+    {
+      "id": 9,
+      "label": "LUNCH BAG SUKI DESIGN",
+      "code": "22383",
+      "weight": 71.877,
+      "support": 0.10201001032811631
+    },
+    {
+      "id": 50,
+      "label": "CHARLOTTE BAG SUKI DESIGN",
+      "code": "22355",
+      "weight": 65.678,
+      "support": 0.07007229681417336
+    },
+    {
+      "id": 33,
+      "label": "LUNCH BAG WOODLAND",
+      "code": "20726",
+      "weight": 64.809,
+      "support": 0.08079764836736315
+    },
+    {
+      "id": 1,
+      "label": "JUMBO BAG RED RETROSPOT",
+      "code": "85099B",
+      "weight": 62.685,
+      "support": 0.16596488440454438
+    },
+    {
+      "id": 171,
+      "label": "SET/6 RED SPOTTY PAPER PLATES",
+      "code": "21094",
+      "weight": 61.559,
+      "support": 0.04186859458171129
+    },
+    {
+      "id": 4,
+      "label": "LUNCH BAG RED RETROSPOT",
+      "code": "20725",
+      "weight": 60.779,
+      "support": 0.12433463096845952
+    },
+    {
+      "id": 16,
+      "label": "JUMBO SHOPPER VINTAGE RED PAISLEY",
+      "code": "22411",
+      "weight": 58.81,
+      "support": 0.09335028203702232
+    },
+    {
+      "id": 34,
+      "label": "GREEN REGENCY TEACUP AND SAUCER",
+      "code": "22697",
+      "weight": 58.369,
+      "support": 0.08047986017319457
+    },
+    {
+      "id": 13,
+      "label": "JUMBO BAG PINK POLKADOT",
+      "code": "22386",
+      "weight": 56.156,
+      "support": 0.09676650512433463
+    },
+    {
+      "id": 76,
+      "label": "PINK REGENCY TEACUP AND SAUCER",
+      "code": "22698",
+      "weight": 55.158,
+      "support": 0.06077699213474219
+    },
+    {
+      "id": 28,
+      "label": "ROSES REGENCY TEACUP AND SAUCER",
+      "code": "22699",
+      "weight": 54.982,
+      "support": 0.0846111066973862
+    },
+    {
+      "id": 15,
+      "label": "JUMBO STORAGE BAG SUKI",
+      "code": "21931",
+      "weight": 53.867,
+      "support": 0.09406530547390164
+    },
+    {
+      "id": 262,
+      "label": "SET/6 RED SPOTTY PAPER CUPS",
+      "code": "21086",
+      "weight": 50.0,
+      "support": 0.03400333677603877
+    },
+    {
+      "id": 29,
+      "label": "ALARM CLOCK BAKELIKE RED",
+      "code": "22727",
+      "weight": 48.301,
+      "support": 0.08349884801779614
+    },
+    {
+      "id": 86,
+      "label": "STRAWBERRY CHARLOTTE BAG",
+      "code": "20723",
+      "weight": 47.069,
+      "support": 0.057360769047429885
+    },
+    {
+      "id": 63,
+      "label": "WOODLAND CHARLOTTE BAG",
+      "code": "20719",
+      "weight": 44.0,
+      "support": 0.06617939143560816
+    },
+    {
+      "id": 31,
+      "label": "LUNCH BAG APPLE DESIGN",
+      "code": "23206",
+      "weight": 42.949,
+      "support": 0.08230714228966395
+    },
+    {
+      "id": 46,
+      "label": "GARDENERS KNEELING PAD KEEP CALM",
+      "code": "23301",
+      "weight": 42.624,
+      "support": 0.0725351553189799
+    },
+    {
+      "id": 77,
+      "label": "GARDENERS KNEELING PAD CUP OF TEA",
+      "code": "23300",
+      "weight": 42.624,
+      "support": 0.06022086279494717
+    },
+    {
+      "id": 12,
+      "label": "JUMBO BAG VINTAGE DOILY",
+      "code": "23203",
+      "weight": 40.044,
+      "support": 0.09779931675538253
+    },
+    {
+      "id": 69,
+      "label": "JUMBO BAG SCANDINAVIAN BLUE PAISLEY",
+      "code": "21928",
+      "weight": 38.841,
+      "support": 0.0640343211249702
+    },
+    {
+      "id": 57,
+      "label": "JUMBO BAG WOODLAND ANIMALS",
+      "code": "20712",
+      "weight": 35.624,
+      "support": 0.06856280289187257
+    },
+    {
+      "id": 56,
+      "label": "JUMBO BAG PINK VINTAGE PAISLEY",
+      "code": "21929",
+      "weight": 30.944,
+      "support": 0.06872169698895686
+    },
+    {
+      "id": 25,
+      "label": "LUNCH BAG VINTAGE DOILY",
+      "code": "23209",
+      "weight": 29.949,
+      "support": 0.08723285929927703
+    },
+    {
+      "id": 49,
+      "label": "SPACEBOY LUNCH BOX",
+      "code": "22629",
+      "weight": 25.601,
+      "support": 0.071502343687932
+    },
+    {
+      "id": 59,
+      "label": "DOLLY GIRL LUNCH BOX",
+      "code": "22630",
+      "weight": 25.601,
+      "support": 0.06752999126082466
+    },
+    {
+      "id": 79,
+      "label": "CHARLOTTE BAG PINK POLKADOT",
+      "code": "22356",
+      "weight": 25.121,
+      "support": 0.05894971001827282
+    },
+    {
+      "id": 43,
+      "label": "JUMBO  BAG BAROQUE BLACK WHITE",
+      "code": "85099C",
+      "weight": 25.041,
+      "support": 0.07412409628982283
+    },
+    {
+      "id": 37,
+      "label": "ALARM CLOCK BAKELIKE GREEN",
+      "code": "22726",
+      "weight": 24.273,
+      "support": 0.07785810757130372
+    },
+    {
+      "id": 71,
+      "label": "ALARM CLOCK BAKELIKE PINK",
+      "code": "22728",
+      "weight": 24.028,
+      "support": 0.06220703900850084
+    },
+    {
+      "id": 52,
+      "label": "JUMBO BAG VINTAGE LEAF",
+      "code": "23202",
+      "weight": 20.526,
+      "support": 0.06983395566854692
+    },
+    {
+      "id": 81,
+      "label": "LUNCH BAG ALPHABET DESIGN",
+      "code": "23207",
+      "weight": 18.365,
+      "support": 0.058790815921188525
+    },
+    {
+      "id": 14,
+      "label": "HEART OF WICKER SMALL",
+      "code": "22469",
+      "weight": 18.056,
+      "support": 0.09541590529911814
+    },
+    {
+      "id": 45,
+      "label": "HEART OF WICKER LARGE",
+      "code": "22470",
+      "weight": 18.056,
+      "support": 0.07348851990148567
+    },
+    {
+      "id": 24,
+      "label": "WOODEN PICTURE FRAME WHITE FINISH",
+      "code": "82482",
+      "weight": 17.936,
+      "support": 0.08739175339636132
+    },
+    {
+      "id": 39,
+      "label": "WOODEN FRAME ANTIQUE WHITE",
+      "code": "82494L",
+      "weight": 17.936,
+      "support": 0.0771430841344244
+    },
+    {
+      "id": 17,
+      "label": "JAM MAKING SET PRINTED",
+      "code": "22961",
+      "weight": 11.789,
+      "support": 0.09231747040597442
+    },
+    {
+      "id": 22,
+      "label": "JAM MAKING SET WITH JARS",
+      "code": "22960",
+      "weight": 11.789,
+      "support": 0.08993405894971002
+    },
+    {
+      "id": 36,
+      "label": "SET/20 RED RETROSPOT PAPER NAPKINS",
+      "code": "21080",
+      "weight": 11.559,
+      "support": 0.07833478986255661
+    },
+    {
+      "id": 97,
+      "label": "LUNCH BAG DOLLY GIRL DESIGN",
+      "code": "22662",
+      "weight": 8.884,
+      "support": 0.054182887105744024
+    },
+    {
+      "id": 2,
+      "label": "REGENCY CAKESTAND 3 TIER",
+      "code": "22423",
+      "weight": 8.376,
+      "support": 0.15794073250178756
+    },
+    {
+      "id": 65,
+      "label": "60 TEATIME FAIRY CAKE CASES",
+      "code": "84991",
+      "weight": 7.324,
+      "support": 0.06578215619289743
+    },
+    {
+      "id": 8,
+      "label": "PACK OF 72 RETROSPOT CAKE CASES",
+      "code": "21212",
+      "weight": 7.324,
+      "support": 0.10487010407563359
+    },
+    {
+      "id": 94,
+      "label": "JUMBO BAG SPACEBOY DESIGN",
+      "code": "22385",
+      "weight": 5.505,
+      "support": 0.05450067529991261
+    },
+    {
+      "id": 66,
+      "label": "JUMBO BAG STRAWBERRY",
+      "code": "85099F",
+      "weight": 5.354,
+      "support": 0.06530547390164455
+    },
+    {
+      "id": 80,
+      "label": "RED HANGING HEART T-LIGHT HOLDER",
+      "code": "21733",
+      "weight": 5.143,
+      "support": 0.05887026296973068
+    },
+    {
+      "id": 0,
+      "label": "WHITE HANGING HEART T-LIGHT HOLDER",
+      "code": "85123A",
+      "weight": 5.143,
+      "support": 0.17994756494796219
+    },
+    {
+      "id": 38,
+      "label": "JUMBO BAG APPLES",
+      "code": "23199",
+      "weight": 4.641,
+      "support": 0.07769921347421943
+    },
+    {
+      "id": 21,
+      "label": "SPOTTY BUNTING",
+      "code": "23298",
+      "weight": 3.978,
+      "support": 0.09104631762930007
+    },
+    {
+      "id": 3,
+      "label": "PARTY BUNTING",
+      "code": "47566",
+      "weight": 3.978,
+      "support": 0.13386827679351712
+    }
+  ],
+  "edges": [
+    {
+      "source": 1,
+      "target": 13,
+      "lift": 5.814809139446075,
+      "confidence": 0.4217780840799449,
+      "support": 0.04862159370779376,
+      "validated": false
+    },
+    {
+      "source": 13,
+      "target": 1,
+      "lift": 5.814809139446075,
+      "confidence": 0.6703176341730559,
+      "support": 0.04862159370779376,
+      "validated": true
+    },
+    {
+      "source": 28,
+      "target": 34,
+      "lift": 12.454457153231663,
+      "confidence": 0.7124183006535948,
+      "support": 0.04329864145546993,
+      "validated": true
+    },
+    {
+      "source": 34,
+      "target": 28,
+      "lift": 12.454457153231663,
+      "confidence": 0.7569444444444444,
+      "support": 0.04329864145546993,
+      "validated": true
+    },
+    {
+      "source": 34,
+      "target": 76,
+      "lift": 14.63988920394875,
+      "confidence": 0.6152777777777778,
+      "support": 0.03519504250417097,
+      "validated": true
+    },
+    {
+      "source": 76,
+      "target": 34,
+      "lift": 14.63988920394875,
+      "confidence": 0.8374291115311909,
+      "support": 0.03519504250417097,
+      "validated": true
+    },
+    {
+      "source": 15,
+      "target": 1,
+      "lift": 5.126420185703232,
+      "confidence": 0.5909617612977984,
+      "support": 0.0405179947564948,
+      "validated": true
+    },
+    {
+      "source": 4,
+      "target": 26,
+      "lift": 6.107229500242601,
+      "confidence": 0.40611353711790393,
+      "support": 0.036942877572098194,
+      "validated": false
+    },
+    {
+      "source": 26,
+      "target": 4,
+      "lift": 6.107229500242601,
+      "confidence": 0.5555555555555556,
+      "support": 0.036942877572098194,
+      "validated": true
+    },
+    {
+      "source": 4,
+      "target": 9,
+      "lift": 5.508102555598549,
+      "confidence": 0.4148471615720524,
+      "support": 0.03773734805751967,
+      "validated": true
+    },
+    {
+      "source": 9,
+      "target": 4,
+      "lift": 5.508102555598549,
+      "confidence": 0.5010548523206751,
+      "support": 0.03773734805751967,
+      "validated": true
+    },
+    {
+      "source": 16,
+      "target": 1,
+      "lift": 4.968707971242034,
+      "confidence": 0.5727810650887574,
+      "support": 0.038452371494398986,
+      "validated": true
+    },
+    {
+      "source": 28,
+      "target": 76,
+      "lift": 12.938932750163708,
+      "confidence": 0.5437908496732026,
+      "support": 0.03304997219353301,
+      "validated": true
+    },
+    {
+      "source": 76,
+      "target": 28,
+      "lift": 12.938932750163708,
+      "confidence": 0.7863894139886578,
+      "support": 0.03304997219353301,
+      "validated": true
+    },
+    {
+      "source": 10,
+      "target": 26,
+      "lift": 7.093826529784785,
+      "confidence": 0.47171945701357465,
+      "support": 0.03312941924207516,
+      "validated": false
+    },
+    {
+      "source": 26,
+      "target": 10,
+      "lift": 7.093826529784785,
+      "confidence": 0.4982078853046595,
+      "support": 0.03312941924207516,
+      "validated": true
+    },
+    {
+      "source": 4,
+      "target": 10,
+      "lift": 5.4218933391294035,
+      "confidence": 0.3807860262008734,
+      "support": 0.034638913164375944,
+      "validated": true
+    },
+    {
+      "source": 10,
+      "target": 4,
+      "lift": 5.4218933391294035,
+      "confidence": 0.49321266968325794,
+      "support": 0.034638913164375944,
+      "validated": true
+    },
+    {
+      "source": 9,
+      "target": 20,
+      "lift": 6.49014352949362,
+      "confidence": 0.43776371308016876,
+      "support": 0.03297052514499086,
+      "validated": true
+    },
+    {
+      "source": 20,
+      "target": 9,
+      "lift": 6.49014352949362,
+      "confidence": 0.48881036513545345,
+      "support": 0.03297052514499086,
+      "validated": true
+    },
+    {
+      "source": 9,
+      "target": 10,
+      "lift": 6.23318083319014,
+      "confidence": 0.43776371308016876,
+      "support": 0.03297052514499086,
+      "validated": true
+    },
+    {
+      "source": 10,
+      "target": 9,
+      "lift": 6.23318083319014,
+      "confidence": 0.46945701357466063,
+      "support": 0.03297052514499086,
+      "validated": true
+    },
+    {
+      "source": 20,
+      "target": 26,
+      "lift": 7.120576178595101,
+      "confidence": 0.4734982332155477,
+      "support": 0.03193771351394296,
+      "validated": false
+    },
+    {
+      "source": 26,
+      "target": 20,
+      "lift": 7.120576178595101,
+      "confidence": 0.48028673835125446,
+      "support": 0.03193771351394296,
+      "validated": true
+    },
+    {
+      "source": 15,
+      "target": 16,
+      "lift": 6.8697004395016705,
+      "confidence": 0.46118192352259557,
+      "support": 0.031619925319774374,
+      "validated": false
+    },
+    {
+      "source": 16,
+      "target": 15,
+      "lift": 6.8697004395016705,
+      "confidence": 0.4710059171597633,
+      "support": 0.031619925319774374,
+      "validated": false
+    },
+    {
+      "source": 43,
+      "target": 1,
+      "lift": 5.467694171208989,
+      "confidence": 0.6303030303030303,
+      "support": 0.03304997219353301,
+      "validated": true
+    },
+    {
+      "source": 4,
+      "target": 20,
+      "lift": 5.3993951270696074,
+      "confidence": 0.36419213973799125,
+      "support": 0.03312941924207516,
+      "validated": false
+    },
+    {
+      "source": 20,
+      "target": 4,
+      "lift": 5.3993951270696074,
+      "confidence": 0.4911660777385159,
+      "support": 0.03312941924207516,
+      "validated": true
+    },
+    {
+      "source": 49,
+      "target": 59,
+      "lift": 12.800740982952405,
+      "confidence": 0.5806962025316456,
+      "support": 0.029157066814967825,
+      "validated": true
+    },
+    {
+      "source": 59,
+      "target": 49,
+      "lift": 12.800740982952405,
+      "confidence": 0.6427320490367776,
+      "support": 0.029157066814967825,
+      "validated": true
+    },
+    {
+      "source": 10,
+      "target": 20,
+      "lift": 6.523968842769508,
+      "confidence": 0.44004524886877827,
+      "support": 0.03090490188289505,
+      "validated": false
+    },
+    {
+      "source": 20,
+      "target": 10,
+      "lift": 6.523968842769508,
+      "confidence": 0.4581861012956419,
+      "support": 0.03090490188289505,
+      "validated": true
+    },
+    {
+      "source": 13,
+      "target": 15,
+      "lift": 6.230247017777208,
+      "confidence": 0.42716319824753557,
+      "support": 0.030984348931437197,
+      "validated": false
+    },
+    {
+      "source": 15,
+      "target": 13,
+      "lift": 6.230247017777208,
+      "confidence": 0.4519119351100811,
+      "support": 0.030984348931437197,
+      "validated": false
+    },
+    {
+      "source": 29,
+      "target": 37,
+      "lift": 12.136513144493003,
+      "confidence": 0.5370650529500757,
+      "support": 0.028203702232462064,
+      "validated": true
+    },
+    {
+      "source": 37,
+      "target": 29,
+      "lift": 12.136513144493003,
+      "confidence": 0.6373429084380611,
+      "support": 0.028203702232462064,
+      "validated": true
+    },
+    {
+      "source": 19,
+      "target": 4,
+      "lift": 5.441950653938259,
+      "confidence": 0.49503722084367247,
+      "support": 0.03169937236831652,
+      "validated": true
+    },
+    {
+      "source": 69,
+      "target": 1,
+      "lift": 5.837883778888321,
+      "confidence": 0.6729776247848537,
+      "support": 0.031063795979979342,
+      "validated": true
+    },
+    {
+      "source": 14,
+      "target": 45,
+      "lift": 9.028155945512056,
+      "confidence": 0.4490049751243781,
+      "support": 0.028680384523714943,
+      "validated": false
+    },
+    {
+      "source": 45,
+      "target": 14,
+      "lift": 9.028155945512056,
+      "confidence": 0.5766773162939297,
+      "support": 0.028680384523714943,
+      "validated": true
+    },
+    {
+      "source": 9,
+      "target": 19,
+      "lift": 6.25982871082912,
+      "confidence": 0.4008438818565401,
+      "support": 0.03018987844601573,
+      "validated": true
+    },
+    {
+      "source": 19,
+      "target": 9,
+      "lift": 6.25982871082912,
+      "confidence": 0.47146401985111663,
+      "support": 0.03018987844601573,
+      "validated": true
+    },
+    {
+      "source": 24,
+      "target": 39,
+      "lift": 8.968088864543887,
+      "confidence": 0.4510050251256281,
+      "support": 0.02852149042663065,
+      "validated": true
+    },
+    {
+      "source": 39,
+      "target": 24,
+      "lift": 8.968088864543887,
+      "confidence": 0.5671406003159558,
+      "support": 0.02852149042663065,
+      "validated": true
+    },
+    {
+      "source": 33,
+      "target": 4,
+      "lift": 5.67477162752272,
+      "confidence": 0.5162162162162162,
+      "support": 0.030348772543100023,
+      "validated": true
+    },
+    {
+      "source": 57,
+      "target": 1,
+      "lift": 5.4180894834814355,
+      "confidence": 0.6245847176079734,
+      "support": 0.029872090251847144,
+      "validated": true
+    },
+    {
+      "source": 19,
+      "target": 33,
+      "lift": 7.3862417007578305,
+      "confidence": 0.43424317617866004,
+      "support": 0.02780646698975133,
+      "validated": false
+    },
+    {
+      "source": 33,
+      "target": 19,
+      "lift": 7.3862417007578305,
+      "confidence": 0.47297297297297297,
+      "support": 0.02780646698975133,
+      "validated": true
+    },
+    {
+      "source": 13,
+      "target": 16,
+      "lift": 5.8898189854631,
+      "confidence": 0.3953997809419496,
+      "support": 0.028680384523714943,
+      "validated": false
+    },
+    {
+      "source": 16,
+      "target": 13,
+      "lift": 5.8898189854631,
+      "confidence": 0.4272189349112426,
+      "support": 0.028680384523714943,
+      "validated": false
+    },
+    {
+      "source": 66,
+      "target": 1,
+      "lift": 5.354035072631192,
+      "confidence": 0.6172006745362564,
+      "support": 0.02907761976642568,
+      "validated": true
+    },
+    {
+      "source": 32,
+      "target": 79,
+      "lift": 12.560711946514415,
+      "confidence": 0.484984984984985,
+      "support": 0.02566139667911337,
+      "validated": true
+    },
+    {
+      "source": 79,
+      "target": 32,
+      "lift": 12.560711946514415,
+      "confidence": 0.6646090534979424,
+      "support": 0.02566139667911337,
+      "validated": true
+    },
+    {
+      "source": 12,
+      "target": 52,
+      "lift": 10.263006195786865,
+      "confidence": 0.43866666666666665,
+      "support": 0.02613807897036625,
+      "validated": false
+    },
+    {
+      "source": 52,
+      "target": 12,
+      "lift": 10.263006195786865,
+      "confidence": 0.6115241635687733,
+      "support": 0.02613807897036625,
+      "validated": true
+    },
+    {
+      "source": 10,
+      "target": 19,
+      "lift": 6.2360506046281845,
+      "confidence": 0.3993212669683258,
+      "support": 0.028044808135377772,
+      "validated": true
+    },
+    {
+      "source": 19,
+      "target": 10,
+      "lift": 6.2360506046281845,
+      "confidence": 0.43796526054590573,
+      "support": 0.028044808135377772,
+      "validated": true
+    },
+    {
+      "source": 9,
+      "target": 26,
+      "lift": 5.694857815485284,
+      "confidence": 0.37869198312236285,
+      "support": 0.02852149042663065,
+      "validated": false
+    },
+    {
+      "source": 26,
+      "target": 9,
+      "lift": 5.694857815485284,
+      "confidence": 0.42891278375149344,
+      "support": 0.02852149042663065,
+      "validated": true
+    },
+    {
+      "source": 19,
+      "target": 20,
+      "lift": 6.382766763993254,
+      "confidence": 0.4305210918114144,
+      "support": 0.02756812584412489,
+      "validated": true
+    },
+    {
+      "source": 20,
+      "target": 19,
+      "lift": 6.382766763993254,
+      "confidence": 0.408716136631331,
+      "support": 0.02756812584412489,
+      "validated": true
+    },
+    {
+      "source": 32,
+      "target": 86,
+      "lift": 12.14143234143234,
+      "confidence": 0.4774774774774775,
+      "support": 0.025264161436402637,
+      "validated": true
+    },
+    {
+      "source": 86,
+      "target": 32,
+      "lift": 12.14143234143234,
+      "confidence": 0.6424242424242425,
+      "support": 0.025264161436402637,
+      "validated": true
+    },
+    {
+      "source": 12,
+      "target": 25,
+      "lift": 7.850715219421102,
+      "confidence": 0.44533333333333336,
+      "support": 0.026535314213076984,
+      "validated": false
+    },
+    {
+      "source": 25,
+      "target": 12,
+      "lift": 7.850715219421102,
+      "confidence": 0.4677871148459384,
+      "support": 0.026535314213076984,
+      "validated": true
+    },
+    {
+      "source": 32,
+      "target": 50,
+      "lift": 10.27071279115572,
+      "confidence": 0.47897897897897895,
+      "support": 0.025343608484944786,
+      "validated": true
+    },
+    {
+      "source": 50,
+      "target": 32,
+      "lift": 10.27071279115572,
+      "confidence": 0.5434412265758092,
+      "support": 0.025343608484944786,
+      "validated": true
+    },
+    {
+      "source": 20,
+      "target": 33,
+      "lift": 6.751693566357878,
+      "confidence": 0.39693757361601884,
+      "support": 0.026773655358703425,
+      "validated": false
+    },
+    {
+      "source": 33,
+      "target": 20,
+      "lift": 6.751693566357878,
+      "confidence": 0.4554054054054054,
+      "support": 0.026773655358703425,
+      "validated": true
+    },
+    {
+      "source": 15,
+      "target": 57,
+      "lift": 7.922508209406266,
+      "confidence": 0.37891077636152953,
+      "support": 0.025979184873281956,
+      "validated": false
+    },
+    {
+      "source": 57,
+      "target": 15,
+      "lift": 7.922508209406266,
+      "confidence": 0.5431893687707641,
+      "support": 0.025979184873281956,
+      "validated": false
+    },
+    {
+      "source": 65,
+      "target": 8,
+      "lift": 7.323501342822375,
+      "confidence": 0.5457570715474209,
+      "support": 0.026058631921824105,
+      "validated": true
+    },
+    {
+      "source": 32,
+      "target": 63,
+      "lift": 10.824517888053801,
+      "confidence": 0.466966966966967,
+      "support": 0.024708032096607612,
+      "validated": true
+    },
+    {
+      "source": 63,
+      "target": 32,
+      "lift": 10.824517888053801,
+      "confidence": 0.572744014732965,
+      "support": 0.024708032096607612,
+      "validated": true
+    },
+    {
+      "source": 28,
+      "target": 2,
+      "lift": 4.19560996923465,
+      "confidence": 0.48366013071895425,
+      "support": 0.029395407960594262,
+      "validated": true
+    },
+    {
+      "source": 19,
+      "target": 26,
+      "lift": 6.250381695230811,
+      "confidence": 0.41563275434243174,
+      "support": 0.02661476126161913,
+      "validated": false
+    },
+    {
+      "source": 26,
+      "target": 19,
+      "lift": 6.250381695230811,
+      "confidence": 0.4002389486260454,
+      "support": 0.02661476126161913,
+      "validated": true
+    },
+    {
+      "source": 56,
+      "target": 1,
+      "lift": 4.918937304672061,
+      "confidence": 0.567043618739903,
+      "support": 0.027885914038293477,
+      "validated": true
+    },
+    {
+      "source": 33,
+      "target": 9,
+      "lift": 5.95689930436766,
+      "confidence": 0.4486486486486487,
+      "support": 0.026376420115992692,
+      "validated": true
+    },
+    {
+      "source": 38,
+      "target": 1,
+      "lift": 4.641497243280496,
+      "confidence": 0.5350609756097561,
+      "support": 0.027885914038293477,
+      "validated": true
+    },
+    {
+      "source": 10,
+      "target": 33,
+      "lift": 6.272719212425094,
+      "confidence": 0.36877828054298645,
+      "support": 0.02589973782473981,
+      "validated": false
+    },
+    {
+      "source": 33,
+      "target": 10,
+      "lift": 6.272719212425094,
+      "confidence": 0.44054054054054054,
+      "support": 0.02589973782473981,
+      "validated": true
+    },
+    {
+      "source": 57,
+      "target": 13,
+      "lift": 7.259625636341803,
+      "confidence": 0.526578073089701,
+      "support": 0.02518471438786049,
+      "validated": true
+    },
+    {
+      "source": 21,
+      "target": 3,
+      "lift": 3.977509628851541,
+      "confidence": 0.4297619047619048,
+      "support": 0.028680384523714943,
+      "validated": true
+    },
+    {
+      "source": 29,
+      "target": 71,
+      "lift": 12.013849480238683,
+      "confidence": 0.44478063540090773,
+      "support": 0.02335743227139112,
+      "validated": true
+    },
+    {
+      "source": 71,
+      "target": 29,
+      "lift": 12.013849480238683,
+      "confidence": 0.630901287553648,
+      "support": 0.02335743227139112,
+      "validated": true
+    },
+    {
+      "source": 34,
+      "target": 2,
+      "lift": 4.18072689333027,
+      "confidence": 0.48194444444444445,
+      "support": 0.02756812584412489,
+      "validated": true
+    },
+    {
+      "source": 80,
+      "target": 0,
+      "lift": 5.143392673133639,
+      "confidence": 0.6750524109014675,
+      "support": 0.025581949630571223,
+      "validated": true
+    },
+    {
+      "source": 43,
+      "target": 15,
+      "lift": 6.695918044875171,
+      "confidence": 0.4590909090909091,
+      "support": 0.02407245570827044,
+      "validated": true
+    },
+    {
+      "source": 50,
+      "target": 63,
+      "lift": 11.175597114898931,
+      "confidence": 0.48211243611584326,
+      "support": 0.022483514737427504,
+      "validated": true
+    },
+    {
+      "source": 63,
+      "target": 50,
+      "lift": 11.175597114898931,
+      "confidence": 0.5211786372007366,
+      "support": 0.022483514737427504,
+      "validated": true
+    },
+    {
+      "source": 56,
+      "target": 16,
+      "lift": 7.1952528892755065,
+      "confidence": 0.48303715670436187,
+      "support": 0.02375466751410185,
+      "validated": true
+    },
+    {
+      "source": 171,
+      "target": 262,
+      "lift": 25.0,
+      "confidence": 0.6863753213367609,
+      "support": 0.021212361960753157,
+      "validated": true
+    },
+    {
+      "source": 262,
+      "target": 171,
+      "lift": 25.0,
+      "confidence": 0.8115501519756839,
+      "support": 0.021212361960753157,
+      "validated": true
+    },
+    {
+      "source": 26,
+      "target": 33,
+      "lift": 6.177868190771417,
+      "confidence": 0.3632019115890084,
+      "support": 0.024151902756812584,
+      "validated": false
+    },
+    {
+      "source": 33,
+      "target": 26,
+      "lift": 6.177868190771417,
+      "confidence": 0.41081081081081083,
+      "support": 0.024151902756812584,
+      "validated": false
+    },
+    {
+      "source": 25,
+      "target": 31,
+      "lift": 7.1239879513449225,
+      "confidence": 0.41316526610644255,
+      "support": 0.023436879319933265,
+      "validated": false
+    },
+    {
+      "source": 31,
+      "target": 25,
+      "lift": 7.1239879513449225,
+      "confidence": 0.4041095890410959,
+      "support": 0.023436879319933265,
+      "validated": true
+    },
+    {
+      "source": 43,
+      "target": 13,
+      "lift": 6.287442331308705,
+      "confidence": 0.45606060606060606,
+      "support": 0.023913561611186143,
+      "validated": true
+    },
+    {
+      "source": 97,
+      "target": 19,
+      "lift": 8.883709008781445,
+      "confidence": 0.5688622754491018,
+      "support": 0.0226424088345118,
+      "validated": true
+    },
+    {
+      "source": 31,
+      "target": 4,
+      "lift": 4.788737213614883,
+      "confidence": 0.43561643835616437,
+      "support": 0.025264161436402637,
+      "validated": true
+    },
+    {
+      "source": 69,
+      "target": 16,
+      "lift": 7.43510983918769,
+      "confidence": 0.4991394148020654,
+      "support": 0.023039644077222532,
+      "validated": true
+    },
+    {
+      "source": 31,
+      "target": 9,
+      "lift": 5.547417779319115,
+      "confidence": 0.4178082191780822,
+      "support": 0.02423134980535473,
+      "validated": true
+    },
+    {
+      "source": 94,
+      "target": 1,
+      "lift": 5.50545085169108,
+      "confidence": 0.6346555323590815,
+      "support": 0.024151902756812584,
+      "validated": true
+    },
+    {
+      "source": 46,
+      "target": 77,
+      "lift": 21.312169552440203,
+      "confidence": 0.6112412177985949,
+      "support": 0.020735679669500278,
+      "validated": true
+    },
+    {
+      "source": 77,
+      "target": 46,
+      "lift": 21.312169552440203,
+      "confidence": 0.7229916897506925,
+      "support": 0.020735679669500278,
+      "validated": true
+    },
+    {
+      "source": 43,
+      "target": 16,
+      "lift": 6.590288685673301,
+      "confidence": 0.44242424242424244,
+      "support": 0.023198538174306824,
+      "validated": true
+    },
+    {
+      "source": 57,
+      "target": 16,
+      "lift": 7.1015136920324755,
+      "confidence": 0.47674418604651164,
+      "support": 0.02280130293159609,
+      "validated": false
+    },
+    {
+      "source": 12,
+      "target": 1,
+      "lift": 3.816871123363198,
+      "confidence": 0.44,
+      "support": 0.026217526018908397,
+      "validated": true
+    },
+    {
+      "source": 17,
+      "target": 22,
+      "lift": 5.8943631019641,
+      "confidence": 0.37041719342604296,
+      "support": 0.02327798522284897,
+      "validated": false
+    },
+    {
+      "source": 22,
+      "target": 17,
+      "lift": 5.8943631019641,
+      "confidence": 0.37041719342604296,
+      "support": 0.02327798522284897,
+      "validated": false
+    },
+    {
+      "source": 69,
+      "target": 13,
+      "lift": 6.738972161529862,
+      "confidence": 0.48881239242685026,
+      "support": 0.02256296178596965,
+      "validated": true
+    },
+    {
+      "source": 171,
+      "target": 36,
+      "lift": 11.559315548350964,
+      "confidence": 0.6786632390745502,
+      "support": 0.02097402081512672,
+      "validated": true
+    },
+    {
+      "source": 31,
+      "target": 81,
+      "lift": 9.182378211882956,
+      "confidence": 0.3698630136986301,
+      "support": 0.021450703106379598,
+      "validated": false
+    },
+    {
+      "source": 81,
+      "target": 31,
+      "lift": 9.182378211882956,
+      "confidence": 0.5325443786982249,
+      "support": 0.021450703106379598,
+      "validated": true
+    },
+    {
+      "source": 56,
+      "target": 69,
+      "lift": 9.41472699012065,
+      "confidence": 0.4345718901453958,
+      "support": 0.021371256057837452,
+      "validated": true
+    },
+    {
+      "source": 69,
+      "target": 56,
+      "lift": 9.41472699012065,
+      "confidence": 0.4629948364888124,
+      "support": 0.021371256057837452,
+      "validated": true
+    },
+    {
+      "source": 50,
+      "target": 86,
+      "lift": 11.39291036429026,
+      "confidence": 0.44804088586030666,
+      "support": 0.02089457376658457,
+      "validated": true
+    },
+    {
+      "source": 86,
+      "target": 50,
+      "lift": 11.39291036429026,
+      "confidence": 0.5313131313131313,
+      "support": 0.02089457376658457,
+      "validated": true
+    }
+  ],
+  "n_rules_shown": 120
+}

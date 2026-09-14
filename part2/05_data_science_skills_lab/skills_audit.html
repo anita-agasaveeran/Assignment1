@@ -1,0 +1,481 @@
+<title>Forty-Six Skills, Audited</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+:root{
+  --bg:#F2F5F7; --surface:#FFFFFF; --surface-2:#FAFCFD;
+  --ink:#16202B; --muted:#5C6B7A; --faint:#8A99A8;
+  --rule:#D9E2E9; --rule-strong:#BECCD7;
+  --accent:#1F5F7A; --accent-soft:#E2EDF2; --accent-ink:#134458;
+  --pass:#2E7D5B; --pass-bg:#E4F1EA;
+  --warn:#9C6B14; --warn-bg:#F7EEDC;
+  --fail:#AC3A33; --fail-bg:#F8E7E5;
+  --shadow:0 1px 2px rgba(22,32,43,.05), 0 8px 24px -12px rgba(22,32,43,.12);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#101720; --surface:#161F29; --surface-2:#1B2732;
+    --ink:#E4ECF2; --muted:#8DA0B0; --faint:#6B7E8E;
+    --rule-strong:#334557;
+    --accent:#63B6D2; --accent-soft:#17303C; --accent-ink:#9AD3E6;
+    --pass:#5FBF92; --pass-bg:#153024;
+    --warn:#D4A34A; --warn-bg:#332811;
+    --fail:#E2756C; --fail-bg:#33191A;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101720; --surface:#161F29; --surface-2:#1B2732;
+  --ink:#E4ECF2; --muted:#8DA0B0; --faint:#6B7E8E;
+  --rule:#243141; --rule-strong:#334557;
+  --accent:#63B6D2; --accent-soft:#17303C; --accent-ink:#9AD3E6;
+  --pass:#5FBF92; --pass-bg:#153024;
+  --warn:#D4A34A; --warn-bg:#332811;
+  --fail:#E2756C; --fail-bg:#33191A;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:16.5px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px; margin:0 auto; padding:0 28px 96px}
+.measure{max-width:66ch}
+h1,h2,h3,.mono,.lbl,th,.stat-n,.ph,.pack,.chip{font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
+.mono,code,.num,td.did code{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* ---------- masthead ---------- */
+header.mast{
+  border-bottom:2px solid var(--ink);
+  padding:56px 0 22px; margin-bottom:0;
+}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--accent); font-weight:600; margin:0 0 18px;
+}
+h1{
+  font-size:clamp(2.4rem,5.6vw,3.9rem); line-height:1.02; font-weight:700;
+  letter-spacing:-.022em; margin:0 0 18px; text-wrap:balance;
+}
+.dek{font-size:1.16rem; color:var(--muted); margin:0; max-width:62ch}
+.dek strong{color:var(--ink); font-weight:600}
+
+/* ---------- provenance strip ---------- */
+.prov{
+  display:flex; flex-wrap:wrap; gap:0 30px;
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--faint);
+  border-bottom:1px solid var(--rule); padding:12px 0 14px; margin-bottom:52px;
+}
+.prov span b{color:var(--muted); font-weight:500}
+
+/* ---------- stat band ---------- */
+.stats{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px; background:var(--rule); border:1px solid var(--rule);
+  border-radius:3px; overflow:hidden; margin:0 0 64px;
+}
+.stat{background:var(--surface); padding:20px 22px}
+.stat-n{font-size:2.05rem; font-weight:700; letter-spacing:-.03em; line-height:1;
+  font-variant-numeric:tabular-nums; color:var(--accent)}
+.stat-l{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); margin-top:9px}
+
+/* ---------- sections ---------- */
+section{margin:0 0 68px; scroll-margin-top:24px}
+h2{
+  font-size:1.02rem; font-weight:600; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--accent); margin:0 0 6px;
+}
+.h2sub{font-size:1.62rem; font-weight:600; letter-spacing:-.018em; line-height:1.2;
+  margin:0 0 24px; text-wrap:balance; font-family:Archivo,sans-serif}
+p{margin:0 0 16px}
+a{color:var(--accent-ink); text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:2px}
+
+/* ---------- findings ---------- */
+.finds{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:16px}
+.find{
+  background:var(--surface); border:1px solid var(--rule); border-radius:3px;
+  padding:22px 22px 20px; box-shadow:var(--shadow); position:relative;
+}
+.find .tag{
+  font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--faint); display:block; margin-bottom:12px;
+}
+.find .big{
+  font-family:Archivo,sans-serif; font-size:2.2rem; font-weight:700; line-height:1;
+  letter-spacing:-.03em; color:var(--ink); font-variant-numeric:tabular-nums;
+  display:block; margin-bottom:10px;
+}
+.find .big em{font-style:normal; font-size:1.1rem; color:var(--muted); font-weight:500}
+.find p{font-size:.93rem; color:var(--muted); margin:0; line-height:1.55}
+.find p b{color:var(--ink); font-weight:600}
+
+/* ---------- phase rail ---------- */
+.rail{border-top:1px solid var(--rule)}
+.phase{
+  display:grid; grid-template-columns:64px 1fr; gap:22px;
+  padding:20px 0; border-bottom:1px solid var(--rule); align-items:start;
+}
+.pnum{
+  font-family:Archivo,sans-serif; font-size:2.1rem; font-weight:700; line-height:.9;
+  color:var(--rule-strong); letter-spacing:-.04em; font-variant-numeric:tabular-nums;
+}
+.pname{font-family:Archivo,sans-serif; font-weight:600; font-size:1.06rem; margin:0 0 5px}
+.pname .cnt{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--accent);
+  background:var(--accent-soft); padding:2px 7px; border-radius:2px; margin-left:9px;
+  font-weight:500; vertical-align:2px;
+}
+.pdesc{font-size:.95rem; color:var(--muted); margin:0}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:.88rem}
+th{
+  font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:600;
+  color:var(--muted); text-align:left; padding:12px 14px;
+  border-bottom:1px solid var(--rule-strong); background:var(--surface-2);
+  white-space:nowrap; position:sticky; top:0;
+}
+td{padding:11px 14px; border-bottom:1px solid var(--rule); vertical-align:top}
+tr:last-child td{border-bottom:none}
+td code{font-size:.82rem; background:var(--surface-2); padding:1px 5px;
+  border-radius:2px; border:1px solid var(--rule); white-space:nowrap}
+.num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+
+/* matrix specifics */
+.matrix{max-height:620px; overflow-y:auto}
+tr.grp td{
+  background:var(--accent-soft); font-family:Archivo,sans-serif; font-weight:600;
+  font-size:.86rem; letter-spacing:.01em; color:var(--accent-ink);
+  border-bottom:1px solid var(--rule-strong); padding:9px 14px;
+}
+tr.grp .ph{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; background:var(--accent);
+  color:var(--surface); padding:1px 7px; border-radius:2px; margin-right:8px;
+}
+tr.grp .cnt{float:right; font-family:"IBM Plex Mono",monospace; font-size:11px;
+  color:var(--accent-ink); opacity:.75; font-weight:400}
+.pack{
+  font-family:"IBM Plex Mono",monospace; font-size:10px; padding:2px 6px;
+  border-radius:2px; white-space:nowrap; border:1px solid var(--rule-strong);
+  color:var(--muted);
+}
+.pack.ml{background:var(--accent-soft); color:var(--accent-ink); border-color:transparent}
+td.ds{color:var(--muted); font-size:.83rem; white-space:nowrap}
+td.did{color:var(--muted); min-width:340px; line-height:1.5}
+
+/* severity */
+.sev{font-family:"IBM Plex Mono",monospace; font-size:10px; font-weight:600;
+  letter-spacing:.06em; padding:3px 8px; border-radius:2px; white-space:nowrap}
+.sev.hi{background:var(--fail-bg); color:var(--fail)}
+.sev.md{background:var(--warn-bg); color:var(--warn)}
+.chip{font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:600;
+  padding:3px 8px; border-radius:2px; white-space:nowrap}
+.chip.pass{background:var(--pass-bg); color:var(--pass)}
+.chip.fail{background:var(--fail-bg); color:var(--fail)}
+
+/* callout */
+.note{
+  background:var(--surface); border:1px solid var(--rule);
+  border-left:3px solid var(--accent); border-radius:3px;
+  padding:18px 22px; margin:26px 0 0; font-size:.95rem; color:var(--muted);
+}
+.note b{color:var(--ink); font-weight:600}
+footer{border-top:1px solid var(--rule); padding-top:22px; color:var(--faint);
+  font-size:.85rem; font-family:"IBM Plex Mono",monospace}
+@media (max-width:640px){
+  .wrap{padding:0 18px 64px}
+  .phase{grid-template-columns:44px 1fr; gap:14px}
+  .pnum{font-size:1.6rem}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">CRISP-DM &middot; CMPE 255 &middot; Assignment 1, Part 2</p>
+  <h1>Forty-six skills,<br>audited on real data</h1>
+  <p class="dek">Two GitHub skill packs installed and put through the full CRISP-DM lifecycle on
+  Kaggle&rsquo;s Titanic and Online Retail datasets. <strong>Every skill demonstrated, every number
+  computed from the raw files</strong> &mdash; including the three cases where measurement
+  contradicted best practice, and the sixteen bundled scripts that turned out to be broken.</p>
+</header>
+
+<div class="prov">
+  <span><b>datasets</b> titanic (891&times;12) &middot; online_retail (541,909&times;8)</span>
+  <span><b>seed</b> 42</span>
+  <span><b>pipeline</b> 14 stages, 232s, all pass</span>
+  <span><b>deps</b> 143 pinned</span>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-n">46</div><div class="stat-l">skills demonstrated</div></div>
+  <div class="stat"><div class="stat-n">6</div><div class="stat-l">CRISP-DM phases</div></div>
+  <div class="stat"><div class="stat-n">46</div><div class="stat-l">evidence artifacts</div></div>
+  <div class="stat"><div class="stat-n">16</div><div class="stat-l">broken scripts fixed</div></div>
+  <div class="stat"><div class="stat-n">3</div><div class="stat-l">negative results</div></div>
+</div>
+
+<section>
+  <h2>What the data said</h2>
+  <p class="h2sub">Four findings that changed a decision</p>
+  <div class="finds">
+
+    <div class="find">
+      <span class="tag">Online Retail &middot; segmentation</span>
+      <span class="big">12.9% &rarr; 62.7%</span>
+      <p>558 &ldquo;Champion&rdquo; accounts generate <b>&pound;5.6M of &pound;8.9M</b> in revenue.
+      RFM plus k-means, k=4, silhouette 0.381. Retention spend not aimed here is mis-aimed.</p>
+    </div>
+
+    <div class="find">
+      <span class="tag">Online Retail &middot; funnel</span>
+      <span class="big">&pound;718K <em>left on the table</em></span>
+      <p><b>1,493 customers</b> &mdash; one in three &mdash; never place a second order. The median gap
+      to a second order is 50 days, so the intervention window is real.</p>
+    </div>
+
+    <div class="find">
+      <span class="tag">Online Retail &middot; root cause</span>
+      <span class="big">&minus;70% &rarr; +2.2%</span>
+      <p>The December revenue &ldquo;collapse&rdquo; was <b>a partial month</b>, not a business event.
+      The extract ends on 9 December. Pro-rated, December runs slightly <i>ahead</i> of November.</p>
+    </div>
+
+    <div class="find">
+      <span class="tag">Titanic &middot; model evaluation</span>
+      <span class="big">0.417 <em>vs 0.867 recall</em></span>
+      <p>Aggregate PR-AUC of 0.791 hid it: the model catches <b>under half</b> the male survivors
+      it should. This blocks promotion to any automated decision.</p>
+    </div>
+
+  </div>
+  <div class="note">
+    <b>The reconciliation that made the rest trustworthy.</b> Two defensible definitions of
+    &ldquo;total revenue&rdquo; differed by <b>&pound;836,340 (8.58%)</b>. Decomposed to a
+    <b>zero residual</b>: cancellations &minus;&pound;896,812, unidentified customers
+    +&pound;1,733,152. Not a pipeline defect &mdash; two different questions.
+  </div>
+</section>
+
+<section>
+  <h2>Where measurement beat received wisdom</h2>
+  <p class="h2sub">Three things a competent practitioner would have shipped on reputation</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Received wisdom</th><th>What was measured</th><th style="width:96px">Verdict</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>SMOTE helps imbalanced classification</td>
+          <td class="num" style="text-align:left">+0.006 PR-AUC against &plusmn;0.022 fold noise, at a 1.6:1 ratio</td>
+          <td><span class="chip fail">rejected</span></td>
+        </tr>
+        <tr>
+          <td>Always tune hyperparameters</td>
+          <td class="num" style="text-align:left">Optuna gained +0.016 &mdash; smaller than fold-to-fold variance</td>
+          <td><span class="chip fail">no gain</span></td>
+        </tr>
+        <tr>
+          <td>Always add a cross-encoder reranker to RAG</td>
+          <td class="num" style="text-align:left">Reranking <i>reduced</i> retrieval MRR by 0.028 on this corpus</td>
+          <td><span class="chip fail">harmful</span></td>
+        </tr>
+        <tr>
+          <td>Hybrid retrieval beats dense-only</td>
+          <td class="num" style="text-align:left">MRR 0.739 vs 0.562 &mdash; <b>+0.177</b>, the largest single lever</td>
+          <td><span class="chip pass">confirmed</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>The lifecycle</h2>
+  <p class="h2sub">Where each skill was used</p>
+  <div class="rail">
+    <div class="phase">
+      <div class="pnum">1</div>
+      <div>
+        <p class="pname">Business Understanding <span class="cnt">2 skills</span></p>
+        <p class="pdesc">Two vague asks scoped into briefs with success criteria. Five risks logged
+        before any data was touched &mdash; two of which later materialised exactly as written.</p>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="pnum">2</div>
+      <div>
+        <p class="pname">Data Understanding <span class="cnt">10 skills</span></p>
+        <p class="pdesc">Both datasets profiled; the flat retail file normalised into a four-table
+        SQLite star schema so the SQL-shaped skills had real relations to work on; the two revenue
+        definitions reconciled to zero.</p>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="pnum">3</div>
+      <div>
+        <p class="pname">Data Preparation <span class="cnt">2 skills</span></p>
+        <p class="pdesc">Split before cleaning; every statistic learned on train only. Target
+        encoding cross-fitted &mdash; the in-fold version correlates 0.262 with the target versus
+        0.180 out-of-fold, and that difference is pure leakage.</p>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="pnum">4</div>
+      <div>
+        <p class="pname">Modeling <span class="cnt">17 skills</span></p>
+        <p class="pdesc">Track A: pipelines, imbalance, Optuna, a PyTorch loop, hybrid RAG over 346
+        chunks, a real LoRA fine-tune. Track B: cohorts, RFM segments, funnel, ARIMA, structured
+        root-cause, A/B statistics.</p>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="pnum">5</div>
+      <div>
+        <p class="pname">Evaluation <span class="cnt">9 skills</span></p>
+        <p class="pdesc">Findings converted to ranked insights, impact quantified as a range,
+        jargon translated from grade 14.3 to 8.7, and a QA gate that returned one <b>FAIL</b> &mdash;
+        blocking automated use.</p>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="pnum">6</div>
+      <div>
+        <p class="pname">Deployment <span class="cnt">6 skills</span></p>
+        <p class="pdesc">FastAPI service over the whole pipeline (p50 14ms, batching 180&times;
+        cheaper per row), plus the executive summary, dashboard spec, catalog entry and
+        retrospective.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>What broke</h2>
+  <p class="h2sub">Sixteen of 36 bundled skill scripts did not run</p>
+  <p class="measure">All are fixed by unified diffs in <code>patches/</code>. The first row is the
+  serious one: those scripts parse their arguments, ignore them, and print results computed from a
+  hardcoded demo. <b>A tool that silently answers about the wrong data is worse than no tool.</b></p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Defect</th><th class="num">Files</th><th>Effect when run</th><th style="width:86px">Severity</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><code>__main__</code> runs a demo instead of calling <code>main()</code></td>
+          <td class="num">11</td>
+          <td><code>segmentation_runner.py</code> reported &ldquo;LTV by PLAN, N=20&rdquo; for a
+          4,338-customer segmentation; <code>catalog_extractor.py</code> returned a fictional
+          <code>orders_fact</code> table for every database given to it.</td>
+          <td><span class="sev hi">critical</span></td>
+        </tr>
+        <tr>
+          <td>Bare <code>%</code> in an <code>argparse</code> help string</td>
+          <td class="num">3</td>
+          <td>Hard crash on Python 3.14: <code>ValueError: badly formed help string</code>. Fails
+          loudly, so at least it cannot mislead.</td>
+          <td><span class="sev md">blocking</span></td>
+        </tr>
+        <tr>
+          <td><code>.dt.to_period("MS")</code> &mdash; <code>MS</code> is a DateOffset, not a Period frequency</td>
+          <td class="num">1</td>
+          <td><code>cohort_builder.py</code> raises, taking the whole cohort chain down with it.</td>
+          <td><span class="sev md">blocking</span></td>
+        </tr>
+        <tr>
+          <td><code>sort_values</code> on a column-less empty frame</td>
+          <td class="num">1</td>
+          <td><code>KeyError</code> whenever no correlation pair clears the threshold &mdash; i.e.
+          exactly when the data is clean.</td>
+          <td><span class="sev md">blocking</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">
+    <b>Why these survived.</b> Both repos ship validators, and both check documentation structure
+    rather than script execution. The guidance in all 46 skills is sound; the tooling in 16 of them
+    was not. <b>A skill&rsquo;s prose and a skill&rsquo;s tooling are separate products and need
+    separate review.</b>
+  </div>
+</section>
+
+<section>
+  <h2>Coverage</h2>
+  <p class="h2sub">All 46 skills, and what each one actually did</p>
+  <p class="measure">Generated by <code>coverage_matrix.py</code>, which fails the build if any
+  installed skill is unmapped or its evidence file is missing from disk.</p>
+  <div class="tw matrix">
+    <table>
+      <thead><tr><th>Skill</th><th>Pack</th><th>Data</th><th>What was demonstrated</th></tr></thead>
+      <tbody>
+<tr class="grp"><td colspan="4"><span class="ph">1</span> Business Understanding <span class="cnt">2 skills</span></td></tr>
+<tr><td><code>analysis-planning</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Both</td><td class="did">8 sub-questions decomposed, sequenced and effort-estimated; 5 risks logged, 2 of which materialised as predicted</td></tr>
+<tr><td><code>stakeholder-requirements-gathering</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail + Titanic</td><td class="did">Two vague asks converted into scoped briefs with success criteria; CAC declared out of scope at intake</td></tr>
+<tr class="grp"><td colspan="4"><span class="ph">2</span> Data Understanding <span class="cnt">10 skills</span></td></tr>
+<tr><td><code>data-catalog-entry</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">Real schema extracted from SQLite (397,884 rows, 7 cols) after fixing the extractor</td></tr>
+<tr><td><code>data-quality-audit</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">5 checks: 5,268 dup rows, 10,624 sub-min quantities, 0% orphans, data stale by design</td></tr>
+<tr><td><code>metric-reconciliation</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">8.58% raw-vs-mart gap decomposed to a ZERO residual</td></tr>
+<tr><td><code>programmatic-eda</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">All 5 bundled scripts run on 541,909 rows; CustomerID 24.93% null flagged</td></tr>
+<tr><td><code>query-validation</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">5 anti-patterns found; sargability fix measured at 2.8x faster</td></tr>
+<tr><td><code>schema-mapper</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">4 tables discovered, FKs inferred, data dictionary, 3 join paths, mermaid ERD</td></tr>
+<tr><td><code>semantic-model-builder</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">3 entities, 3 dimensions, 3 metrics; validator-clean after a fix round</td></tr>
+<tr><td><code>sql-to-business-logic</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">Query translated to plain language with 5 validation questions for the author</td></tr>
+<tr><td><code>exploratory-data-analysis</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Titanic</td><td class="did">All 7 workflow steps; Cabin missingness proven predictive (+0.367); leakage scan clean</td></tr>
+<tr><td><code>pandas-patterns</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Titanic</td><td class="did">All 5 core rules applied; 26.2% memory cut via category dtype; validated m:1 merge</td></tr>
+<tr class="grp"><td colspan="4"><span class="ph">3</span> Data Preparation <span class="cnt">2 skills</span></td></tr>
+<tr><td><code>data-cleaning</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Titanic</td><td class="did">Split BEFORE cleaning; 9 decisions logged; train-only medians and winsorisation bounds</td></tr>
+<tr><td><code>feature-engineering</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Titanic</td><td class="did">Title/FamilySize/Deck/log1p; cross-fitted target encoding, leakage measured at +0.081 corr</td></tr>
+<tr class="grp"><td colspan="4"><span class="ph">4</span> Modeling <span class="cnt">17 skills</span></td></tr>
+<tr><td><code>ab-test-analysis</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">SRM chi-square, two-proportion z-test, CI and ship decision (assignment simulated, labelled)</td></tr>
+<tr><td><code>business-metrics-calculator</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">9 e-commerce KPIs vs benchmarks; CAC declared incomputable rather than invented</td></tr>
+<tr><td><code>cohort-analysis</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">13 monthly cohorts; month-1 retention 20.6% mean; 2010-12 identified as a non-cohort</td></tr>
+<tr><td><code>funnel-analysis</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">5-step repeat-purchase funnel; biggest drop sized at GBP 717,933</td></tr>
+<tr><td><code>root-cause-investigation</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">70% December fall diagnosed as a partial-month artefact; 3 hypotheses rejected with evidence</td></tr>
+<tr><td><code>segmentation-analysis</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">RFM + k-means k=4 (silhouette 0.381); Champions = 12.9% of customers, 62.7% of revenue</td></tr>
+<tr><td><code>time-series-analysis</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">ADF non-stationary; STL decomposition; 2 anomalies; ARIMA(7,1,1) MAPE 28.1%</td></tr>
+<tr><td><code>experiment-tracking</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Titanic</td><td class="did">7 runs logged to MLflow + JSONL with params, metrics, git SHA, data hash and env</td></tr>
+<tr><td><code>hyperparameter-tuning</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Titanic</td><td class="did">Optuna TPE 60 trials over the pipeline, log-scale spaces; learning_rate 68% of importance</td></tr>
+<tr><td><code>imbalanced-data</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Titanic</td><td class="did">PR-AUC over accuracy; SMOTE in-fold tested and REJECTED as inside noise; threshold tuned on validation</td></tr>
+<tr><td><code>llm-finetuning</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Retail</td><td class="did">Real LoRA on distilgpt2, 0.359% of params; format 0%-&gt;100%, facts 0% (the expected split)</td></tr>
+<tr><td><code>ml-debugging</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Titanic</td><td class="did">One-batch overfit PASS; LR sweep to divergence; injected leak caught by the 5-point checklist</td></tr>
+<tr><td><code>model-evaluation</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Titanic</td><td class="did">Holdout scored once; calibration; slice metrics exposed male recall 0.417; gain tested against fold noise</td></tr>
+<tr><td><code>pytorch-training-loop</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Titanic</td><td class="did">Canonical loop on MPS; forgetting .eval() shown to cost 0.050 PR-AUC silently</td></tr>
+<tr><td><code>rag-pipeline</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Project docs</td><td class="did">346 chunks (pinned corpus), real embeddings + BM25 + cross-encoder; hybrid +0.177 MRR, reranker -0.028 (reported)</td></tr>
+<tr><td><code>reproducible-ml</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Titanic</td><td class="did">Seeded, SHA-256 data hashes, git SHA, 143 pinned deps, one-command rerun</td></tr>
+<tr><td><code>sklearn-pipelines</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Titanic</td><td class="did">ColumnTransformer over 10/4/3 cols; 4 baselines cross-validated with preprocessing inside each fold</td></tr>
+<tr class="grp"><td colspan="4"><span class="ph">5</span> Evaluation <span class="cnt">9 skills</span></td></tr>
+<tr><td><code>analysis-assumptions-log</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Both</td><td class="did">6 assumptions; 2 validated and closed; 2 critical (low confidence x high impact) gating conclusions</td></tr>
+<tr><td><code>analysis-qa-checklist</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Both</td><td class="did">9-point gate: 1 FAIL (subgroup recall) blocks automated use; 2 WARN; delivered with caveats</td></tr>
+<tr><td><code>context-packager</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Both</td><td class="did">Layered bundle from 4 docs, token-counted against a 100k budget (3% used)</td></tr>
+<tr><td><code>impact-quantification</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">GBP 52K/104K/156K low-base-high with sensitivity on the one assumed input</td></tr>
+<tr><td><code>insight-synthesis</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Both</td><td class="did">6 findings -&gt; So What/Why/Now What, scored on impact x confidence x actionability</td></tr>
+<tr><td><code>methodology-explainer</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Titanic</td><td class="did">Three audience tiers plus five honest limitations</td></tr>
+<tr><td><code>peer-review-template</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Both</td><td class="did">2 must-fix, 3 should-fix, 2 optional, each with an author response</td></tr>
+<tr><td><code>technical-to-business-translator</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Titanic</td><td class="did">Grade 14.3 -&gt; 8.7 Flesch-Kincaid; 3 jargon terms -&gt; 0</td></tr>
+<tr><td><code>visualization-builder</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Both</td><td class="did">Message-first chart selection; annotated titles; Okabe-Ito colourblind-safe palette throughout</td></tr>
+<tr class="grp"><td colspan="4"><span class="ph">6</span> Deployment <span class="cnt">6 skills</span></td></tr>
+<tr><td><code>analysis-documentation</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Both</td><td class="did">Context, sources with hashes, methodology, results, reproduction commands, limitations</td></tr>
+<tr><td><code>analysis-retrospective</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Both</td><td class="did">Start/Stop/Continue with 5-whys on the 10 broken scripts and 4 tracked actions</td></tr>
+<tr><td><code>dashboard-specification</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">One-sentence purpose, 2 audiences -&gt; 2 tabs, 8 metrics, 2 filters rejected with reasons</td></tr>
+<tr><td><code>data-narrative-builder</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">Situation-Complication-Resolution, 6 beats with intended feeling and one visual each</td></tr>
+<tr><td><code>executive-summary-generator</code></td><td><span class="pack da">data-analytics</span></td><td class="ds">Retail</td><td class="did">One page, 3 quantified insights, a decision block, and a &#x27;what this cannot tell you&#x27; section</td></tr>
+<tr><td><code>model-serving</code></td><td><span class="pack ml">agent-ml</span></td><td class="ds">Titanic</td><td class="did">FastAPI over the whole pipeline; 422 on bad payloads; p50 20.9ms; batching 180x cheaper/row; drift z-scores</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <p>Titanic &middot; Kaggle <code>titanic</code>. Online Retail &middot; Kaggle
+  <code>carrie1/ecommerce-data</code> (= UCI 352). Seed 42; both datasets SHA-256 hashed and the
+  hash logged with every run. Reproduce with
+  <code>python scripts/run_all.py</code>.</p>
+</footer>
+
+</div>

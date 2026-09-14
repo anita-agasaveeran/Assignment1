@@ -1,0 +1,166 @@
+[
+  {
+    "feature": "haversine_km",
+    "importance": 1.4313235135035123
+  },
+  {
+    "feature": "bearing",
+    "importance": 0.052649844378123624
+  },
+  {
+    "feature": "hour_cos",
+    "importance": 0.04640156494288683
+  },
+  {
+    "feature": "minute_of_day",
+    "importance": 0.031177223384587022
+  },
+  {
+    "feature": "hour_sin",
+    "importance": 0.026032523249415518
+  },
+  {
+    "feature": "dropoff_dist_midtown",
+    "importance": 0.018441815400663402
+  },
+  {
+    "feature": "pickup_dist_jfk",
+    "importance": 0.017551861744160124
+  },
+  {
+    "feature": "dropoff_dist_jfk",
+    "importance": 0.015595772439290482
+  },
+  {
+    "feature": "day_of_week",
+    "importance": 0.014740430371031418
+  },
+  {
+    "feature": "dropoff_dist_downtown",
+    "importance": 0.008940813323651745
+  },
+  {
+    "feature": "grid_over_haversine",
+    "importance": 0.008337208117253914
+  },
+  {
+    "feature": "dow_cos",
+    "importance": 0.006943941575517217
+  },
+  {
+    "feature": "dow_sin",
+    "importance": 0.006696986797052995
+  },
+  {
+    "feature": "grid_km",
+    "importance": 0.006582119713004486
+  },
+  {
+    "feature": "center_longitude",
+    "importance": 0.005482304054167016
+  },
+  {
+    "feature": "dropoff_longitude",
+    "importance": 0.0049139248348743685
+  },
+  {
+    "feature": "pickup_dist_midtown",
+    "importance": 0.0038777966613109762
+  },
+  {
+    "feature": "center_latitude",
+    "importance": 0.0035887488033575776
+  },
+  {
+    "feature": "pickup_longitude",
+    "importance": 0.0032713611708124666
+  },
+  {
+    "feature": "dropoff_latitude",
+    "importance": 0.0031104402318448132
+  },
+  {
+    "feature": "is_am_rush",
+    "importance": 0.0027612062359246106
+  },
+  {
+    "feature": "pickup_latitude",
+    "importance": 0.0021725700143367574
+  },
+  {
+    "feature": "pickup_dist_lga",
+    "importance": 0.002085003290619262
+  },
+  {
+    "feature": "dropoff_dist_lga",
+    "importance": 0.001989939801137893
+  },
+  {
+    "feature": "pickup_dist_downtown",
+    "importance": 0.0019591456429487084
+  },
+  {
+    "feature": "pickup_dist_ewr",
+    "importance": 0.0018842290527233407
+  },
+  {
+    "feature": "dropoff_cluster",
+    "importance": 0.0012965454232846858
+  },
+  {
+    "feature": "dropoff_dist_ewr",
+    "importance": 0.001142399069890813
+  },
+  {
+    "feature": "pickup_cluster",
+    "importance": 0.0010642658403237082
+  },
+  {
+    "feature": "passenger_count",
+    "importance": 0.000927409433112536
+  },
+  {
+    "feature": "is_night",
+    "importance": 0.0005043817009200054
+  },
+  {
+    "feature": "hour",
+    "importance": 0.00037218842649259604
+  },
+  {
+    "feature": "is_pm_rush",
+    "importance": 0.000370265502879219
+  },
+  {
+    "feature": "vendor_id",
+    "importance": 0.00031470321972559834
+  },
+  {
+    "feature": "same_cluster",
+    "importance": 0.00026480083769316504
+  },
+  {
+    "feature": "is_weekend",
+    "importance": 3.212586891839416e-05
+  },
+  {
+    "feature": "is_ewr_trip",
+    "importance": 2.266317275734231e-06
+  },
+  {
+    "feature": "month",
+    "importance": 0.0
+  },
+  {
+    "feature": "day_of_year",
+    "importance": 0.0
+  },
+  {
+    "feature": "is_jfk_trip",
+    "importance": -1.0113479799141642e-05
+  },
+  {
+    "feature": "is_lga_trip",
+    "importance": -2.1454158130114937e-05
+  }
+]

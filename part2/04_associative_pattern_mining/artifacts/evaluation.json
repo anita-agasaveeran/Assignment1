@@ -1,0 +1,466 @@
+{
+  "baseline": {
+    "params": {
+      "min_support": 0.02,
+      "min_confidence": 0.3,
+      "min_lift": 1.05,
+      "max_antecedent_len": 3,
+      "max_itemset_len": 4
+    },
+    "objective": {
+      "value": 0.7157080024151565,
+      "terms": {
+        "validated_yield": 0.8397437026237381,
+        "effect_size": 0.6503887263225133,
+        "coverage": 0.584244670991659,
+        "parsimony": 0.6141304347826088,
+        "cost": 0.8093854723962715
+      },
+      "weighted": {
+        "validated_yield": 0.2939102959183083,
+        "effect_size": 0.16259718158062833,
+        "coverage": 0.11684893419833181,
+        "parsimony": 0.061413043478260876,
+        "cost": 0.08093854723962715
+      },
+      "diagnostics": {
+        "min_count": 252,
+        "n_itemsets": 412,
+        "n_candidate_rules": 274,
+        "n_rules": 223,
+        "n_validated": 184,
+        "median_kulczynski": 0.44702,
+        "median_lift": 6.838,
+        "mean_antecedent_len": 1.13,
+        "consequent_redundancy": 0.7065,
+        "seconds": 0.2622,
+        "replication_rate": 0.8251,
+        "lift_rank_spearman": 0.7863
+      }
+    }
+  },
+  "champion": {
+    "params": {
+      "min_support": 0.009885895323766809,
+      "min_confidence": 0.3602419215696581,
+      "min_lift": 2.907744637179179,
+      "max_antecedent_len": 1,
+      "max_itemset_len": 2
+    },
+    "objective": {
+      "value": 0.8028766402999166,
+      "terms": {
+        "validated_yield": 0.9653844526057135,
+        "effect_size": 0.6964206461857156,
+        "coverage": 0.8168674698795181,
+        "parsimony": 0.6972704714640199,
+        "cost": 0.5778637921918233
+      },
+      "weighted": {
+        "validated_yield": 0.3378845584119997,
+        "effect_size": 0.1741051615464289,
+        "coverage": 0.16337349397590362,
+        "parsimony": 0.06972704714640199,
+        "cost": 0.05778637921918233
+      },
+      "diagnostics": {
+        "n_rules": 500,
+        "n_validated": 403,
+        "median_kulczynski": 0.47133,
+        "median_lift": 12.73988,
+        "mean_antecedent_len": 1.0,
+        "consequent_redundancy": 0.6055,
+        "seconds": 0.5807,
+        "replication_rate": 0.806,
+        "lift_rank_spearman": 0.862
+      }
+    }
+  },
+  "holdout": {
+    "n_rules": 500,
+    "n_holdout_transactions": 5395,
+    "n_with_min_count": 496,
+    "n_replicated": 403,
+    "replication_rate": 0.806,
+    "n_validated": 403,
+    "validated_rate": 0.806,
+    "coverage": 0.8168674698795181,
+    "firing_precision": 0.4551124471477335,
+    "lift_rank_spearman": 0.8619959979987596,
+    "confidence_drift_mean": -0.032813937597958205,
+    "confidence_drift_mae": 0.07518040151397273,
+    "lift_drift_mean": 12.516895647988498,
+    "median_holdout_p": 1.5597099726967103e-59
+  },
+  "null_baseline": {
+    "enabled": true,
+    "method": "swap randomisation preserving basket sizes and item frequencies (Gionis et al., ACM TKDD 2007)",
+    "n_swaps_performed": 2933270,
+    "n_rules_real": 500,
+    "n_rules_null": 0,
+    "n_significant_null": 0,
+    "empirical_fdr": 0.0,
+    "interpretation": "Rules found on data whose item frequencies and basket sizes match the real data but whose co-occurrence structure has been destroyed are, by construction, false discoveries. The ratio is a distribution-free check on the analytic FDR."
+  },
+  "benchmark": {
+    "min_count": 125,
+    "max_itemset_len": 2,
+    "runs": [
+      {
+        "algorithm": "fpgrowth",
+        "seconds": 0.6665,
+        "itemsets_found": 1534,
+        "candidates_generated": 1534,
+        "nodes_created": 197379,
+        "conditional_trees": 211,
+        "passes": 0,
+        "max_depth": 2,
+        "agrees_with_fpgrowth": true
+      },
+      {
+        "algorithm": "apriori",
+        "seconds": 80.6971,
+        "itemsets_found": 1534,
+        "candidates_generated": 264180,
+        "nodes_created": 0,
+        "conditional_trees": 0,
+        "passes": 2,
+        "max_depth": 0,
+        "agrees_with_fpgrowth": true
+      },
+      {
+        "algorithm": "eclat",
+        "seconds": 0.9181,
+        "itemsets_found": 1534,
+        "candidates_generated": 1534,
+        "nodes_created": 0,
+        "conditional_trees": 0,
+        "passes": 0,
+        "max_depth": 2,
+        "agrees_with_fpgrowth": true
+      }
+    ],
+    "fastest": "fpgrowth",
+    "all_agree": true,
+    "note": "All three are exact algorithms, so identical output is a correctness requirement, not a coincidence. Divergence would mean a bug in the from-scratch FP-Growth."
+  },
+  "significance": {
+    "n_rules_tested": 530,
+    "n_hypotheses_corrected_for": 6484662,
+    "correction": "bh",
+    "alpha": 0.05,
+    "n_significant_uncorrected": 530,
+    "n_significant_corrected": 530,
+    "expected_false_positives_uncorrected": 26.5,
+    "median_p": 1.8884563141798586e-186,
+    "min_p": 0.0,
+    "n_productive": 530,
+    "n_significant_and_productive": 530
+  },
+  "lift_calibration": [
+    {
+      "bin": 0,
+      "explore_lift_mean": 4.948409776266295,
+      "holdout_lift_mean": 7.274976643048341,
+      "n": 63,
+      "range": [
+        3.0915165275510756,
+        5.751124557434595
+      ]
+    },
+    {
+      "bin": 1,
+      "explore_lift_mean": 6.243668372661979,
+      "holdout_lift_mean": 8.492722456135835,
+      "n": 62,
+      "range": [
+        5.751124557434595,
+        6.853855331835241
+      ]
+    },
+    {
+      "bin": 2,
+      "explore_lift_mean": 7.656201577436155,
+      "holdout_lift_mean": 9.986693060507196,
+      "n": 63,
+      "range": [
+        6.853855331835241,
+        8.891318992639393
+      ]
+    },
+    {
+      "bin": 3,
+      "explore_lift_mean": 10.218387311303479,
+      "holdout_lift_mean": 14.694686718850747,
+      "n": 62,
+      "range": [
+        8.891318992639393,
+        11.68014329234056
+      ]
+    },
+    {
+      "bin": 4,
+      "explore_lift_mean": 12.954443284136508,
+      "holdout_lift_mean": 16.18128218242353,
+      "n": 61,
+      "range": [
+        11.68014329234056,
+        14.68355650233313
+      ]
+    },
+    {
+      "bin": 5,
+      "explore_lift_mean": 19.135335871809566,
+      "holdout_lift_mean": 25.657872984609895,
+      "n": 63,
+      "range": [
+        14.68355650233313,
+        22.96897810218978
+      ]
+    },
+    {
+      "bin": 6,
+      "explore_lift_mean": 27.117567156764718,
+      "holdout_lift_mean": 38.17054168854606,
+      "n": 62,
+      "range": [
+        22.96897810218978,
+        34.250340136054426
+      ]
+    },
+    {
+      "bin": 7,
+      "explore_lift_mean": 44.27989174150747,
+      "holdout_lift_mean": 46.693312127876084,
+      "n": 64,
+      "range": [
+        34.250340136054426,
+        50.0
+      ]
+    }
+  ],
+  "sensitivity": {
+    "min_support": [
+      {
+        "value": 0.005,
+        "objective": 0.7589993959742691,
+        "n_rules": 500,
+        "n_validated": 403,
+        "coverage": 0.8168674698795181,
+        "seconds": 1.1844
+      },
+      {
+        "value": 0.00707,
+        "objective": 0.7815465113666894,
+        "n_rules": 500,
+        "n_validated": 403,
+        "coverage": 0.8168674698795181,
+        "seconds": 0.8742
+      },
+      {
+        "value": 0.01,
+        "objective": 0.802344182281702,
+        "n_rules": 500,
+        "n_validated": 403,
+        "coverage": 0.8168674698795181,
+        "seconds": 0.5881
+      },
+      {
+        "value": 0.01414,
+        "objective": 0.7451645923600263,
+        "n_rules": 288,
+        "n_validated": 218,
+        "coverage": 0.7075069508804449,
+        "seconds": 0.5191
+      },
+      {
+        "value": 0.02,
+        "objective": 0.6966246677610444,
+        "n_rules": 150,
+        "n_validated": 115,
+        "coverage": 0.5621872103799814,
+        "seconds": 0.1825
+      },
+      {
+        "value": 0.02828,
+        "objective": 0.6000603242364506,
+        "n_rules": 52,
+        "n_validated": 38,
+        "coverage": 0.3885078776645042,
+        "seconds": 0.2409
+      },
+      {
+        "value": 0.04,
+        "objective": 0.49455091076919355,
+        "n_rules": 5,
+        "n_validated": 4,
+        "coverage": 0.14439295644114922,
+        "seconds": 0.0523
+      },
+      {
+        "value": 0.05657,
+        "objective": 0.09761905651094893,
+        "n_rules": 0,
+        "n_validated": 0,
+        "coverage": 0.0,
+        "seconds": 0.0328
+      },
+      {
+        "value": 0.08,
+        "objective": 0.09817638909980753,
+        "n_rules": 0,
+        "n_validated": 0,
+        "coverage": 0.0,
+        "seconds": 0.0251
+      }
+    ],
+    "min_confidence": [
+      {
+        "value": 0.05,
+        "objective": 0.7871456561532518,
+        "n_rules": 500,
+        "n_validated": 500,
+        "coverage": 0.7753475440222428,
+        "seconds": 0.5869
+      },
+      {
+        "value": 0.15,
+        "objective": 0.7860836271961118,
+        "n_rules": 500,
+        "n_validated": 489,
+        "coverage": 0.7753475440222428,
+        "seconds": 0.5872
+      },
+      {
+        "value": 0.25,
+        "objective": 0.7894623733492082,
+        "n_rules": 500,
+        "n_validated": 443,
+        "coverage": 0.7814643188137164,
+        "seconds": 0.5853
+      },
+      {
+        "value": 0.35,
+        "objective": 0.8026285981409568,
+        "n_rules": 500,
+        "n_validated": 407,
+        "coverage": 0.8137164040778498,
+        "seconds": 0.5812
+      },
+      {
+        "value": 0.45,
+        "objective": 0.7761144702361856,
+        "n_rules": 333,
+        "n_validated": 242,
+        "coverage": 0.7403151065801669,
+        "seconds": 0.579
+      },
+      {
+        "value": 0.55,
+        "objective": 0.7437305649258,
+        "n_rules": 173,
+        "n_validated": 126,
+        "coverage": 0.6582020389249305,
+        "seconds": 0.5776
+      },
+      {
+        "value": 0.65,
+        "objective": 0.6754234495188419,
+        "n_rules": 89,
+        "n_validated": 70,
+        "coverage": 0.4231696014828545,
+        "seconds": 0.5767
+      },
+      {
+        "value": 0.75,
+        "objective": 0.5944256442888197,
+        "n_rules": 49,
+        "n_validated": 43,
+        "coverage": 0.12400370713623726,
+        "seconds": 0.5763
+      },
+      {
+        "value": 0.85,
+        "objective": 0.5441131585316915,
+        "n_rules": 29,
+        "n_validated": 25,
+        "coverage": 0.03113994439295644,
+        "seconds": 0.5759
+      }
+    ],
+    "min_lift": [
+      {
+        "value": 1.0,
+        "objective": 0.8027066260083054,
+        "n_rules": 500,
+        "n_validated": 402,
+        "coverage": 0.8168674698795181,
+        "seconds": 0.5822
+      },
+      {
+        "value": 1.3125,
+        "objective": 0.8027930131789159,
+        "n_rules": 500,
+        "n_validated": 402,
+        "coverage": 0.8168674698795181,
+        "seconds": 0.581
+      },
+      {
+        "value": 1.625,
+        "objective": 0.8027417133036179,
+        "n_rules": 500,
+        "n_validated": 402,
+        "coverage": 0.8168674698795181,
+        "seconds": 0.5818
+      },
+      {
+        "value": 1.9375,
+        "objective": 0.8027430882808627,
+        "n_rules": 500,
+        "n_validated": 402,
+        "coverage": 0.8168674698795181,
+        "seconds": 0.5817
+      },
+      {
+        "value": 2.25,
+        "objective": 0.8027009532535062,
+        "n_rules": 500,
+        "n_validated": 402,
+        "coverage": 0.8168674698795181,
+        "seconds": 0.5823
+      },
+      {
+        "value": 2.5625,
+        "objective": 0.8027092094296637,
+        "n_rules": 500,
+        "n_validated": 402,
+        "coverage": 0.8168674698795181,
+        "seconds": 0.5822
+      },
+      {
+        "value": 2.875,
+        "objective": 0.8028199736194448,
+        "n_rules": 500,
+        "n_validated": 403,
+        "coverage": 0.8168674698795181,
+        "seconds": 0.5815
+      },
+      {
+        "value": 3.1875,
+        "objective": 0.8030122098492442,
+        "n_rules": 500,
+        "n_validated": 405,
+        "coverage": 0.8170528266913809,
+        "seconds": 0.5817
+      },
+      {
+        "value": 3.5,
+        "objective": 0.8029223336318293,
+        "n_rules": 500,
+        "n_validated": 405,
+        "coverage": 0.8170528266913809,
+        "seconds": 0.583
+      }
+    ]
+  }
+}

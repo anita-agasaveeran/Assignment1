@@ -1,0 +1,372 @@
+{
+  "study": "hillclimb-v1",
+  "method": "greedy hill climbing with paired trials and a seed-variance noise floor",
+  "noise_sigma": 0.03762382012003178,
+  "accept_threshold": 0.03762382012003178,
+  "baseline_mean": 3.2189669489860533,
+  "champion_mean": 2.4719883600870767,
+  "improvement": 0.7469785888989766,
+  "improvement_pct": 23.21,
+  "effect_size_cohens_d": 1.82,
+  "baseline_seed_losses": [
+    3.188825237751007,
+    3.1810679912567137,
+    3.2870076179504393
+  ],
+  "champion_seed_losses": [
+    2.4697105169296263,
+    2.473499369621277,
+    2.472755193710327
+  ],
+  "accepted": [
+    {
+      "key": "muon",
+      "round": 1,
+      "delta": -0.33309489488601685,
+      "z": -8.853298092095374,
+      "val_loss": 2.8493530988693236,
+      "title": "Muon optimizer for hidden weights",
+      "papers": [
+        "liu2025muon",
+        "jordan2024muon",
+        "loshchilov2017adamw"
+      ],
+      "claim": "Orthogonalized momentum updates roughly double token efficiency versus AdamW.",
+      "expect": "clearly lower val loss at the same step budget.",
+      "category": "optimization"
+    },
+    {
+      "key": "no_dropout",
+      "round": 2,
+      "delta": -0.16892708539962742,
+      "z": -4.489897220981205,
+      "val_loss": 2.673121523857117,
+      "title": "Disable dropout",
+      "papers": [
+        "srivastava2014dropout",
+        "hoffmann2022chinchilla"
+      ],
+      "claim": "In the data-rich / few-epoch regime, dropout costs capacity without preventing overfit.",
+      "expect": "lower val loss when the train/val gap is already small.",
+      "category": "regularization"
+    },
+    {
+      "key": "rope",
+      "round": 3,
+      "delta": -0.09674537181854248,
+      "z": -2.5713861992188574,
+      "val_loss": 2.5882405042648315,
+      "title": "Rotary position embeddings",
+      "papers": [
+        "su2021rope",
+        "peng2023yarn"
+      ],
+      "claim": "Relative position injected by rotating q/k beats a learned absolute table.",
+      "expect": "lower val loss and no learned position parameters.",
+      "category": "positional"
+    },
+    {
+      "key": "qk_norm",
+      "round": 4,
+      "delta": -0.0554865479469302,
+      "z": -1.4747717741024362,
+      "val_loss": 2.531409168243408,
+      "title": "Query-key normalization",
+      "papers": [
+        "henry2020qknorm",
+        "dehghani2023vit22b",
+        "wortsman2023proxies"
+      ],
+      "claim": "Normalizing q,k bounds attention logits and prevents attention entropy collapse.",
+      "expect": "lower max attention logit; enables a higher stable learning rate.",
+      "category": "normalization"
+    },
+    {
+      "key": "hi_lr",
+      "round": 5,
+      "delta": -0.06241418123245257,
+      "z": -1.658900691990653,
+      "val_loss": 2.4645878076553345,
+      "title": "Raise peak learning rate 2x",
+      "papers": [
+        "yang2022mup",
+        "mccandlish2018batch"
+      ],
+      "claim": "Small models tolerate much higher LR than large-model defaults suggest; tune on the proxy.",
+      "expect": "lower val loss if stable, divergence if not - this is a genuine risk trial.",
+      "category": "optimization"
+    }
+  ],
+  "rejected": [
+    {
+      "key": "tie_embeddings",
+      "round": 5,
+      "delta": -0.04518642425537145,
+      "z": -1.201005748783951,
+      "title": "Tied input/output embeddings",
+      "papers": [
+        "press2016tying"
+      ],
+      "claim": "Sharing the embedding matrix with the output head cuts parameters and helps perplexity.",
+      "expect": "fewer parameters; equal or better val loss.",
+      "category": "architecture",
+      "rounds_tested": 5,
+      "cleared_threshold": true
+    },
+    {
+      "key": "swiglu",
+      "round": 5,
+      "delta": -0.04451979398727435,
+      "z": -1.1832874451675095,
+      "title": "SwiGLU feed-forward",
+      "papers": [
+        "shazeer2020glu",
+        "touvron2023llama"
+      ],
+      "claim": "Gated FFNs beat GELU FFNs at matched parameter count.",
+      "expect": "lower val loss at ~equal parameters (d_ff shrinks to 8/3*d).",
+      "category": "ffn",
+      "rounds_tested": 5,
+      "cleared_threshold": true
+    },
+    {
+      "key": "wsd",
+      "round": 5,
+      "delta": -0.03377696275711095,
+      "z": -0.8977547375399907,
+      "title": "Warmup-Stable-Decay schedule",
+      "papers": [
+        "hu2024minicpm",
+        "loshchilov2016sgdr"
+      ],
+      "claim": "A constant-LR body with a short final decay matches or beats cosine and is budget-agnostic.",
+      "expect": "equal or lower final val loss; loss plateau then sharp end-of-run drop.",
+      "category": "schedule",
+      "rounds_tested": 5,
+      "cleared_threshold": false
+    },
+    {
+      "key": "resid_init",
+      "round": 5,
+      "delta": -0.01003196239471471,
+      "z": -0.2666385912623866,
+      "title": "1/sqrt(2L) residual-projection init",
+      "papers": [
+        "radford2019gpt2",
+        "xiong2020prenorm"
+      ],
+      "claim": "Down-scaling residual-branch output init keeps activation variance constant with depth.",
+      "expect": "smaller early grad-norm spike; faster early loss drop.",
+      "category": "initialization",
+      "rounds_tested": 5,
+      "cleared_threshold": false
+    },
+    {
+      "key": "wd_on_2d_only",
+      "round": 5,
+      "delta": -0.0047262072563172275,
+      "z": -0.1256174211241481,
+      "title": "Weight decay only on matrices",
+      "papers": [
+        "loshchilov2017adamw"
+      ],
+      "claim": "Decoupled decay applied to 2-D weights (not norms/biases/embeddings) regularizes correctly.",
+      "expect": "smaller train/val gap at equal train loss.",
+      "category": "regularization",
+      "rounds_tested": 5,
+      "cleared_threshold": false
+    },
+    {
+      "key": "rmsnorm",
+      "round": 5,
+      "delta": -0.0003943681716922498,
+      "z": -0.010481874791929467,
+      "title": "RMSNorm instead of LayerNorm",
+      "papers": [
+        "zhang2019rmsnorm",
+        "ba2016layernorm"
+      ],
+      "claim": "Removing mean-centering matches LayerNorm quality at lower cost.",
+      "expect": "val loss within noise; measurably higher tokens/s.",
+      "category": "normalization",
+      "rounds_tested": 5,
+      "cleared_threshold": false
+    },
+    {
+      "key": "z_loss",
+      "round": 5,
+      "delta": 0.00034184455871555386,
+      "z": 0.00908585458959145,
+      "title": "Softmax z-loss",
+      "papers": [
+        "chowdhery2022palm",
+        "wortsman2023proxies"
+      ],
+      "claim": "Penalizing log-Z^2 keeps the softmax normalizer near 1 and stops logit drift.",
+      "expect": "bounded logit norm; equal or slightly better loss, better calibration.",
+      "category": "objective",
+      "rounds_tested": 5,
+      "cleared_threshold": false
+    },
+    {
+      "key": "logit_cap",
+      "round": 5,
+      "delta": 0.0009374260902403897,
+      "z": 0.024915760474340635,
+      "title": "tanh logit soft-capping",
+      "papers": [
+        "gemma2024gemma2"
+      ],
+      "claim": "Soft-capping final logits bounds them smoothly without hard clipping.",
+      "expect": "lower max logit; loss within noise.",
+      "category": "objective",
+      "rounds_tested": 5,
+      "cleared_threshold": false
+    },
+    {
+      "key": "rope_theta",
+      "round": 5,
+      "delta": 0.007262325286864879,
+      "z": 0.1930246653236111,
+      "title": "Raise RoPE base to 50k",
+      "papers": [
+        "peng2023yarn",
+        "su2021rope"
+      ],
+      "claim": "A larger rotary base lowers frequency aliasing and eases later context extension.",
+      "expect": "neutral at 512 ctx - included to demonstrate a true null result.",
+      "category": "positional",
+      "rounds_tested": 2,
+      "cleared_threshold": false
+    },
+    {
+      "key": "gqa",
+      "round": 5,
+      "delta": 0.020611703395843506,
+      "z": 0.5478365389289475,
+      "title": "Grouped-query attention",
+      "papers": [
+        "ainslie2023gqa",
+        "shazeer2019mqa",
+        "jiang2023mistral"
+      ],
+      "claim": "Sharing K/V across head groups keeps quality while shrinking the KV cache.",
+      "expect": "val loss within noise; 3x smaller KV cache and faster decode.",
+      "category": "attention",
+      "rounds_tested": 5,
+      "cleared_threshold": false
+    },
+    {
+      "key": "label_smoothing",
+      "round": 5,
+      "delta": 0.04195048809051505,
+      "z": 1.1149981037725527,
+      "title": "Label smoothing 0.05",
+      "papers": [
+        "szegedy2015labelsmooth"
+      ],
+      "claim": "Smoothing targets curbs overconfidence and improves calibration.",
+      "expect": "better ECE, slightly worse raw CE - a deliberate metric trade-off.",
+      "category": "regularization",
+      "rounds_tested": 5,
+      "cleared_threshold": false
+    },
+    {
+      "key": "long_warmup",
+      "round": 5,
+      "delta": 0.05413404703140223,
+      "z": 1.4388237786247557,
+      "title": "Longer LR warmup",
+      "papers": [
+        "liu2019radam",
+        "xiong2020prenorm"
+      ],
+      "claim": "Warmup compensates for high adaptive-LR variance in the first few hundred steps.",
+      "expect": "lower early grad-norm; more stable start.",
+      "category": "schedule",
+      "rounds_tested": 5,
+      "cleared_threshold": false
+    }
+  ],
+  "n_tested": 17,
+  "rounds_run": 5,
+  "champion_config": {
+    "name": "proxy",
+    "phase": "autoresearch",
+    "notes": "",
+    "tags": [],
+    "out_dir": "runs",
+    "model": {
+      "vocab_size": 8192,
+      "n_layer": 4,
+      "n_head": 4,
+      "n_kv_head": 4,
+      "d_model": 256,
+      "d_ff": 1024,
+      "max_seq_len": 256,
+      "norm": "layernorm",
+      "norm_placement": "pre",
+      "pos": "rope",
+      "ffn": "gelu",
+      "qk_norm": true,
+      "tie_embeddings": false,
+      "bias": false,
+      "dropout": 0.0,
+      "rope_theta": 10000.0,
+      "norm_eps": 1e-05,
+      "init_std": 0.02,
+      "scale_resid_init": false,
+      "z_loss": 0.0,
+      "logit_soft_cap": 0.0,
+      "attn_soft_cap": 0.0
+    },
+    "data": {
+      "corpus": "data/processed/stories",
+      "tokenizer": "data/processed/tokenizer.json",
+      "seq_len": 512,
+      "min_doc_chars": 64,
+      "exact_dedup": true,
+      "near_dedup": true,
+      "near_dup_threshold": 0.8,
+      "minhash_perms": 64,
+      "minhash_bands": 16,
+      "shingle_size": 5
+    },
+    "train": {
+      "steps": 300,
+      "batch_size": 32,
+      "grad_accum": 1,
+      "seq_len": 256,
+      "optimizer": "muon",
+      "lr": 0.006,
+      "muon_lr": 0.02,
+      "min_lr_ratio": 0.1,
+      "warmup_steps": 50,
+      "schedule": "cosine",
+      "wsd_decay_frac": 0.2,
+      "weight_decay": 0.0,
+      "beta1": 0.9,
+      "beta2": 0.95,
+      "eps": 1e-08,
+      "grad_clip": 1.0,
+      "label_smoothing": 0.0,
+      "device": "auto",
+      "dtype": "bfloat16",
+      "compile": false,
+      "seed": 1337,
+      "eval_every": 100,
+      "eval_iters": 20,
+      "log_every": 25,
+      "sample_every": 0,
+      "ckpt_every": 0,
+      "save_checkpoints": false
+    }
+  },
+  "champion_yaml": "runs/autoresearch/hillclimb-v1/champion.yaml",
+  "wall_minutes": 74.1,
+  "converged": false,
+  "still_significant": [
+    "tie_embeddings",
+    "swiglu"
+  ]
+}

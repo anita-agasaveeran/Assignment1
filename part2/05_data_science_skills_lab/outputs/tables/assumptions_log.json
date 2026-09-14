@@ -1,0 +1,68 @@
+{
+  "analysis": "CRISP-DM skill demonstration - Titanic + Online Retail",
+  "date": "2026-09-01",
+  "analyst": "anita.agasaveeran@sjsu.edu",
+  "decision_informed": "Which analytics/ML skills to adopt as team standard, and whether the survival model may be promoted.",
+  "assumptions": [
+    {
+      "id": 1,
+      "category": "data",
+      "assumption": "Rows with a null CustomerID (24.9%) can be excluded from customer-level analysis.",
+      "rationale": "They cannot be attributed to a customer by construction.",
+      "confidence": "high",
+      "impact_if_wrong": "medium",
+      "validation": "VALIDATED - reconciled to the raw feed with zero unexplained residual.",
+      "status": "closed"
+    },
+    {
+      "id": 2,
+      "category": "data",
+      "assumption": "Cancellations (InvoiceNo prefix 'C') are excluded from gross revenue.",
+      "rationale": "Standard treatment for this dataset; gross, not net.",
+      "confidence": "high",
+      "impact_if_wrong": "high",
+      "validation": "VALIDATED - accounts for GBP -896,812 of the 8.58% source-to-mart gap.",
+      "status": "closed"
+    },
+    {
+      "id": 3,
+      "category": "business_logic",
+      "assumption": "Gross margin is 45% for LTV.",
+      "rationale": "Industry placeholder; the dataset contains no cost data.",
+      "confidence": "low",
+      "impact_if_wrong": "high",
+      "validation": "OPEN - LTV scales linearly with this. Needs a finance-supplied figure.",
+      "status": "open"
+    },
+    {
+      "id": 4,
+      "category": "business_logic",
+      "assumption": "A 5% lift in 1st->2nd order conversion is achievable from a reorder prompt.",
+      "rationale": "Assumption, not measurement. No experiment has been run.",
+      "confidence": "low",
+      "impact_if_wrong": "high",
+      "validation": "OPEN - the impact estimate is linear in this. Run an A/B test before committing budget.",
+      "status": "open"
+    },
+    {
+      "id": 5,
+      "category": "statistical",
+      "assumption": "Titanic rows are independent.",
+      "rationale": "Required for a random stratified split to be valid.",
+      "confidence": "medium",
+      "impact_if_wrong": "medium",
+      "validation": "OPEN - families share tickets and cabins, so relatives can span the train/test split. GroupKFold on ticket would be more conservative.",
+      "status": "open"
+    },
+    {
+      "id": 6,
+      "category": "statistical",
+      "assumption": "The 179-row holdout is large enough to estimate PR-AUC.",
+      "rationale": "20% of an 891-row dataset.",
+      "confidence": "low",
+      "impact_if_wrong": "medium",
+      "validation": "OPEN - the CV/holdout gap of 0.076 is consistent with sampling noise at this n. Repeated nested CV would tighten it.",
+      "status": "open"
+    }
+  ]
+}

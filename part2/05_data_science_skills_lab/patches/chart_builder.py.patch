@@ -1,0 +1,12 @@
+--- /tmp/chart_builder.py.orig	2026-09-01 17:51:57
++++ /Users/anitaagasaveeran/.claude/skills/visualization-builder/scripts/chart_builder.py	2026-09-01 17:51:57
+@@ -194,6 +194,9 @@
+ 
+ 
+ if __name__ == "__main__":
++    if len(sys.argv) > 1:
++        main()
++        sys.exit(0)
+     # Demo: recommendation + ASCII chart
+     print("=== Chart Recommendations ===")
+     for dt, cats in [("time-series", 12), ("comparison", 5), ("part-to-whole", 3),

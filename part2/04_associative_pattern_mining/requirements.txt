@@ -1,0 +1,19 @@
+# ARMLab -- associative pattern mining (CRISP-DM + AutoResearch)
+# Pinned to what this project was developed and tested against.
+pandas>=2.2
+numpy>=1.26
+scipy>=1.11            # hypergeometric tail for the exact Fisher test
+pyarrow>=15            # Parquet cache for the raw transaction log
+openpyxl>=3.1          # the UCI/Kaggle source ships as .xlsx
+PyYAML>=6.0            # experiment configuration
+fastapi>=0.110         # dashboard backend + rule-serving API
+uvicorn>=0.27
+pydantic>=2.6
+pytest>=8.0            # test suite
+
+# Deliberately NOT required: mlxtend / apyori / arules.
+# FP-Growth, Apriori and Eclat are implemented from scratch in src/armlab/mining
+# so the pipeline can expose exact support counts, reuse the itemset lattice
+# across AutoResearch trials, and instrument tree/candidate construction --
+# none of which the library APIs surface. tests/test_mining.py checks all three
+# against a brute-force oracle.

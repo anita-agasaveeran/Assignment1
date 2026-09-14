@@ -1,0 +1,10 @@
+--- /tmp/ts_analyzer.py.orig	2026-09-01 17:51:57
++++ /Users/anitaagasaveeran/.claude/skills/time-series-analysis/scripts/ts_analyzer.py	2026-09-01 17:51:57
+@@ -202,4 +202,7 @@
+ 
+ 
+ if __name__ == "__main__":
++    if len(sys.argv) > 1:
++        main()
++        sys.exit(0)
+     _demo()

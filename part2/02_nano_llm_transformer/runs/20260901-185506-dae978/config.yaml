@@ -1,0 +1,67 @@
+name: proxy
+phase: autoresearch
+notes: ''
+tags: []
+out_dir: runs
+model:
+  vocab_size: 8192
+  n_layer: 4
+  n_head: 4
+  n_kv_head: 4
+  d_model: 256
+  d_ff: 1024
+  max_seq_len: 256
+  norm: layernorm
+  norm_placement: pre
+  pos: rope
+  ffn: gelu
+  qk_norm: true
+  tie_embeddings: false
+  bias: false
+  dropout: 0.0
+  rope_theta: 10000.0
+  norm_eps: 1.0e-05
+  init_std: 0.02
+  scale_resid_init: false
+  z_loss: 0.0
+  logit_soft_cap: 0.0
+  attn_soft_cap: 0.0
+data:
+  corpus: data/processed/stories
+  tokenizer: data/processed/tokenizer.json
+  seq_len: 512
+  min_doc_chars: 64
+  exact_dedup: true
+  near_dedup: true
+  near_dup_threshold: 0.8
+  minhash_perms: 64
+  minhash_bands: 16
+  shingle_size: 5
+train:
+  steps: 300
+  batch_size: 32
+  grad_accum: 1
+  seq_len: 256
+  optimizer: muon
+  lr: 0.003
+  muon_lr: 0.02
+  min_lr_ratio: 0.1
+  warmup_steps: 200
+  schedule: cosine
+  wsd_decay_frac: 0.2
+  weight_decay: 0.0
+  beta1: 0.9
+  beta2: 0.95
+  eps: 1.0e-08
+  grad_clip: 1.0
+  label_smoothing: 0.0
+  device: auto
+  dtype: bfloat16
+  compile: false
+  seed: 1837
+  eval_every: 100
+  eval_iters: 20
+  log_every: 25
+  sample_every: 0
+  ckpt_every: 0
+  save_checkpoints: false

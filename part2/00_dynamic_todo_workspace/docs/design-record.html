@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tasks Design Record</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap">
+
+<style>
+/* ── tokens: light is the base set ─────────────────────────────────── */
+:root{
+  --ground:#f1f3f2;
+  --surface:#fbfcfb;
+  --sunk:#e8ecea;
+  --ink:#141c1b;
+  --ink-2:#4b5856;
+  --ink-3:#7c8a87;
+  --rule:#dbe1df;
+  --rule-strong:#c3cbc9;
+  --accent:#0d6b60;
+  --accent-soft:#dbeae7;
+  --warn:#8f6210;
+  --crit:#9d3b33;
+  --shadow:0 1px 2px rgba(20,40,38,.05);
+
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --measure:68ch;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0e1413;
+    --surface:#151d1c;
+    --sunk:#101817;
+    --ink:#e7ecea;
+    --ink-2:#a3b0ad;
+    --ink-3:#71807d;
+    --rule:#243130;
+    --rule-strong:#33423f;
+    --accent:#54c3b1;
+    --accent-soft:#11302c;
+    --warn:#d4a24a;
+    --crit:#e0796d;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0e1413;
+  --surface:#151d1c;
+  --sunk:#101817;
+  --ink:#e7ecea;
+  --ink-2:#a3b0ad;
+  --ink-3:#71807d;
+  --rule:#243130;
+  --rule-strong:#33423f;
+  --accent:#54c3b1;
+  --accent-soft:#11302c;
+  --warn:#d4a24a;
+  --crit:#e0796d;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--serif);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--accent-soft);color:var(--ink)}
+a{color:var(--accent);text-underline-offset:2px;text-decoration-thickness:.06em}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+html{scroll-behavior:smooth}
+
+/* ── shell ─────────────────────────────────────────────────────────── */
+.shell{
+  display:grid;grid-template-columns:236px minmax(0,1fr);
+  gap:clamp(28px,5vw,72px);
+  max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,44px);
+  align-items:start;
+}
+
+/* ── section rail ──────────────────────────────────────────────────── */
+.rail{
+  position:sticky;top:0;max-height:100dvh;overflow-y:auto;
+  padding:44px 0 40px;display:flex;flex-direction:column;gap:22px;
+}
+.rail-id{display:flex;flex-direction:column;gap:3px;padding-bottom:16px;border-bottom:1px solid var(--rule)}
+.rail-id b{font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:-.01em}
+.rail-id span{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.04em}
+.toc{display:flex;flex-direction:column;gap:1px}
+.toc a{
+  display:grid;grid-template-columns:22px 1fr;gap:9px;align-items:baseline;
+  padding:5px 8px 5px 6px;border-radius:3px;
+  font-family:var(--sans);font-size:13px;line-height:1.35;
+  color:var(--ink-2);text-decoration:none;border-left:2px solid transparent;
+  transition:background .12s ease,color .12s ease;
+}
+.toc a .n{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.toc a:hover{background:var(--sunk);color:var(--ink)}
+.toc a.on{border-left-color:var(--accent);color:var(--ink);background:var(--accent-soft);font-weight:500}
+.toc a.on .n{color:var(--accent)}
+
+/* ── document column ───────────────────────────────────────────────── */
+.doc{padding:44px 0 120px;max-width:var(--measure);min-width:0}
+
+.mast{border-bottom:2px solid var(--ink);padding-bottom:26px;margin-bottom:44px}
+.eyebrow{
+  font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 12px;
+}
+.mast h1{
+  font-family:var(--sans);font-weight:700;letter-spacing:-.028em;
+  font-size:clamp(38px,6vw,56px);line-height:1.02;margin:0;text-wrap:balance;
+}
+.mast .lede{
+  font-size:19px;line-height:1.55;color:var(--ink-2);margin:16px 0 0;max-width:56ch;
+}
+.spec{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(146px,1fr));
+  gap:16px 26px;margin:30px 0 0;padding-top:22px;border-top:1px solid var(--rule);
+}
+.spec div{display:flex;flex-direction:column;gap:3px}
+.spec dt{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);
+}
+.spec dd{margin:0;font-family:var(--sans);font-size:14px;font-weight:500;color:var(--ink)}
+
+/* ── sections ──────────────────────────────────────────────────────── */
+.sec{padding-top:14px;margin-bottom:52px;scroll-margin-top:24px}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
+.sec-head .num{
+  font-family:var(--mono);font-size:12px;font-weight:500;color:var(--accent);
+  font-variant-numeric:tabular-nums;padding-top:3px;
+}
+.sec h2{
+  font-family:var(--sans);font-weight:600;font-size:25px;letter-spacing:-.019em;
+  line-height:1.2;margin:0;text-wrap:balance;
+}
+.sec h3{
+  font-family:var(--sans);font-weight:600;font-size:15.5px;letter-spacing:-.008em;
+  margin:30px 0 10px;color:var(--ink);
+}
+.sec p{margin:0 0 15px}
+.sec p+p{margin-top:-2px}
+strong{font-weight:600;font-family:var(--sans);font-size:.96em}
+em{font-style:italic}
+
+/* lists */
+.sec ul,.sec ol{margin:0 0 16px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+.sec li{position:relative;padding-left:20px}
+.sec ul>li::before{
+  content:"";position:absolute;left:2px;top:.62em;width:5px;height:5px;
+  background:var(--rule-strong);
+}
+.sec ol{counter-reset:step}
+.sec ol>li{counter-increment:step;padding-left:26px}
+.sec ol>li::before{
+  content:counter(step);position:absolute;left:0;top:.16em;
+  font-family:var(--mono);font-size:11.5px;color:var(--accent);font-variant-numeric:tabular-nums;
+}
+
+/* inline code + mono */
+code{
+  font-family:var(--mono);font-size:.855em;background:var(--sunk);
+  padding:.12em .34em;border-radius:2px;color:var(--ink);
+  overflow-wrap:break-word;
+}
+kbd{
+  font-family:var(--mono);font-size:.82em;background:var(--surface);
+  border:1px solid var(--rule-strong);border-bottom-width:2px;
+  padding:.08em .36em;border-radius:3px;
+}
+
+/* figure / diagram */
+.fig{margin:0 0 20px;border:1px solid var(--rule);background:var(--surface);box-shadow:var(--shadow)}
+.fig pre{
+  margin:0;padding:18px 20px;overflow-x:auto;
+  font-family:var(--mono);font-size:11.5px;line-height:1.6;color:var(--ink-2);
+}
+.fig figcaption{
+  padding:9px 20px;border-top:1px solid var(--rule);background:var(--sunk);
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--ink-3);
+  text-transform:uppercase;
+}
+
+/* callout: a claim the doc is making about itself */
+.note{
+  margin:0 0 20px;padding:15px 18px;background:var(--surface);
+  border:1px solid var(--rule);border-left:3px solid var(--accent);
+}
+.note p{margin:0;font-size:16px}
+.note p+p{margin-top:10px}
+.note .tag{
+  display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:7px;
+}
+
+/* tables */
+.scroll{overflow-x:auto;margin:0 0 20px;border:1px solid var(--rule);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:14px}
+thead th{
+  text-align:left;font-family:var(--mono);font-size:10.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);
+  padding:11px 16px;border-bottom:1px solid var(--rule-strong);background:var(--sunk);
+  white-space:nowrap;
+}
+tbody td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.5;color:var(--ink-2)}
+tbody tr:last-child td{border-bottom:0}
+tbody td:first-child{color:var(--ink);font-weight:500;min-width:170px}
+.verdict{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:500}
+.verdict.no{color:var(--crit)}
+td .why{display:block;margin-top:4px;font-weight:400;color:var(--ink-2)}
+
+/* defect ledger */
+.ledger{display:flex;flex-direction:column;gap:0;border:1px solid var(--rule);background:var(--surface);margin-bottom:20px}
+.ledger .row{display:grid;grid-template-columns:30px 1fr;gap:14px;padding:13px 16px;border-bottom:1px solid var(--rule)}
+.ledger .row:last-child{border-bottom:0}
+.ledger .idx{font-family:var(--mono);font-size:11px;color:var(--crit);padding-top:3px;font-variant-numeric:tabular-nums}
+.ledger .what{font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--ink-2)}
+.ledger .what b{display:block;color:var(--ink);font-weight:600;margin-bottom:2px}
+
+.foot{
+  margin-top:60px;padding-top:22px;border-top:1px solid var(--rule);
+  font-family:var(--mono);font-size:11.5px;color:var(--ink-3);line-height:1.7;
+}
+
+/* ── responsive ────────────────────────────────────────────────────── */
+@media (max-width:900px){
+  .shell{grid-template-columns:minmax(0,1fr);gap:0}
+  .rail{
+    position:static;max-height:none;padding:28px 0 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .toc{flex-direction:row;flex-wrap:wrap;gap:4px;padding-bottom:20px}
+  .toc a{border-left:0;border-bottom:2px solid transparent;padding:4px 9px;background:var(--surface)}
+  .toc a.on{border-left:0;border-bottom-color:var(--accent)}
+  .toc a .n{display:none}
+  .doc{padding-top:32px}
+  body{font-size:16.5px}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="rail-id">
+      <b>Tasks</b>
+      <span>Design record</span>
+    </div>
+    <nav class="toc" id="toc" aria-label="Sections">
+      <a href="#s1"><span class="n">01</span><span>Context and constraints</span></a>
+      <a href="#s2"><span class="n">02</span><span>Goals and non-goals</span></a>
+      <a href="#s3"><span class="n">03</span><span>Alternatives considered</span></a>
+      <a href="#s4"><span class="n">04</span><span>System architecture</span></a>
+      <a href="#s5"><span class="n">05</span><span>Data model</span></a>
+      <a href="#s6"><span class="n">06</span><span>API design</span></a>
+      <a href="#s7"><span class="n">07</span><span>Live sync</span></a>
+      <a href="#s8"><span class="n">08</span><span>Client architecture</span></a>
+      <a href="#s9"><span class="n">09</span><span>Quick-add parser</span></a>
+      <a href="#s10"><span class="n">10</span><span>Interaction principles</span></a>
+      <a href="#s11"><span class="n">11</span><span>Accessibility</span></a>
+      <a href="#s12"><span class="n">12</span><span>Failure modes</span></a>
+      <a href="#s13"><span class="n">13</span><span>Testing strategy</span></a>
+      <a href="#s14"><span class="n">14</span><span>Limits and next steps</span></a>
+    </nav>
+  </aside>
+
+  <main class="doc">
+    <header class="mast">
+      <p class="eyebrow">Design record</p>
+      <h1>Tasks</h1>
+      <p class="lede">What was built, why it was built that way, what was rejected, and where it breaks.</p>
+      <dl class="spec">
+        <div><dt>Scope</dt><dd>Single-user task app</dd></div>
+        <div><dt>Stack</dt><dd>Python stdlib · SQLite · ES modules</dd></div>
+        <div><dt>Dependencies</dt><dd>None</dd></div>
+        <div><dt>Tests</dt><dd>21 end-to-end, passing</dd></div>
+      </dl>
+    </header>
+
+    <!-- 1 -->
+    <section class="sec" id="s1">
+      <div class="sec-head"><span class="num">01</span><h2>Context and constraints</h2></div>
+      <p>The target machine has <strong>no Node toolchain</strong> — no <code>node</code>, no <code>nvm</code>, no Homebrew node. Python 3.14 is present with <code>sqlite3</code>. PyPI is reachable but slow; an 8-second <code>curl</code> to the simple index timed out mid-transfer.</p>
+      <p>That single fact drove the whole design. The usual answer to “build a modern full-stack todo app” — React, Vite, Express, Prisma — was not runnable, and a project that cannot be started is not a deliverable.</p>
+      <div class="note">
+        <span class="tag">Decision</span>
+        <p>Use only what is guaranteed present: Python's standard library on the server (<code>http.server</code>, <code>sqlite3</code>), and the browser's native module system on the client. No package manager, no build step, no lockfile, nothing to install.</p>
+      </div>
+      <p>Consequences accepted up front: no JSX, no TypeScript, no bundler, no component library, no test runner beyond <code>unittest</code>. Everything below is shaped by that.</p>
+    </section>
+
+    <!-- 2 -->
+    <section class="sec" id="s2">
+      <div class="sec-head"><span class="num">02</span><h2>Goals and non-goals</h2></div>
+      <h3>Goals</h3>
+      <ul>
+        <li>A genuine client/server application with a real database — not a <code>localStorage</code> toy that only looks full-stack.</li>
+        <li>Starts with one command and no install, on a machine with nothing set up.</li>
+        <li>Interaction quality of a modern task app: optimistic updates, undo, keyboard control, live multi-client sync.</li>
+        <li>Honest failure behavior — the UI should never lie about whether your data is saved.</li>
+        <li>Testable without a browser driver.</li>
+      </ul>
+      <h3>Non-goals — deliberately out of scope, not oversights</h3>
+      <ul>
+        <li>Authentication and multi-tenancy. Single user, bound to localhost.</li>
+        <li>Conflict resolution beyond last-write-wins per field.</li>
+        <li>True offline-first persistence in the browser; no IndexedDB mirror.</li>
+        <li>Recurring tasks, subtasks, attachments, reminders, collaboration.</li>
+        <li>Internationalization. Dates render in the viewer's locale, but UI text is English.</li>
+      </ul>
+    </section>
+
+    <!-- 3 -->
+    <section class="sec" id="s3">
+      <div class="sec-head"><span class="num">03</span><h2>Alternatives considered</h2></div>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Option</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr><td>React + Vite + Express</td><td><span class="verdict no">Rejected</span><span class="why">No Node on the machine. A non-starter, not a preference.</span></td></tr>
+            <tr><td>Flask / FastAPI + uvicorn</td><td><span class="verdict no">Rejected</span><span class="why">Needs <code>pip install</code> over a slow, flaky link, and buys routing and validation worth about 140 lines here. A dependency that can fail to install is a liability for a project whose main promise is “it runs”.</span></td></tr>
+            <tr><td>Django</td><td><span class="verdict no">Rejected</span><span class="why">ORM, migrations, admin, templates — nearly all unused. Cost far exceeds benefit at this size.</span></td></tr>
+            <tr><td>SPA with localStorage, no server</td><td><span class="verdict no">Rejected</span><span class="why">Not end-to-end. No shared source of truth, no real API, nothing to test on the server side.</span></td></tr>
+            <tr><td>WebSockets for live updates</td><td><span class="verdict no">Rejected</span><span class="why">The stdlib has no server-side WebSocket implementation, so this reintroduces a dependency. The traffic is one-way; WebSockets solve a problem this app does not have.</span></td></tr>
+            <tr><td>Polling for live updates</td><td><span class="verdict no">Rejected</span><span class="why">Wasteful when idle, laggy when not. SSE is strictly better for server-push over plain HTTP and needs no library on either end.</span></td></tr>
+            <tr><td>Virtual DOM on the client</td><td><span class="verdict no">Rejected</span><span class="why">See section 08 — full re-render is correct by construction and fast enough at this scale.</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="sec" id="s4">
+      <div class="sec-head"><span class="num">04</span><h2>System architecture</h2></div>
+      <figure class="fig">
+<pre>┌──────────────────────── browser ────────────────────────┐
+│  app.js      bootstrap, global keyboard, composer       │
+│  store.js    state, optimistic mutations, undo, outbox  │  ← no DOM access
+│  render.js   all DOM rendering                          │  ← no network access
+│  api.js      fetch client + EventSource                 │  ← no domain logic
+│  views.js / parse.js / dates.js / dom.js / ui.js        │
+└───────┬─────────────────────┬───────────────────┬───────┘
+        │ JSON over HTTP      │ SSE (read-only)   │ static assets
+        ▼                     ▼                   ▼
+┌────────────────────────── server ───────────────────────┐
+│  app.py     HTTP transport, SSE stream, static hosting  │
+│  api.py     routing + validation  (transport-free)      │
+│  events.py  in-process pub/sub                          │
+│  db.py      SQLite access + schema                      │
+└─────────────────────────────┬───────────────────────────┘
+                              ▼
+                    data/todo.db  (WAL)</pre>
+        <figcaption>Three request paths, one process</figcaption>
+      </figure>
+      <p><strong>Threading model.</strong> <code>ThreadingHTTPServer</code> gives one thread per request. Each thread gets its own SQLite connection via <code>threading.local()</code>, because connections are not safely shared across threads. All writes take a single process-wide lock and run inside <code>BEGIN IMMEDIATE</code>; reads never block, thanks to WAL. This is not a high-concurrency design and does not need to be — the expected load is one human and a handful of tabs.</p>
+      <p><strong>Layering rule on the client.</strong> <code>store.js</code> never touches the DOM; <code>render.js</code> never touches the network; <code>api.js</code> knows nothing about what a task means. That is what makes the optimistic-update logic legible by reading it, and it is why the store could be repointed at a different backend without touching rendering.</p>
+    </section>
+
+    <!-- 5 -->
+    <section class="sec" id="s5">
+      <div class="sec-head"><span class="num">05</span><h2>Data model</h2></div>
+      <figure class="fig">
+<pre>projects(id, name, color, position, created_at)
+tasks(id, project_id→projects, title, notes, done, priority, due_at,
+      all_day, position, created_at, updated_at, completed_at, deleted_at)
+tags(id, name UNIQUE COLLATE NOCASE)
+task_tags(task_id→tasks, tag_id→tags)      -- many-to-many</pre>
+        <figcaption>Schema</figcaption>
+      </figure>
+      <ul>
+        <li><strong>Prefixed string ids</strong> (<code>tsk_</code>, <code>prj_</code>, <code>tag_</code>) rather than integers. Self-describing in logs, URLs and error messages, and they make it impossible to pass a project id where a task id belongs and have it “work”.</li>
+        <li><strong>Soft delete</strong> (<code>deleted_at</code>) rather than <code>DELETE</code>. Undo is a product requirement, and undo built on a tombstone is trivially correct, whereas undo built on re-inserting a reconstructed row is not. Anything trashed more than 30 days ago is purged at startup.</li>
+        <li><strong><code>position REAL</code></strong> for manual ordering. Reordering renumbers the visible list as <code>i * 1024</code>; new tasks get <code>min(position) − 1024</code> so they land on top. Floats leave room for fractional insertion without a schema change if renumbering ever gets expensive — it does not at this size.</li>
+        <li><strong>Priority as 1–4</strong>, urgent to none. Ascending numeric sort is the display order, so priority sorting needs no case analysis.</li>
+        <li><strong>Tags normalized</strong> into their own table with a case-insensitive unique name, so <code>#Work</code> and <code>#work</code> cannot both exist. Input is trimmed, <code>#</code>-stripped, deduplicated and capped at 32 characters on write.</li>
+        <li><strong><code>due_at</code> stored as UTC ISO-8601, always</strong>, with a separate <code>all_day</code> flag. An all-day task is stored at local midnight converted to UTC and rendered back in local time, so it displays on the intended date. The flag is what stops the UI printing a meaningless “12:00 AM” on every dateless deadline.</li>
+      </ul>
+      <div class="note">
+        <span class="tag">Bug this caused</span>
+        <p>The demo seed originally built timestamps in UTC, so “water the plants today at 6pm” was written as <code>18:00Z</code> — 11am the same day in UTC−7, but the following day for a task seeded near midnight UTC. Since the server and browser are by definition the same machine here, the seed now anchors to the server's local timezone. Storage stays UTC; only the seed's notion of “today at 6pm” is local.</p>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="sec" id="s6">
+      <div class="sec-head"><span class="num">06</span><h2>API design</h2></div>
+      <p>Resource-oriented JSON. The full contract is in the README; the design points:</p>
+      <ul>
+        <li><strong><code>GET /api/state</code> returns everything needed to boot in one round trip</strong> — tasks, projects, tags. At this data size one request beats three and removes all boot-time ordering questions between them.</li>
+        <li><strong><code>PATCH</code> applies partial updates.</strong> Only the keys present are written, which is what makes two tabs editing different fields of the same task both win.</li>
+        <li><strong>Errors are an envelope</strong>: <code>{"error": {"status", "message", "field"}}</code>. The message is written for a person and is displayed verbatim in a toast; <code>field</code> lets the client point at the offending input. Validation is centralized in <code>api.py</code>, so the same rules apply to the UI and to <code>curl</code>.</li>
+        <li><strong>Delete is soft and paired with a restore endpoint</strong>, so undo is a first-class API operation rather than a client-side illusion.</li>
+        <li><strong><code>X-Client-Id</code></strong> on every mutating request. The server echoes it on the broadcast event so the originating tab can ignore its own change.</li>
+        <li><strong>No authentication</strong> — stated plainly rather than half-built. The server binds to <code>127.0.0.1</code> by default, and <code>--host 0.0.0.0</code> is documented as a LAN-only convenience. Anything beyond that needs accounts and TLS.</li>
+      </ul>
+    </section>
+
+    <!-- 7 -->
+    <section class="sec" id="s7">
+      <div class="sec-head"><span class="num">07</span><h2>Live sync</h2></div>
+      <p>Every mutation calls <code>events.publish(type, payload, origin)</code>, which fans the JSON frame out to one <code>queue.Queue</code> per connected SSE client. Each client's HTTP thread blocks on its queue and writes frames as they arrive.</p>
+      <ul>
+        <li><strong>Writers must never block on a slow reader.</strong> Each subscriber queue is bounded at 256 frames and <code>put_nowait</code> is used; a client that cannot keep up is dropped from the subscriber set rather than being allowed to stall a write. Availability of the write path beats delivery to a stalled listener.</li>
+        <li><strong>A 20-second heartbeat comment</strong> keeps intermediaries and the browser from treating an idle stream as dead.</li>
+        <li><strong>Echo suppression by origin id.</strong> Without it, the tab that just made an optimistic change would immediately receive its own change back and re-render from it — wasted work, and a chance to clobber an in-flight edit.</li>
+        <li><strong>A monotonic <code>seq</code> on every frame</strong>, counted across all clients. The client tracks the last sequence number it saw; a jump means it missed frames.</li>
+      </ul>
+      <div class="note">
+        <span class="tag">Delivery guarantee</span>
+        <p><strong>At-most-once, with gap-triggered resync.</strong> There is no replay buffer, so anything published while a client is disconnected is gone. Rather than pretend otherwise, the client detects the two ways it can fall behind — a sequence gap, or a reconnect after a previous connection — and recovers by re-fetching <code>/api/state</code> wholesale. Cheap at this data size, and correct regardless of how many events were missed.</p>
+      </div>
+      <p>This was the last real defect found: <code>seq</code> was being published and ignored, so a tab whose stream dropped went stale permanently and silently. Verified by killing the server, creating a task from <code>curl</code> while the tab was disconnected, then watching the tab reconnect and pick it up with no reload.</p>
+      <p>The upgrade path, if this ever needed to be exact: keep a bounded ring buffer of recent events server-side and honor the <code>Last-Event-ID</code> header that EventSource already sends on reconnect, replaying the tail instead of resyncing.</p>
+    </section>
+
+    <!-- 8 -->
+    <section class="sec" id="s8">
+      <div class="sec-head"><span class="num">08</span><h2>Client architecture</h2></div>
+
+      <h3>Data flow</h3>
+      <p>Strictly one-directional: user event → store mutation → <code>emit()</code> → render. Rendering never mutates state, and mutations never touch the DOM. Remote events enter at exactly the same place as local ones, so a change from another tab and a change from this tab travel identical paths.</p>
+
+      <h3>Optimistic mutation lifecycle</h3>
+      <figure class="fig">
+<pre>apply locally ─→ emit ─→ render          (instant)
+      └─→ request ─┬─ ok      → commit server truth, re-emit
+                   ├─ 4xx/5xx → rollback snapshot + error toast
+                   └─ network → keep change, queue in outbox, mark offline</pre>
+        <figcaption>Every mutation, without exception</figcaption>
+      </figure>
+      <p>Creates use a temporary <code>tmp_</code> id and reconcile to the server id on commit, including moving the detail-drawer selection if that task is open. Updates to a task whose create is still in flight skip the network and ride along with it.</p>
+
+      <h3>Undo and the outbox</h3>
+      <p><strong>Undo</strong> is a stack of inverse closures, capped at 50 — not a snapshot of the world. A completion pushes “set done back”; a delete pushes “restore this id”. This keeps undo O(1) in memory and composable with the optimistic path, because an undo is just another mutation.</p>
+      <p><strong>The outbox</strong> is what makes the offline claim true. A request that fails with a network error — not an HTTP error — parks its operation in a queue; the sidebar pill reports the depth (<em>“3 changes waiting to sync”</em>), and a flush is attempted on a 4-second retry timer, on the browser's <code>online</code> event, and whenever the event stream reports itself live again. The flush is ordered and stops at the first still-offline operation, re-queueing the remainder ahead of anything newer.</p>
+      <div class="note">
+        <span class="tag">Bug this caught</span>
+        <p>The original flush <code>return</code>ed on the first failure and silently discarded the rest of the batch — three queued tasks would sync one and lose two. Found by stubbing <code>fetch</code> to reject, queueing three creates, and asserting all three arrived, in order, exactly once.</p>
+      </div>
+
+      <h3>Rendering strategy</h3>
+      <p>The visible list is re-rendered in full on every change, coalesced so many mutations in one tick produce one render. No virtual DOM, no diffing, no component framework.</p>
+      <p>At a realistic size — hundreds to low thousands of rows — rebuilding a list of DOM nodes takes about a millisecond and is <em>correct by construction</em>: there is no reconciliation logic to get subtly wrong and no stale-state class of bug at all. The two places that genuinely need continuity are handled explicitly: newly-arrived rows are detected by comparing ids against the previous render, so only they animate; and an in-progress inline edit is committed before its row is replaced. If the dataset outgrew this, the fix is windowing the list, not adopting a diffing layer.</p>
+      <p><strong>Scheduling.</strong> Renders are queued with <code>requestAnimationFrame</code> — except when <code>document.hidden</code>, where a timer is used instead. This is not a micro-optimization: <code>rAF</code> is <em>paused</em> in a background tab, so a hidden tab receiving live updates would queue one frame and then coalesce every subsequent change into it forever, appearing frozen and stalling the store's own change notifications. The same trap applied to dialog autofocus, which opened dialogs with no focus in a background tab. Both now use timers.</p>
+    </section>
+
+    <!-- 9 -->
+    <section class="sec" id="s9">
+      <div class="sec-head"><span class="num">09</span><h2>Quick-add parser</h2></div>
+      <p><code>parse.js</code> turns <code>email the deck friday 2pm !p1 #work +Work</code> into a structured task. The algorithm is <strong>range claiming</strong>: each rule matches against the raw string and claims a character range; a rule may only claim a range that does not overlap one already taken; whatever text is left over, joined and whitespace-collapsed, becomes the title.</p>
+      <p>The ordering is deliberate — unambiguous sigils first (<code>#tag</code>, <code>!p1</code>, <code>+List</code>, matched longest-list-name-first), then a day, then a time. Running dates last means <code>friday</code> inside <code>#friday-standup</code> is already claimed by the tag rule and cannot be stolen by the date rule.</p>
+      <ul>
+        <li><strong>A time implies a day.</strong> <code>2pm</code> alone means today — unless today at 2pm has already passed, in which case tomorrow. That matches what people mean.</li>
+        <li><strong>A parse that consumes the entire title is wrong.</strong> Typing just <code>#work</code> should create a task <em>called</em> “#work”, not a titleless task with a tag, so that case falls back to treating the raw text as the title.</li>
+      </ul>
+      <div class="note">
+        <span class="tag">Where it runs, and why</span>
+        <p>Parsing lives on the client only. Parsing server-side would mean a round trip per keystroke for the preview chips; duplicating the grammar in both languages was rejected outright as two implementations that would drift. So the API accepts structured fields only, and remains the single authority on validation.</p>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="sec" id="s10">
+      <div class="sec-head"><span class="num">10</span><h2>Interaction principles</h2></div>
+      <ul>
+        <li><strong>Optimistic, then undo — not confirm-then-act.</strong> Confirmation dialogs are reserved for actions destructive <em>at scale</em>: clear all completed, delete a list and its tasks. Single-item actions just happen, with undo offered in a toast and on <kbd>⌘Z</kbd>.</li>
+        <li><strong>Keyboard-first.</strong> Every operation has a shortcut; <kbd>⌘K</kbd> searches tasks, jumps to lists and runs commands from one input.</li>
+        <li><strong>Show the parse before committing it.</strong> The composer renders chips for the date, priority, tag and list it understood, so natural-language input is never a guess the user discovers after pressing Enter.</li>
+        <li><strong>Progress is scoped to the current view.</strong> A ring counting globally while you are looking at Today is noise; it counts completed-versus-open within whatever the view is about.</li>
+        <li><strong>Empty states are per-view and actionable</strong>, because “Today is clear” and “no search results” call for different words and different next steps.</li>
+      </ul>
+    </section>
+
+    <!-- 11 -->
+    <section class="sec" id="s11">
+      <div class="sec-head"><span class="num">11</span><h2>Accessibility</h2></div>
+      <p>Semantic landmarks, a skip link, <code>role="checkbox"</code> with <code>aria-checked</code> on task toggles, <code>aria-current</code> on the active view, and live regions for toasts and announcements such as “Added … due Friday”. Dialogs trap Tab, close on Escape, and restore focus to the element that opened them. Focus rings are visible and never suppressed without replacement. <code>prefers-reduced-motion</code> disables all animation. Colour is never the only carrier of meaning — overdue items say “Overdue” as well as turning red.</p>
+    </section>
+
+    <!-- 12 -->
+    <section class="sec" id="s12">
+      <div class="sec-head"><span class="num">12</span><h2>Failure modes</h2></div>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Failure</th><th>Designed behavior</th></tr></thead>
+          <tbody>
+            <tr><td>Validation error (422)</td><td>Optimistic change rolled back; server's message shown in a toast; offending field named</td></tr>
+            <tr><td>Server error (5xx)</td><td>Same rollback path; generic message, traceback stays in the server log</td></tr>
+            <tr><td>Network down during a write</td><td>Change stays on screen, queues in the outbox, pill shows the count, auto-flushes on reconnect</td></tr>
+            <tr><td>Event stream drops</td><td>Backoff reconnect — 1s, ×1.8, capped at 15s — then full resync</td></tr>
+            <tr><td>Client too slow to drain its queue</td><td>Server drops that subscriber rather than blocking writers; client sees a <code>seq</code> gap on the next frame and resyncs</td></tr>
+            <tr><td>Server restarts</td><td>Indistinguishable from a stream drop; verified end-to-end</td></tr>
+            <tr><td>Two tabs edit the same task</td><td>Last write wins <em>per field</em> — <code>PATCH</code> only writes the keys it is given, so edits to different fields both survive</td></tr>
+            <tr><td>SQLite lock contention</td><td><code>busy_timeout=5000</code> plus a single-writer lock; WAL keeps readers unblocked</td></tr>
+            <tr><td>Malformed / oversized request</td><td>400 and 413 respectively, before any handler runs</td></tr>
+            <tr><td>Path traversal in a static URL</td><td>Normalized and rejected with 403; covered by a test</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section class="sec" id="s13">
+      <div class="sec-head"><span class="num">13</span><h2>Testing strategy</h2></div>
+      <p><strong>21 end-to-end tests</strong> run against a real <code>ThreadingHTTPServer</code> on an ephemeral port with a real SQLite file — no mocks, no fakes. They cover task and project lifecycles, soft delete and restore, reordering, tag normalization, every validation branch, SSE broadcast including the origin tag, and the static layer: SPA deep links, missing assets, traversal.</p>
+      <p>What that suite deliberately does not cover is the browser. No driver was available, so the UI was verified by driving a real browser manually — every view, both themes, mobile width, drag-to-reorder, the palette, dialogs, offline behavior with a stubbed <code>fetch</code>, and two-tab live sync.</p>
+      <p>That manual pass earned its keep. It found five real defects, none of which the server-side suite could have caught:</p>
+      <div class="ledger">
+        <div class="row"><span class="idx">01</span><span class="what"><b>Palette rendered over the app on load</b><code>[hidden]</code> silently overridden by <code>display:flex</code>.</span></div>
+        <div class="row"><span class="idx">02</span><span class="what"><b>Live updates stranded in background tabs</b><code>requestAnimationFrame</code> is paused when the tab is hidden.</span></div>
+        <div class="row"><span class="idx">03</span><span class="what"><b>Outbox dropped the tail of a batch</b>After the first failed write, the remaining queued writes were discarded.</span></div>
+        <div class="row"><span class="idx">04</span><span class="what"><b>Connection indicator lied</b>Reported “Live sync on” while writes were still queued.</span></div>
+        <div class="row"><span class="idx">05</span><span class="what"><b>Dropped stream left a tab stale forever</b><code>seq</code> was published but never checked, so missed frames went undetected.</span></div>
+      </div>
+      <div class="note">
+        <span class="tag">The honest read</span>
+        <p>The automated suite proves the API is correct, and the parts of this app that are hardest to get right — optimistic state, reconnection, render scheduling — are exactly the parts it does not reach. Browser-level tests are the first thing this project should gain.</p>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="sec" id="s14">
+      <div class="sec-head"><span class="num">14</span><h2>Limits and next steps</h2></div>
+      <h3>Limits, in rough order of how much they'd matter</h3>
+      <ul>
+        <li>Single user, no auth. The data model has no owner column; adding one touches every query.</li>
+        <li>One server process. The SSE fan-out is in-memory, so a second process would not see the first's events.</li>
+        <li>Conflict resolution is last-write-wins per field. Simultaneous edits to the same field lose one silently.</li>
+        <li><code>/api/state</code> returns everything. Fine for thousands of tasks, wrong for hundreds of thousands — that boundary needs pagination and incremental sync.</li>
+        <li>No browser-side persistence: a reload while offline loses the outbox.</li>
+        <li>Reordering renumbers the whole visible list rather than inserting fractionally.</li>
+      </ul>
+      <h3>Next steps, in the order I would do them</h3>
+      <ol>
+        <li>Browser-level tests for the optimistic, offline and reconnect paths.</li>
+        <li><code>Last-Event-ID</code> replay, so reconnects are exact instead of resyncing.</li>
+        <li>Accounts and per-user scoping, then TLS, before this is exposed anywhere.</li>
+        <li>An IndexedDB mirror of the outbox for real offline durability.</li>
+        <li>Recurring tasks and subtasks — the schema additions are small; the interaction design is not.</li>
+      </ol>
+      <p class="foot">Source of truth: <code>DESIGN.md</code><br>Run it: <code>python3 run.py</code> · Test it: <code>python3 tests/test_api.py</code></p>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.sec'));
+
+  function setActive(id) {
+    links.forEach(function (a) { a.classList.toggle('on', a === byId[id]); });
+  }
+
+  if (!('IntersectionObserver' in window)) { setActive('s1'); return; }
+
+  var visible = new Set();
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) visible.add(e.target.id); else visible.delete(e.target.id);
+    });
+    // Highlight the topmost section currently on screen.
+    for (var i = 0; i < sections.length; i++) {
+      if (visible.has(sections[i].id)) { setActive(sections[i].id); return; }
+    }
+  }, { rootMargin: '-10% 0px -70% 0px', threshold: 0 });
+
+  sections.forEach(function (s) { observer.observe(s); });
+  setActive('s1');
+})();
+</script>
+</body>
+</html>

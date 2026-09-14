@@ -1,0 +1,138 @@
+{
+  "shape": [
+    891,
+    12
+  ],
+  "dtypes": {
+    "PassengerId": "int64",
+    "Survived": "int64",
+    "Pclass": "int64",
+    "Name": "object",
+    "Sex": "object",
+    "Age": "float64",
+    "SibSp": "int64",
+    "Parch": "int64",
+    "Ticket": "object",
+    "Fare": "float64",
+    "Cabin": "object",
+    "Embarked": "object"
+  },
+  "missing_pct": {
+    "Cabin": 77.1,
+    "Age": 19.87,
+    "Embarked": 0.22
+  },
+  "cabin_missingness_is_informative": {
+    "survival_when_recorded": 0.6667,
+    "survival_when_missing": 0.2999,
+    "delta": 0.3668
+  },
+  "target_balance": {
+    "0": 0.6162,
+    "1": 0.3838
+  },
+  "numeric_describe": {
+    "count": {
+      "Survived": 891.0,
+      "Pclass": 891.0,
+      "Age": 714.0,
+      "SibSp": 891.0,
+      "Parch": 891.0,
+      "Fare": 891.0
+    },
+    "mean": {
+      "Survived": 0.384,
+      "Pclass": 2.309,
+      "Age": 29.699,
+      "SibSp": 0.523,
+      "Parch": 0.382,
+      "Fare": 32.204
+    },
+    "std": {
+      "Survived": 0.487,
+      "Pclass": 0.836,
+      "Age": 14.526,
+      "SibSp": 1.103,
+      "Parch": 0.806,
+      "Fare": 49.693
+    },
+    "min": {
+      "Survived": 0.0,
+      "Pclass": 1.0,
+      "Age": 0.42,
+      "SibSp": 0.0,
+      "Parch": 0.0,
+      "Fare": 0.0
+    },
+    "25%": {
+      "Survived": 0.0,
+      "Pclass": 2.0,
+      "Age": 20.125,
+      "SibSp": 0.0,
+      "Parch": 0.0,
+      "Fare": 7.91
+    },
+    "50%": {
+      "Survived": 0.0,
+      "Pclass": 3.0,
+      "Age": 28.0,
+      "SibSp": 0.0,
+      "Parch": 0.0,
+      "Fare": 14.454
+    },
+    "75%": {
+      "Survived": 1.0,
+      "Pclass": 3.0,
+      "Age": 38.0,
+      "SibSp": 1.0,
+      "Parch": 0.0,
+      "Fare": 31.0
+    },
+    "max": {
+      "Survived": 1.0,
+      "Pclass": 3.0,
+      "Age": 80.0,
+      "SibSp": 8.0,
+      "Parch": 6.0,
+      "Fare": 512.329
+    }
+  },
+  "numeric_corr_with_target": {
+    "Fare": 0.257,
+    "Parch": 0.082,
+    "SibSp": -0.035,
+    "Age": -0.077,
+    "Pclass": -0.338
+  },
+  "survival_by_sex": {
+    "female": 0.742,
+    "male": 0.1889
+  },
+  "survival_by_pclass": {
+    "1": 0.6296,
+    "2": 0.4728,
+    "3": 0.2424
+  },
+  "leakage_suspects": [],
+  "id_like_columns": [
+    "PassengerId",
+    "Name"
+  ],
+  "outliers": {
+    "Fare": {
+      "upper_fence": 65.63,
+      "n_above": 116
+    },
+    "Age": {
+      "upper_fence": 64.81,
+      "n_above": 11
+    }
+  },
+  "high_cardinality": {
+    "PassengerId": 891,
+    "Name": 891,
+    "Ticket": 681,
+    "Fare": 248,
+    "Cabin": 147
+  }
+}

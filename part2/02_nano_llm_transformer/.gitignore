@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Raw data is downloaded by the pipeline, not committed (23 MB).
+data/raw/
+data/interim/
+data/processed/
+
+# Generated artifacts -- rebuild with `make run`.
+artifacts/armlab/
+reports/*.log
+
+# Model checkpoints (65 MB each, 260 MB total). Every run's config.yaml,
+# summary.json and pos_loss.json ARE committed; `make train` rebuilds the weights.
+runs/**/*.pt
+runs/*.db-shm
+runs/*.db-wal

@@ -1,0 +1,62 @@
+# ARMLab experiment configuration (CRISP-DM).
+# Everything the pipeline does is a function of this file plus the raw data;
+# the SHA-256 fingerprint of this config is stamped into every artifact.
+
+paths:
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed
+  artifacts: artifacts
+  reports: reports
+
+data:
+  source_name: online_retail
+  source_file: "Online Retail.xlsx"
+  source_url: "https://archive.ics.uci.edu/static/public/352/online+retail.zip"
+  kaggle_ref: "carrie1/ecommerce-data"
+  basket_key: InvoiceNo
+  item_key: StockCode
+  label_key: Description
+  drop_cancellations: true
+  drop_non_positive_quantity: true
+  drop_non_positive_price: true
+  drop_service_codes: true
+  countries: []            # [] = all; e.g. ["United Kingdom"] for a homogeneous population
+  min_basket_size: 2
+  max_basket_size: 200
+  min_item_support_count: 30
+  split_strategy: temporal # temporal | random
+  holdout_fraction: 0.30
+  random_seed: 20260901
+
+mining:
+  algorithm: fpgrowth      # fpgrowth | apriori | eclat
+  min_support: 0.02
+  min_confidence: 0.30
+  min_lift: 1.05
+  min_leverage: 0.0
+  max_itemset_len: 4
+  max_antecedent_len: 3
+  top_k: 500
+
+stats:
+  alpha: 0.05
+  correction: bh           # bh | bonferroni | none
+  min_holdout_count: 5
+
+autoresearch:
+  enabled: true
+  max_evaluations: 60
+  restarts: 3
+  neighbours_per_step: 4
+  initial_step: 0.5
+  step_decay: 0.75
+  min_step: 0.05
+  patience: 6
+  tabu_size: 40
+  seed: 20260901
+  w_validated_yield: 0.35
+  w_effect_size: 0.25
+  w_coverage: 0.20
+  w_parsimony: 0.10
+  w_cost: 0.10

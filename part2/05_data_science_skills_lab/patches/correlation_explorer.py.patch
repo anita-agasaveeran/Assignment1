@@ -1,0 +1,11 @@
+--- patches/correlation_explorer.py.orig	2026-09-01 17:39:10
++++ /Users/anitaagasaveeran/.claude/skills/programmatic-eda/scripts/correlation_explorer.py	2026-09-01 17:39:10
+@@ -21,6 +21,8 @@
+             val = corr_matrix.iloc[i, j]
+             if abs(val) >= threshold:
+                 pairs.append({"col_a": cols[i], "col_b": cols[j], "correlation": round(val, 4)})
++    if not pairs:
++        return pd.DataFrame(columns=["col_a", "col_b", "correlation"])
+     return pd.DataFrame(pairs).sort_values("correlation", key=abs, ascending=False)
+ 
+ 

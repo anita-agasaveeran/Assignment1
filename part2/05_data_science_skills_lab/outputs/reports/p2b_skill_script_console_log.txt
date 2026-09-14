@@ -1,0 +1,176 @@
+Console output from every bundled skill script executed in CRISP-DM Phase 2.
+
+==============================================================================
+$ python programmatic-eda/scripts/data_overview.py --input /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/data/raw/online_retail.csv --sample 3
+==============================================================================
+Shape:   541,909 rows × 8 columns
+Memory:  175.20 MB
+
+Column types:
+  object          5
+  float64         2
+  int64           1
+
+Per-column info:
+               dtype  non_null  null_pct  unique                              sample
+InvoiceNo     object    541909      0.00   25900                              536365
+StockCode     object    541909      0.00    4070                              85123A
+Description   object    540455      0.27    4223  WHITE HANGING HEART T-LIGHT HOLDER
+Quantity       int64    541909      0.00     722                                   6
+InvoiceDate   object    541909      0.00   23260                 2010-12-01 08:26:00
+UnitPrice    float64    541909      0.00    1630                                2.55
+CustomerID   float64    406829     24.93    4372                             17850.0
+Country       object    541909      0.00      38                      United Kingdom
+
+Sample (3 rows):
+InvoiceNo StockCode                    Description  Quantity         InvoiceDate  UnitPrice  CustomerID        Country
+   555200     71459 HANGING JAM JAR T-LIGHT HOLDER        24 2011-06-01 12:05:00       0.85     17315.0 United Kingdom
+   554974     21128             GOLD FISHING GNOME         4 2011-05-27 17:14:00       6.95     14031.0 United Kingdom
+   550972     21086    SET/6 RED SPOTTY PAPER CUPS         4 2011-04-21 17:05:00       0.65     14031.0 United Kingdom
+
+==============================================================================
+$ python programmatic-eda/scripts/null_profiler.py --input /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/data/raw/online_retail.csv --warn-pct 5 --fail-pct 30 --output /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/outputs/tables/retail_null_profile.csv
+==============================================================================
+             null_count  null_pct status
+CustomerID       135080     24.93   WARN
+Description        1454      0.27     OK
+InvoiceNo             0      0.00     OK
+StockCode             0      0.00     OK
+Quantity              0      0.00     OK
+InvoiceDate           0      0.00     OK
+UnitPrice             0      0.00     OK
+Country               0      0.00     OK
+
+Saved to /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/outputs/tables/retail_null_profile.csv
+
+==============================================================================
+$ python programmatic-eda/scripts/outlier_detector.py --input /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/data/processed/retail_sample.csv --method both --output /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/outputs/tables/retail_outliers.csv
+==============================================================================
+    column  outlier_count  outlier_pct     min      max       mean  iqr_outliers  zscore_outliers
+  Quantity           4251        10.63 -2472.0 74215.00    11.1166          4251               14
+ UnitPrice           2964         7.41     0.0 13541.33     5.0323          2964               25
+CustomerID              0         0.00 12346.0 18287.00 15278.8110             0                0
+
+Saved to /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/outputs/tables/retail_outliers.csv
+
+==============================================================================
+$ python programmatic-eda/scripts/distribution_summary.py --input /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/data/processed/retail_sample.csv --bins 8 --output /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/outputs/tables/retail_distributions.csv
+==============================================================================
+=== Descriptive Statistics ===
+              count          mean          std      min        5%       25%       50%       75%       95%       max     skew       kurt
+Quantity    40000.0     11.116550   373.429912  -2472.0      1.00      1.00      3.00     10.00     30.00  74215.00  196.174  38981.238
+UnitPrice   40000.0      5.032272   102.726592      0.0      0.42      1.25      2.08      4.13      9.95  13541.33  103.479  12084.710
+CustomerID  29937.0  15278.811003  1709.884263  12346.0  12625.00  13963.00  15123.00  16779.00  17917.00  18287.00    0.039     -1.170
+
+=== Histograms ===
+
+Quantity
+  [  -2472.00,    7113.88) | ######################################## 39999
+  [   7113.88,   16699.75) |                                          0
+  [  16699.75,   26285.62) |                                          0
+  [  26285.62,   35871.50) |                                          0
+  [  35871.50,   45457.38) |                                          0
+  [  45457.38,   55043.25) |                                          0
+  [  55043.25,   64629.12) |                                          0
+  [  64629.12,   74215.00) |                                          1
+
+UnitPrice
+  [      0.00,    1692.67) | ######################################## 39992
+  [   1692.67,    3385.33) |                                          3
+  [   3385.33,    5078.00) |                                          1
+  [   5078.00,    6770.66) |                                          2
+  [   6770.66,    8463.33) |                                          0
+  [   8463.33,   10156.00) |                                          0
+  [  10156.00,   11848.66) |                                          1
+  [  11848.66,   13541.33) |                                          1
+
+CustomerID
+  [  12346.00,   13088.62) | ##################################       3847
+  [  13088.62,   13831.25) | ############################             3234
+  [  13831.25,   14573.88) | ######################################   4256
+  [  14573.88,   15316.50) | ######################################## 4465
+  [  15316.50,   16059.12) | ###############################          3510
+  [  16059.12,   16801.75) | #############################            3248
+  [  16801.75,   17544.38) | ###############################          3470
+  [  17544.38,   18287.00) | ###################################      3907
+
+Stats saved to /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/outputs/tables/retail_distributions.csv
+
+==============================================================================
+$ python programmatic-eda/scripts/correlation_explorer.py --input /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/data/processed/retail_sample.csv --threshold 0.8 --output /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/outputs/tables/retail_correlations.csv
+==============================================================================
+=== Correlation Matrix (pearson) ===
+            Quantity  UnitPrice  CustomerID
+Quantity       1.000     -0.001      -0.012
+UnitPrice     -0.001      1.000      -0.012
+CustomerID    -0.012     -0.012       1.000
+
+=== Strong Pairs (|r| ≥ 0.8) ===
+  None found.
+
+Matrix saved to /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/outputs/tables/retail_correlations.csv
+
+==============================================================================
+$ python data-quality-audit/scripts/null_counter.py --input /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/data/raw/online_retail.csv --thresholds {"CustomerID": 0.0, "Description": 0.0, "InvoiceNo": 0.0}
+==============================================================================
+     column   dtype  null_count  null_pct  warn_threshold  fail_threshold status
+ CustomerID float64      135080     24.93             0.0             0.0   FAIL
+Description  object        1454      0.27             0.0             0.0   FAIL
+  InvoiceNo  object           0      0.00             0.0             0.0   FAIL
+  StockCode  object           0      0.00             5.0            20.0   PASS
+   Quantity   int64           0      0.00             5.0            20.0   PASS
+InvoiceDate  object           0      0.00             5.0            20.0   PASS
+  UnitPrice float64           0      0.00             5.0            20.0   PASS
+    Country  object           0      0.00             5.0            20.0   PASS
+
+⚠ 3 FAIL(s):
+  CustomerID: 24.93% nulls (threshold 0.0%)
+  Description: 0.27% nulls (threshold 0.0%)
+  InvoiceNo: 0.0% nulls (threshold 0.0%)
+
+==============================================================================
+$ python data-quality-audit/scripts/duplicate_finder.py --input /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/data/raw/online_retail.csv --key InvoiceNo,StockCode,Quantity,InvoiceDate
+==============================================================================
+Total rows: 541,909
+Full-row duplicates: 5,268 (0.97%) [FAIL]
+Key [InvoiceNo, StockCode, Quantity, InvoiceDate] duplicates: 10,422 rows (4,993 entities) [FAIL]
+
+==============================================================================
+$ python data-quality-audit/scripts/referential_integrity.py --child /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/data/processed/ri_child_lines.csv --parent /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/data/processed/ri_parent_products.csv --child-key StockCode --parent-key StockCode
+==============================================================================
+Referential integrity check: StockCode → StockCode
+  Total child rows:  200,000
+  Orphan rows:       0 (0.0%)
+  Status:            PASS
+
+==============================================================================
+$ python data-quality-audit/scripts/value_range_validator.py --input /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/data/raw/online_retail.csv --rules {"Quantity": {"min": 1, "max": 10000}, "UnitPrice": {"min": 0.01, "max": 5000}}
+==============================================================================
+   column                       rule status                                                   issues
+ Quantity   {"min": 1, "max": 10000}   FAIL   10624 values below min (1); 3 values above max (10000)
+UnitPrice {"min": 0.01, "max": 5000}   FAIL 2521 values below min (0.01); 31 values above max (5000)
+
+==============================================================================
+$ python data-quality-audit/scripts/freshness_check.py --input /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/data/raw/online_retail.csv --timestamp-col InvoiceDate --max-lag-hours 48
+==============================================================================
+  timestamp_col: InvoiceDate
+  latest_record: 2011-12-09T12:50:00+00:00
+  current_time_utc: 2026-09-13T18:14:05.558223+00:00
+  lag_hours: 129413.4
+  max_lag_hours: 48.0
+  status: FAIL
+  message: Data is STALE — lag 129413.4h > 48.0h limit
+
+==============================================================================
+$ python data-catalog-entry/scripts/catalog_extractor.py --conn sqlite:////Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/data/processed/retail.db --table invoice_lines --output /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/outputs/reports/catalog_invoice_lines.md
+==============================================================================
+Catalog draft written to /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/outputs/reports/catalog_invoice_lines.md
+/Users/anitaagasaveeran/.claude/skills/data-catalog-entry/scripts/catalog_extractor.py:66: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "extracted_at": datetime.utcnow().isoformat(),
+
+==============================================================================
+$ python data-catalog-entry/scripts/catalog_extractor.py --conn sqlite:////Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/data/processed/retail.db --table customers --output /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/outputs/reports/catalog_customers.md
+==============================================================================
+Catalog draft written to /Users/anitaagasaveeran/Desktop/MSSE_Fall2026/CMPE255/Assignment1/part2/05_data_science_skills_lab/outputs/reports/catalog_customers.md
+/Users/anitaagasaveeran/.claude/skills/data-catalog-entry/scripts/catalog_extractor.py:66: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "extracted_at": datetime.utcnow().isoformat(),

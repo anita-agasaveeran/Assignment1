@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Raw data is downloaded by the pipeline on first run (23 MB); the Parquet
+# cache is rebuilt from it.
+data/raw/*.xlsx
+data/raw/*.zip
+data/interim/
+data/processed/
+
+# Logs. Generated artifacts ARE committed so the dashboard works without a
+# 2-minute rebuild -- run `make run` to regenerate them.
+reports/*.log

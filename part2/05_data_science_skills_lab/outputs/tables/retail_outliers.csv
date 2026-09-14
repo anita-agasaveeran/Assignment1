@@ -1,0 +1,4 @@
+column,outlier_count,outlier_pct,min,max,mean,iqr_outliers,zscore_outliers
+Quantity,4251,10.63,-2472.0,74215.0,11.1166,4251,14
+UnitPrice,2964,7.41,0.0,13541.33,5.0323,2964,25
+CustomerID,0,0.0,12346.0,18287.0,15278.811,0,0

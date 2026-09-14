@@ -1,0 +1,13 @@
+--- /tmp/cohort_builder.orig	2026-09-01 17:50:40
++++ /Users/anitaagasaveeran/.claude/skills/cohort-analysis/scripts/cohort_builder.py	2026-09-01 17:50:40
+@@ -18,7 +18,9 @@
+ FREQ_MAP = {
+     "daily": "D",
+     "weekly": "W-MON",
+-    "monthly": "MS",
++    # "M", not "MS": "MS" is a DateOffset (month-start) alias and is rejected by
++    # Series.dt.to_period(). .to_timestamp() already yields the period start.
++    "monthly": "M",
+ }
+ 
+ 

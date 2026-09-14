@@ -1,0 +1,1680 @@
+<meta charset="utf-8">
+<title>Portfolio Segmentation Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+/* ========================================================================== *
+ * Identity: instrument-panel neutrals with a cyan-green bias, one teal accent
+ * for interactive/structural marks and one rust counter-accent reserved for
+ * findings. IBM Plex across three roles - Sans operates, Serif narrates,
+ * Mono measures.
+ * ========================================================================== */
+:root {
+  color-scheme: light;
+  --bg:        #eef2f3;
+  --surface:   #ffffff;
+  --surface-2: #f6f9f9;
+  --surface-3: #e8eef0;
+  --ink:       #10181b;
+  --ink-2:     #47585f;
+  --ink-3:     #7b8c93;
+  --rule:      #d7e0e3;
+  --rule-2:    #c2cfd3;
+  --accent:    #0d6d78;
+  --accent-2:  #0a565f;
+  --accent-sf: #dcedee;
+  --finding:   #a8431d;
+  --finding-sf:#f8e6df;
+
+  --good:      #1d7a4d;
+  --warn:      #b07600;
+  --serious:   #b4531a;
+  --critical:  #b3302f;
+  --good-sf:   #dff0e6;
+  --warn-sf:   #faeed2;
+  --serious-sf:#fae5da;
+  --critical-sf:#fadedd;
+
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --s5:#e87ba4; --s6:#008300; --s7:#4a3aa7; --s8:#e34948;
+
+  --grid:      #e3eaec;
+  --dv-pos:    #2a78d6;
+  --dv-neg:    #e34948;
+  --dv-mid:    #eef1f0;
+
+  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif:"IBM Plex Serif", ui-serif, Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --rail: 252px;
+  --maxw: 1180px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg:        #0b1114;
+    --surface:   #121b1f;
+    --surface-2: #162126;
+    --surface-3: #1d2a30;
+    --ink:       #e6eef0;
+    --ink-2:     #a3b4bb;
+    --ink-3:     #71858d;
+    --rule:      #24343a;
+    --rule-2:    #32464e;
+    --accent:    #47b3bb;
+    --accent-2:  #6ecbd2;
+    --accent-sf: #10333a;
+    --finding:   #e08a63;
+    --finding-sf:#37211a;
+
+    --good:      #4bb37a;
+    --warn:      #d8a326;
+    --serious:   #e08a5a;
+    --critical:  #e66767;
+    --good-sf:   #14301f;
+    --warn-sf:   #322611;
+    --serious-sf:#361f14;
+    --critical-sf:#3a1c1c;
+
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+    --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
+
+    --grid:      #1e2c32;
+    --dv-pos:    #3987e5;
+    --dv-neg:    #e66767;
+    --dv-mid:    #1a2529;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:#0b1114; --surface:#121b1f; --surface-2:#162126; --surface-3:#1d2a30;
+  --ink:#e6eef0; --ink-2:#a3b4bb; --ink-3:#71858d; --rule:#24343a; --rule-2:#32464e;
+  --accent:#47b3bb; --accent-2:#6ecbd2; --accent-sf:#10333a;
+  --finding:#e08a63; --finding-sf:#37211a;
+  --good:#4bb37a; --warn:#d8a326; --serious:#e08a5a; --critical:#e66767;
+  --good-sf:#14301f; --warn-sf:#322611; --serious-sf:#361f14; --critical-sf:#3a1c1c;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+  --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
+  --grid:#1e2c32; --dv-pos:#3987e5; --dv-neg:#e66767; --dv-mid:#1a2529;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--sans); font-size: 14px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+h1,h2,h3,h4 { margin: 0; text-wrap: balance; font-weight: 600; letter-spacing: -0.011em; }
+p { margin: 0; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* ------------------------------------------------------------------ shell - */
+.shell { display: grid; grid-template-columns: var(--rail) minmax(0,1fr); min-height: 100vh; }
+
+.rail {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  background: var(--surface); border-right: 1px solid var(--rule);
+  padding: 22px 0 28px; display: flex; flex-direction: column; gap: 20px;
+}
+.rail-head { padding: 0 20px; }
+.mark {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--accent); font-weight: 600;
+}
+.rail-title { font-size: 17px; line-height: 1.25; margin-top: 8px; }
+.rail-sub { font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 7px; }
+
+.nav { display: flex; flex-direction: column; }
+.nav-group {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--ink-3); padding: 14px 20px 6px;
+}
+.nav a {
+  display: grid; grid-template-columns: 22px 1fr; align-items: baseline; gap: 8px;
+  padding: 6px 20px; color: var(--ink-2); text-decoration: none; font-size: 13px;
+  border-left: 2px solid transparent;
+}
+.nav a:hover { color: var(--ink); background: var(--surface-2); }
+.nav a.on { color: var(--ink); border-left-color: var(--accent); background: var(--accent-sf); font-weight: 500; }
+.nav .ph { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+.nav a.on .ph { color: var(--accent); }
+
+.rail-foot { margin-top: auto; padding: 0 20px; font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); line-height: 1.7; }
+.theme-btn {
+  font-family: var(--mono); font-size: 11px; color: var(--ink-2); background: var(--surface-2);
+  border: 1px solid var(--rule); border-radius: 3px; padding: 5px 9px; cursor: pointer; margin-top: 12px;
+}
+.theme-btn:hover { border-color: var(--rule-2); color: var(--ink); }
+
+.main { min-width: 0; padding: 0 34px 100px; }
+.wrap { max-width: var(--maxw); margin: 0 auto; }
+
+/* ---------------------------------------------------------------- sections - */
+section { padding-top: 46px; scroll-margin-top: 12px; }
+.sec-head { display: flex; align-items: baseline; gap: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule-2); }
+.sec-num { font-family: var(--mono); font-size: 12px; color: var(--accent); font-weight: 600; }
+.sec-head h2 { font-size: 21px; }
+.sec-kicker { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); margin-left: auto; letter-spacing: .04em; }
+.lede { font-family: var(--serif); font-size: 15.5px; line-height: 1.62; color: var(--ink-2); margin: 14px 0 4px; max-width: 68ch; }
+.lede em { color: var(--ink); font-style: italic; }
+
+/* ------------------------------------------------------------------- cards - */
+.card {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 5px;
+  padding: 16px 18px; min-width: 0;
+}
+.card.pad0 { padding: 0; }
+.card-t { font-size: 13.5px; font-weight: 600; }
+.card-s { font-size: 12.5px; color: var(--ink-3); margin-top: 3px; line-height: 1.5; }
+.grid { display: grid; gap: 14px; margin-top: 16px; }
+.g2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.g3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.g4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+.g21 { grid-template-columns: 2fr 1fr; }
+.g12 { grid-template-columns: 1fr 2fr; }
+@media (max-width: 1080px) { .g3,.g4,.g21,.g12 { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 720px)  { .grid { grid-template-columns: minmax(0,1fr) !important; } }
+
+/* --------------------------------------------------------------- stat tile - */
+.tile { background: var(--surface); border: 1px solid var(--rule); border-radius: 5px; padding: 13px 15px; }
+.tile .lab { font-family: var(--mono); font-size: 9.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); }
+.tile .val { font-family: var(--mono); font-size: 26px; font-weight: 500; letter-spacing: -.02em; margin-top: 7px; font-variant-numeric: tabular-nums; }
+.tile .sub { font-size: 12px; color: var(--ink-3); margin-top: 3px; line-height: 1.45; }
+.tile.hero { background: var(--accent-sf); border-color: color-mix(in srgb, var(--accent) 32%, transparent); }
+.tile.hero .val { color: var(--accent-2); }
+
+/* -------------------------------------------------------------------- pill - */
+.pill {
+  display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono);
+  font-size: 10.5px; font-weight: 500; padding: 2px 7px; border-radius: 3px;
+  letter-spacing: .03em; white-space: nowrap;
+}
+.pill::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.pill.good { color: var(--good); background: var(--good-sf); }
+.pill.warn { color: var(--warn); background: var(--warn-sf); }
+.pill.serious { color: var(--serious); background: var(--serious-sf); }
+.pill.critical { color: var(--critical); background: var(--critical-sf); }
+.pill.neutral { color: var(--ink-2); background: var(--surface-3); }
+.pill.accent { color: var(--accent); background: var(--accent-sf); }
+.pill.plain::before { display: none; }
+
+/* ------------------------------------------------------------------- table - */
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 500; white-space: nowrap; background: var(--surface-2);
+  position: sticky; top: 0; z-index: 1;
+}
+tbody tr:hover { background: var(--surface-2); }
+td.num, th.num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+td.mono { font-family: var(--mono); font-size: 11.5px; color: var(--ink-2); }
+tr.dim td { color: var(--ink-3); }
+.tbl-scroll { max-height: 420px; overflow-y: auto; overflow-x: auto; }
+
+/* -------------------------------------------------------------------- misc - */
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 5px 14px; font-size: 12.5px; }
+.kv dt { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; padding-top: 2px; }
+.kv dd { margin: 0; color: var(--ink-2); }
+
+.note {
+  border-left: 2px solid var(--finding); background: var(--finding-sf);
+  padding: 12px 15px; border-radius: 0 4px 4px 0; font-size: 13px; line-height: 1.55; color: var(--ink-2);
+}
+.note strong { color: var(--ink); font-weight: 600; }
+.note.calm { border-left-color: var(--accent); background: var(--accent-sf); }
+.note-t { font-family: var(--mono); font-size: 10px; letter-spacing: .13em; text-transform: uppercase; color: var(--finding); margin-bottom: 6px; font-weight: 600; }
+.note.calm .note-t { color: var(--accent); }
+
+.mono-block {
+  font-family: var(--mono); font-size: 11.5px; line-height: 1.6; background: var(--surface-2);
+  border: 1px solid var(--rule); border-radius: 4px; padding: 11px 13px; overflow-x: auto;
+  white-space: pre; color: var(--ink-2);
+}
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.sev { border-left: 3px solid var(--rule-2); padding-left: 12px; }
+.sev.high, .sev.blocker { border-left-color: var(--critical); }
+.sev.medium { border-left-color: var(--warn); }
+.sev.low { border-left-color: var(--ink-3); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11.5px; color: var(--ink-2); margin-top: 8px; }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.swatch { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+
+.chart { width: 100%; display: block; overflow: visible; }
+.chart text { font-family: var(--mono); font-size: 9.5px; fill: var(--ink-3); }
+.chart .axis-t { font-size: 10px; fill: var(--ink-2); }
+.chart .gridline { stroke: var(--grid); stroke-width: 1; }
+.chart .axisline { stroke: var(--rule-2); stroke-width: 1; }
+
+.tip {
+  position: fixed; pointer-events: none; z-index: 60; background: var(--surface);
+  border: 1px solid var(--rule-2); border-radius: 4px; padding: 7px 10px; font-size: 11.5px;
+  font-family: var(--mono); color: var(--ink); box-shadow: 0 6px 20px rgba(0,0,0,.14);
+  opacity: 0; transition: opacity .09s; max-width: 320px; line-height: 1.5;
+}
+.tip.on { opacity: 1; }
+.tip b { color: var(--accent-2); font-weight: 600; }
+
+.seg-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; vertical-align: -1px; }
+.toggle { display: inline-flex; border: 1px solid var(--rule-2); border-radius: 4px; overflow: hidden; }
+.toggle button {
+  font-family: var(--mono); font-size: 11px; padding: 4px 11px; background: var(--surface);
+  border: 0; color: var(--ink-2); cursor: pointer; border-right: 1px solid var(--rule);
+}
+.toggle button:last-child { border-right: 0; }
+.toggle button.on { background: var(--accent); color: #fff; }
+:root[data-theme="dark"] .toggle button.on, :root:not([data-theme="light"]) .toggle button.on { color: #061114; }
+
+.flow { display: flex; align-items: stretch; gap: 0; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; }
+.flow .step {
+  background: var(--surface-2); border: 1px solid var(--rule); padding: 7px 11px;
+  border-radius: 3px; color: var(--ink-2);
+}
+.flow .arrow { display: flex; align-items: center; padding: 0 7px; color: var(--ink-3); }
+.flow .step.hi { background: var(--accent-sf); border-color: color-mix(in srgb, var(--accent) 32%, transparent); color: var(--accent-2); font-weight: 500; }
+
+.cite { border-top: 1px solid var(--rule); padding: 13px 0; }
+.cite:first-child { border-top: 0; }
+.cite-h { font-family: var(--serif); font-size: 14px; color: var(--ink); }
+.cite-h .yr { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); }
+.cite-v { font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 2px; }
+.cite-row { display: grid; grid-template-columns: 86px 1fr; gap: 4px 12px; margin-top: 9px; font-size: 12.5px; }
+.cite-row dt { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); padding-top: 3px; }
+.cite-row dd { margin: 0; color: var(--ink-2); }
+.cite-row dd.impl { font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.cite-row dd.dev { font-family: var(--serif); font-style: italic; color: var(--ink-2); }
+
+.bar-row { display: grid; grid-template-columns: 150px 1fr 62px; gap: 10px; align-items: center; font-size: 12px; padding: 3px 0; }
+.bar-row .nm { color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar-track { background: var(--surface-3); border-radius: 2px; height: 9px; position: relative; overflow: hidden; }
+.bar-fill { position: absolute; inset: 0 auto 0 0; border-radius: 2px; background: var(--accent); }
+.bar-row .vv { font-family: var(--mono); font-size: 11px; text-align: right; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+.hr { height: 1px; background: var(--rule); margin: 18px 0; border: 0; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+@media (max-width: 860px) {
+  .shell { grid-template-columns: 1fr; }
+  .rail { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--rule); }
+  .nav { flex-direction: row; flex-wrap: wrap; }
+  .nav-group { display: none; }
+  .main { padding: 0 18px 80px; }
+}
+</style>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="rail-head">
+      <div class="mark">CRISP-DM · Run Console</div>
+      <h1 class="rail-title">Credit-Card Portfolio Segmentation</h1>
+      <div class="rail-sub" id="railSub"></div>
+    </div>
+    <nav class="nav" id="nav" aria-label="Sections">
+      <div class="nav-group">Summary</div>
+      <a href="#overview"><span class="ph">—</span><span>Overview</span></a>
+      <div class="nav-group">Process phases</div>
+      <a href="#business"><span class="ph">1</span><span>Business Understanding</span></a>
+      <a href="#data"><span class="ph">2</span><span>Data Understanding</span></a>
+      <a href="#prepare"><span class="ph">3</span><span>Data Preparation</span></a>
+      <a href="#model"><span class="ph">4</span><span>Modeling · AutoResearch</span></a>
+      <a href="#evaluate"><span class="ph">5</span><span>Evaluation</span></a>
+      <a href="#deploy"><span class="ph">6</span><span>Deployment</span></a>
+      <div class="nav-group">Output</div>
+      <a href="#segments"><span class="ph">§</span><span>Segments</span></a>
+      <a href="#research"><span class="ph">¶</span><span>Research Provenance</span></a>
+    </nav>
+    <div class="rail-foot" id="railFoot"></div>
+  </aside>
+
+  <main class="main"><div class="wrap">
+    <section id="overview"></section>
+    <section id="business"></section>
+    <section id="data"></section>
+    <section id="prepare"></section>
+    <section id="model"></section>
+    <section id="evaluate"></section>
+    <section id="segments"></section>
+    <section id="deploy"></section>
+    <section id="research"></section>
+  </div></main>
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script type="application/json" id="rundata">__RUN_DATA__</script>
+<script>
+"use strict";
+const RUN = JSON.parse(document.getElementById("rundata").textContent);
+
+/* ======================================================================== *
+ * tiny DOM + formatting helpers
+ * ======================================================================== */
+const SVGNS = "http://www.w3.org/2000/svg";
+const el = (t, a = {}, kids = []) => {
+  const n = document.createElement(t);
+  for (const [k, v] of Object.entries(a)) {
+    if (v === undefined || v === null) continue;
+    if (k === "class") n.className = v;
+    else if (k === "html") n.innerHTML = v;
+    else if (k === "text") n.textContent = v;
+    else n.setAttribute(k, v);
+  }
+  (Array.isArray(kids) ? kids : [kids]).filter(Boolean).forEach(c =>
+    n.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+  return n;
+};
+const s_ = (t, a = {}, kids = []) => {
+  const n = document.createElementNS(SVGNS, t);
+  for (const [k, v] of Object.entries(a)) if (v !== undefined && v !== null) n.setAttribute(k, v);
+  (Array.isArray(kids) ? kids : [kids]).filter(Boolean).forEach(c =>
+    n.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
+  return n;
+};
+const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const num = (v, d = 3) => (v === null || v === undefined || Number.isNaN(v)) ? "—"
+  : (Math.abs(v) >= 10000 ? Math.round(v).toLocaleString() : (+v).toFixed(d));
+const pct = (v, d = 1) => v === null || v === undefined ? "—" : (100 * v).toFixed(d) + "%";
+const money = v => v === null || v === undefined ? "—"
+  : (Math.abs(v) >= 1e6 ? "$" + (v / 1e6).toFixed(2) + "M"
+    : Math.abs(v) >= 1e3 ? "$" + (v / 1e3).toFixed(0) + "k" : "$" + Math.round(v));
+const SERIES = i => `var(--s${(i % 8) + 1})`;
+
+/* ---- tooltip ---- */
+const tipEl = document.getElementById("tip");
+function bindTip(node, html) {
+  node.addEventListener("pointerenter", e => { tipEl.innerHTML = html; tipEl.classList.add("on"); move(e); });
+  node.addEventListener("pointermove", move);
+  node.addEventListener("pointerleave", () => tipEl.classList.remove("on"));
+  function move(e) {
+    const pad = 14, w = tipEl.offsetWidth, h = tipEl.offsetHeight;
+    let x = e.clientX + pad, y = e.clientY + pad;
+    if (x + w > innerWidth - 8) x = e.clientX - w - pad;
+    if (y + h > innerHeight - 8) y = e.clientY - h - pad;
+    tipEl.style.left = x + "px"; tipEl.style.top = y + "px";
+  }
+}
+
+/* ---- section scaffolding ---- */
+function section(id, numLabel, title, kicker, lede) {
+  const host = document.getElementById(id);
+  host.appendChild(el("div", { class: "sec-head" }, [
+    numLabel ? el("span", { class: "sec-num", text: numLabel }) : null,
+    el("h2", { text: title }),
+    kicker ? el("span", { class: "sec-kicker", text: kicker }) : null,
+  ]));
+  if (lede) host.appendChild(el("p", { class: "lede", html: lede }));
+  return host;
+}
+const card = (title, sub, body, cls = "") => {
+  const c = el("div", { class: "card " + cls });
+  if (title) c.appendChild(el("div", { class: "card-t", text: title }));
+  if (sub) c.appendChild(el("div", { class: "card-s", html: sub }));
+  if (body) { const w = el("div"); w.style.marginTop = title ? "12px" : "0"; w.appendChild(body); c.appendChild(w); }
+  return c;
+};
+const tile = (lab, val, sub, hero) => el("div", { class: "tile" + (hero ? " hero" : "") }, [
+  el("div", { class: "lab", text: lab }),
+  el("div", { class: "val", text: val }),
+  sub ? el("div", { class: "sub", html: sub }) : null,
+]);
+const grid = (cls, kids) => el("div", { class: "grid " + cls }, kids);
+const pill = (txt, kind = "neutral", plain = false) =>
+  el("span", { class: `pill ${kind}${plain ? " plain" : ""}`, text: txt });
+const note = (label, html, calm = false) => el("div", { class: "note" + (calm ? " calm" : "") }, [
+  label ? el("div", { class: "note-t", text: label }) : null, el("div", { html }),
+]);
+
+function table(cols, rows, opts = {}) {
+  const wrap = el("div", { class: opts.scroll ? "tbl-scroll" : "tbl-wrap" });
+  const t = el("table");
+  t.appendChild(el("thead", {}, el("tr", {}, cols.map(c =>
+    el("th", { class: c.num ? "num" : "", text: c.label })))));
+  const tb = el("tbody");
+  rows.forEach(r => {
+    const tr = el("tr", { class: r.__dim ? "dim" : "" });
+    cols.forEach(c => {
+      const v = c.get(r);
+      tr.appendChild(v instanceof Node
+        ? el("td", { class: c.cls || (c.num ? "num" : "") }, v)
+        : el("td", { class: c.cls || (c.num ? "num" : ""), html: v === undefined || v === null ? "—" : String(v) }));
+    });
+    tb.appendChild(tr);
+  });
+  t.appendChild(tb); wrap.appendChild(t); return wrap;
+}
+
+/* ======================================================================== *
+ * chart primitives - hand-built SVG, no library
+ * ======================================================================== */
+function frame(w, h, m) {
+  const svg = s_("svg", { class: "chart", viewBox: `0 0 ${w} ${h}`, preserveAspectRatio: "xMidYMid meet",
+                          role: "img" });
+  const iw = w - m.l - m.r, ih = h - m.t - m.b;
+  const g = s_("g", { transform: `translate(${m.l},${m.t})` });
+  svg.appendChild(g);
+  return { svg, g, iw, ih };
+}
+const scale = (d0, d1, r0, r1) => v => d1 === d0 ? r0 : r0 + (v - d0) / (d1 - d0) * (r1 - r0);
+
+function axes(g, iw, ih, xs, ys, xTicks, yTicks, opts = {}) {
+  yTicks.forEach(t => {
+    const y = ys(t);
+    g.appendChild(s_("line", { x1: 0, x2: iw, y1: y, y2: y, class: "gridline" }));
+    g.appendChild(s_("text", { x: -8, y: y + 3.4, "text-anchor": "end" }, String(opts.yfmt ? opts.yfmt(t) : t)));
+  });
+  xTicks.forEach(t => {
+    const x = xs(t.v ?? t);
+    g.appendChild(s_("text", { x, y: ih + 15, "text-anchor": "middle" }, String(t.l ?? t)));
+  });
+  g.appendChild(s_("line", { x1: 0, x2: iw, y1: ih, y2: ih, class: "axisline" }));
+  if (opts.ylab) g.appendChild(s_("text", { x: 0, y: -10, "text-anchor": "start", class: "axis-t" }, opts.ylab));
+}
+const ticks = (lo, hi, n = 5) => {
+  if (!(hi > lo)) return [lo];
+  const raw = (hi - lo) / n, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(s => s >= raw) ?? mag * 10;
+  const out = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(+v.toFixed(10));
+  return out;
+};
+const path = pts => pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(2) + " " + p[1].toFixed(2)).join(" ");
+</script>
+<script>
+"use strict";
+/* ======================================================================== *
+ * chart forms
+ * ======================================================================== */
+/* Multi-series line. Used for anytime curves, gap statistic, restart traces. */
+function lineChart(opts) {
+  const { series, w = 720, h = 250, xlab, ylab, xfmt = String, yfmt = v => num(v, 2),
+          band = null, dots = false } = opts;
+  const m = { t: 18, r: 14, b: 30, l: 46 };
+  const { svg, g, iw, ih } = frame(w, h, m);
+  const xsAll = series.flatMap(s => s.pts.map(p => p[0]));
+  const ysAll = series.flatMap(s => s.pts.map(p => p[1])).concat(band ? band.flatMap(b => [b[1], b[2]]) : []);
+  const x0 = Math.min(...xsAll), x1 = Math.max(...xsAll);
+  let y0 = Math.min(...ysAll), y1 = Math.max(...ysAll);
+  const padY = (y1 - y0) * 0.12 || 0.1; y0 -= padY; y1 += padY;
+  const xs = scale(x0, x1, 0, iw), ys = scale(y0, y1, ih, 0);
+  axes(g, iw, ih, xs, ys, ticks(x0, x1, 6).map(v => ({ v, l: xfmt(v) })), ticks(y0, y1, 5), { yfmt, ylab });
+  if (band) {
+    const up = band.map(b => [xs(b[0]), ys(b[2])]), dn = band.map(b => [xs(b[0]), ys(b[1])]).reverse();
+    g.appendChild(s_("path", { d: path(up.concat(dn)) + " Z", fill: series[0].color, opacity: .12 }));
+  }
+  series.forEach(sr => {
+    g.appendChild(s_("path", { d: path(sr.pts.map(p => [xs(p[0]), ys(p[1])])), fill: "none",
+      stroke: sr.color, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round",
+      "stroke-dasharray": sr.dash || null, opacity: sr.opacity ?? 1 }));
+    if (dots || sr.dots) sr.pts.forEach(p => {
+      const c = s_("circle", { cx: xs(p[0]), cy: ys(p[1]), r: 3.4, fill: sr.color,
+        stroke: "var(--surface)", "stroke-width": 2 });
+      bindTip(c, `<b>${esc(sr.name)}</b><br>${xlab || "x"} ${xfmt(p[0])}<br>${ylab || "y"} ${yfmt(p[1])}`);
+      g.appendChild(c);
+    });
+    const last = sr.pts[sr.pts.length - 1];
+    if (sr.label !== false && last)
+      g.appendChild(s_("circle", { cx: xs(last[0]), cy: ys(last[1]), r: 3.2, fill: sr.color,
+        stroke: "var(--surface)", "stroke-width": 2 }));
+  });
+  if (xlab) g.appendChild(s_("text", { x: iw, y: ih + 28, "text-anchor": "end", class: "axis-t" }, xlab));
+  return svg;
+}
+
+/* Vertical bars with an optional threshold rule. */
+function barChart(opts) {
+  const { data, w = 720, h = 230, yfmt = v => num(v, 2), color = "var(--accent)",
+          thresholds = [], xlab, ylab, rotate = false } = opts;
+  const m = { t: 18, r: 14, b: rotate ? 62 : 34, l: 48 };
+  const { svg, g, iw, ih } = frame(w, h, m);
+  const vals = data.map(d => d.v).concat(thresholds.map(t => t.v));
+  let y0 = Math.min(0, ...vals), y1 = Math.max(...vals);
+  y1 += (y1 - y0) * 0.12 || 0.1;
+  const ys = scale(y0, y1, ih, 0);
+  const bw = iw / data.length, pad = Math.min(9, bw * 0.24);
+  ticks(y0, y1, 5).forEach(t => {
+    g.appendChild(s_("line", { x1: 0, x2: iw, y1: ys(t), y2: ys(t), class: "gridline" }));
+    g.appendChild(s_("text", { x: -8, y: ys(t) + 3.4, "text-anchor": "end" }, yfmt(t)));
+  });
+  data.forEach((d, i) => {
+    const x = i * bw + pad / 2, bwid = bw - pad;
+    const top = ys(Math.max(d.v, 0)), base = ys(0);
+    const r = s_("rect", { x, y: Math.min(top, base), width: bwid, height: Math.max(Math.abs(base - top), 1),
+      fill: d.color || color, rx: 3 });
+    bindTip(r, d.tip || `<b>${esc(d.l)}</b><br>${yfmt(d.v)}`);
+    g.appendChild(r);
+    const lt = s_("text", { x: x + bwid / 2, y: ih + (rotate ? 12 : 15),
+      "text-anchor": rotate ? "end" : "middle",
+      transform: rotate ? `rotate(-40 ${x + bwid / 2} ${ih + 12})` : null }, d.l);
+    g.appendChild(lt);
+  });
+  thresholds.forEach(t => {
+    g.appendChild(s_("line", { x1: 0, x2: iw, y1: ys(t.v), y2: ys(t.v), stroke: t.color || "var(--finding)",
+      "stroke-width": 1.2, "stroke-dasharray": "4 3" }));
+    g.appendChild(s_("text", { x: iw, y: ys(t.v) - 4, "text-anchor": "end", fill: t.color || "var(--finding)" }, t.l));
+  });
+  g.appendChild(s_("line", { x1: 0, x2: iw, y1: ys(0), y2: ys(0), class: "axisline" }));
+  if (ylab) g.appendChild(s_("text", { x: 0, y: -8, class: "axis-t" }, ylab));
+  return svg;
+}
+
+/* Horizontal bar list in plain HTML - better label handling than SVG. */
+function hbars(rows, opts = {}) {
+  const { fmt = v => num(v, 3), color = () => "var(--accent)", max } = opts;
+  const hi = max ?? Math.max(...rows.map(r => Math.abs(r.v)), 1e-9);
+  const box = el("div");
+  rows.forEach(r => {
+    const f = el("div", { class: "bar-fill" });
+    f.style.width = (100 * Math.abs(r.v) / hi) + "%";
+    f.style.background = color(r);
+    const track = el("div", { class: "bar-track" }, f);
+    if (r.tip) bindTip(track, r.tip);
+    box.appendChild(el("div", { class: "bar-row" }, [
+      el("div", { class: "nm", text: r.l, title: r.l }), track,
+      el("div", { class: "vv", text: fmt(r.v) }),
+    ]));
+  });
+  return box;
+}
+
+/* Diverging or sequential matrix. */
+function heatmap(opts) {
+  const { rows, cols, values, w = 720, diverging = true, cell = 22, rowLab = 128,
+          fmt = v => num(v, 2), tipFor } = opts;
+  const cw = Math.max(16, Math.min(cell, (w - rowLab - 10) / cols.length));
+  const h = rows.length * cell + 74;
+  const svg = s_("svg", { class: "chart", viewBox: `0 0 ${w} ${h}`, preserveAspectRatio: "xMidYMid meet" });
+  const g = s_("g", { transform: `translate(${rowLab},60)` });
+  svg.appendChild(g);
+  const absMax = Math.max(...values.flat().map(v => Math.abs(v ?? 0)), 1e-9);
+  const lo = Math.min(...values.flat().filter(v => v !== null)), hiV = Math.max(...values.flat().filter(v => v !== null));
+  const fill = v => {
+    if (v === null || v === undefined) return "var(--surface-3)";
+    if (diverging) {
+      const t = Math.min(Math.abs(v) / absMax, 1);
+      return `color-mix(in srgb, ${v >= 0 ? "var(--dv-pos)" : "var(--dv-neg)"} ${(t * 88).toFixed(1)}%, var(--dv-mid))`;
+    }
+    const t = hiV === lo ? .5 : (v - lo) / (hiV - lo);
+    return `color-mix(in srgb, var(--dv-pos) ${(8 + t * 84).toFixed(1)}%, var(--dv-mid))`;
+  };
+  cols.forEach((c, j) => g.appendChild(s_("text", {
+    x: j * cw + cw / 2, y: -8, "text-anchor": "start",
+    transform: `rotate(-52 ${j * cw + cw / 2} -8)` }, c)));
+  rows.forEach((r, i) => {
+    g.appendChild(s_("text", { x: -8, y: i * cell + cell / 2 + 3.4, "text-anchor": "end" }, r));
+    cols.forEach((c, j) => {
+      const v = values[i][j];
+      const rect = s_("rect", { x: j * cw + 1, y: i * cell + 1, width: cw - 2, height: cell - 2,
+        rx: 2, fill: fill(v) });
+      bindTip(rect, tipFor ? tipFor(i, j, v) : `<b>${esc(r)}</b> × ${esc(c)}<br>${fmt(v)}`);
+      g.appendChild(rect);
+      if (cw >= 30 && v !== null && v !== undefined)
+        g.appendChild(s_("text", { x: j * cw + cw / 2, y: i * cell + cell / 2 + 3.2,
+          "text-anchor": "middle", fill: Math.abs(v) / absMax > 0.55 ? "#fff" : "var(--ink-2)",
+          "font-size": 8.5 }, fmt(v)));
+    });
+  });
+  return svg;
+}
+
+/* Segment scatter. */
+function scatterPlot(opts) {
+  const { x, y, label, names, w = 720, h = 400, xlab, ylab, r = 2.2 } = opts;
+  const m = { t: 16, r: 14, b: 30, l: 44 };
+  const { svg, g, iw, ih } = frame(w, h, m);
+  const x0 = Math.min(...x), x1 = Math.max(...x), y0 = Math.min(...y), y1 = Math.max(...y);
+  const xs = scale(x0, x1, 0, iw), ys = scale(y0, y1, ih, 0);
+  axes(g, iw, ih, xs, ys, ticks(x0, x1, 5).map(v => ({ v, l: num(v, 1) })), ticks(y0, y1, 5),
+       { yfmt: v => num(v, 1), ylab });
+  const byLab = new Map();
+  x.forEach((_, i) => { const k = label[i]; if (!byLab.has(k)) byLab.set(k, []); byLab.get(k).push(i); });
+  [...byLab.keys()].sort((a, b) => a - b).forEach(k => {
+    const idx = byLab.get(k);
+    const d = idx.map(i => `M${xs(x[i]).toFixed(1)} ${ys(y[i]).toFixed(1)}m-${r},0a${r},${r} 0 1,0 ${2 * r},0a${r},${r} 0 1,0 -${2 * r},0`).join("");
+    const p = s_("path", { d, fill: k < 0 ? "var(--ink-3)" : SERIES(k), opacity: .62 });
+    bindTip(p, `<b>${esc(names[k] ?? ("Segment " + k))}</b><br>${idx.length.toLocaleString()} points plotted`);
+    g.appendChild(p);
+  });
+  if (xlab) g.appendChild(s_("text", { x: iw, y: ih + 26, "text-anchor": "end", class: "axis-t" }, xlab));
+  return svg;
+}
+
+/* Rousseeuw silhouette plot. */
+function silhouettePlot(profile, names, w = 720) {
+  const per = profile.per_cluster || [];
+  const total = per.reduce((a, c) => a + c.curve.length, 0) + per.length * 3;
+  const rowH = 2.6, h = Math.max(180, total * rowH + 56);
+  const m = { t: 14, r: 14, b: 28, l: 44 };
+  const { svg, g, iw, ih } = frame(w, h, m);
+  const lo = Math.min(-0.25, ...per.flatMap(c => c.curve)), hi = Math.max(0.6, ...per.flatMap(c => c.curve));
+  const xs = scale(lo, hi, 0, iw);
+  ticks(lo, hi, 6).forEach(t => {
+    g.appendChild(s_("line", { x1: xs(t), x2: xs(t), y1: 0, y2: ih, class: "gridline" }));
+    g.appendChild(s_("text", { x: xs(t), y: ih + 15, "text-anchor": "middle" }, num(t, 2)));
+  });
+  g.appendChild(s_("line", { x1: xs(0), x2: xs(0), y1: 0, y2: ih, class: "axisline" }));
+  let y = 4;
+  per.forEach(c => {
+    const grp = s_("g");
+    c.curve.forEach(v => {
+      grp.appendChild(s_("rect", { x: Math.min(xs(0), xs(v)), y, width: Math.abs(xs(v) - xs(0)),
+        height: rowH - 0.5, fill: SERIES(c.cluster), opacity: v < 0 ? .45 : .85 }));
+      y += rowH;
+    });
+    bindTip(grp, `<b>${esc(names[c.cluster] ?? ("Segment " + c.cluster))}</b><br>n = ${c.n.toLocaleString()}<br>mean s = ${num(c.mean, 3)}<br>${num(c.pct_negative, 1)}% negative`);
+    g.appendChild(grp);
+    g.appendChild(s_("text", { x: -8, y: y - c.curve.length * rowH / 2 + 3, "text-anchor": "end",
+      fill: SERIES(c.cluster) }, String(c.cluster)));
+    y += 3 * rowH;
+  });
+  if (Number.isFinite(profile.overall))
+    g.appendChild(s_("line", { x1: xs(profile.overall), x2: xs(profile.overall), y1: 0, y2: ih,
+      stroke: "var(--finding)", "stroke-width": 1.2, "stroke-dasharray": "4 3" }));
+  g.appendChild(s_("text", { x: iw, y: ih + 26, "text-anchor": "end", class: "axis-t" },
+    "silhouette s(i) — dashed rule = partition mean"));
+  return svg;
+}
+
+/* Sparkline histogram for the feature table. */
+function sparkHist(hist, w = 96, h = 22) {
+  const svg = s_("svg", { class: "chart", viewBox: `0 0 ${w} ${h}`, width: w, height: h });
+  const mx = Math.max(...hist.counts, 1), bw = w / hist.counts.length;
+  hist.counts.forEach((c, i) => svg.appendChild(s_("rect", {
+    x: i * bw, y: h - (c / mx) * h, width: Math.max(bw - 0.6, 0.6), height: Math.max((c / mx) * h, 0.6),
+    fill: "var(--accent)", opacity: .55 })));
+  return svg;
+}
+
+function legendFor(names, ids) {
+  return el("div", { class: "legend" }, ids.map(k => {
+    const sw = el("span", { class: "swatch" }); sw.style.background = k < 0 ? "var(--ink-3)" : SERIES(k);
+    return el("span", {}, [sw, document.createTextNode(names[k] ?? ("Segment " + k))]);
+  }));
+}
+</script>
+<script>
+"use strict";
+const P1 = RUN.phase1_business, P2 = RUN.phase2_data, P3 = RUN.phase3_prepare;
+const P4 = RUN.phase4_model, P5 = RUN.phase5_evaluate, SEG = RUN.segments, P6 = RUN.phase6_deploy;
+const CH = P4.champion;
+/* What ships. When the objective-optimal champion fails the charter, Phase 5 swaps
+   in a compliant pipeline; every headline number on this page describes that one. */
+const DEP = P5.deployed || { pipeline: CH.pipeline, config: CH.config, role: "objective-optimal champion",
+  metrics: CH.full_data_metrics, inductive_fidelity: CH.inductive_fidelity, differs_from_champion: false };
+const CM = DEP.metrics;
+const NAMES = Object.fromEntries(SEG.profiles.map(p => [p.cluster, p.persona]));
+const IDS = SEG.profiles.map(p => p.cluster);
+
+/* ---------------------------------------------------------------- rail --- */
+document.getElementById("railSub").innerHTML =
+  `${P2.provenance.rows.toLocaleString()} accounts · ${P2.provenance.cols - 1} features<br>` +
+  `run ${RUN.meta.generated_at.slice(0, 16).replace("T", " ")}Z`;
+document.getElementById("railFoot").innerHTML =
+  `seed ${RUN.meta.seed}<br>${RUN.meta.wall_seconds}s end-to-end<br>` +
+  `sklearn ${RUN.meta.versions.sklearn} · py ${RUN.meta.versions.python}`;
+const tb = el("button", { class: "theme-btn", text: "Toggle theme" });
+tb.onclick = () => {
+  const cur = document.documentElement.getAttribute("data-theme");
+  const dark = cur ? cur === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  document.documentElement.setAttribute("data-theme", dark ? "light" : "dark");
+};
+document.getElementById("railFoot").appendChild(tb);
+
+/* ============================================================== OVERVIEW == */
+{
+  const h = section("overview", null, "Run overview", `objective · ${P4.objective.name}`,
+    `An automated hill-climbing search over <em>${P4.space.total_configurations.toLocaleString()}</em> ` +
+    `clustering pipelines, run end-to-end under CRISP-DM against ` +
+    `<a href="${P2.provenance.url}" target="_blank" rel="noopener">${esc(P2.provenance.dataset)}</a>. ` +
+    `Every figure on this page is read from a single run record; nothing is transcribed by hand.`);
+
+  const passed = P5.success_criteria.filter(c => c.passed).length;
+  h.appendChild(grid("g4", [
+    tile("Segments", String(CM.k), `${SEG.profiles.map(p => pct(p.share, 0)).join(" · ")} of the book`, true),
+    tile("Silhouette", num(CM.silhouette, 3), `neutral space · ${num(CM.self_silhouette, 3)} in the model's own ${CM.model_space_dims}-D space`),
+    tile("Bootstrap ARI", num(P5.stability.ari_mean, 3), `95% CI ${P5.stability.ari_ci95.map(v => num(v, 2)).join(" – ")} over ${P5.stability.rounds_completed} refits`),
+    tile("Criteria met", `${passed}/${P5.success_criteria.length}`, passed === P5.success_criteria.length ? "charter satisfied" : "one criterion unmet — see Evaluation"),
+    tile("Evaluations", (P4.evaluator_hill_climb.unique_evaluations + P4.evaluator_random_search.unique_evaluations).toLocaleString(),
+      `hill climb + random-search control · ${num(1e2 * (P4.evaluator_hill_climb.unique_evaluations + P4.evaluator_random_search.unique_evaluations) / P4.space.total_configurations, 4)}% of the space`),
+    tile("Search wall time", `${P4.hill_climb.wall_seconds}s`, `vs ${P4.random_search.wall_seconds}s for random search at equal budget`),
+    tile("Scoring latency", `${num(P6.latency.measurements[P6.latency.measurements.length - 1].per_record_ms_p95, 3)} ms`, "p95 per record, batch 1000"),
+    tile("Surrogate fidelity", pct(SEG.surrogate.fidelity, 1), `depth-${SEG.surrogate.depth} tree, ${SEG.surrogate.n_leaves} leaves`),
+  ]));
+
+  h.appendChild(grid("g21", [
+    card("Deployed pipeline", DEP.differs_from_champion
+        ? `The ${esc(DEP.role)}. The objective-optimal champion found by the search is a different pipeline that fails the charter — see Evaluation.`
+        : `Selected by ${CH.source.replace("_", " ")}, then refit and re-ranked on the full book.`,
+      (() => {
+        const box = el("div");
+        const steps = DEP.pipeline.split("->");
+        const flow = el("div", { class: "flow" });
+        steps[0].split("|").map(x => x.trim()).forEach((x, i, arr) => {
+          flow.appendChild(el("div", { class: "step", text: x }));
+          flow.appendChild(el("div", { class: "arrow", text: "→" }));
+        });
+        flow.appendChild(el("div", { class: "step hi", text: steps[1].trim() }));
+        box.appendChild(flow);
+        const dl = el("dl", { class: "kv" });
+        [["Role", DEP.role], ["Achieved k", CM.k],
+         ["Davies–Bouldin", num(CM.davies_bouldin, 3)],
+         ["Calinski–Harabasz", num(CM.calinski_harabasz, 0)],
+         ["Balance entropy", num(CM.balance_entropy, 3)],
+         ["Inductive fidelity", pct(DEP.inductive_fidelity, 2) + " — agreement of the deployable nearest-centroid rule with the fitted labels"],
+        ].forEach(([k, v]) => { dl.appendChild(el("dt", { text: k })); dl.appendChild(el("dd", { text: String(v) })); });
+        const w = el("div"); w.style.marginTop = "12px"; w.appendChild(dl); box.appendChild(w);
+        return box;
+      })()),
+    card("Verdict", null, (() => {
+      const box = el("div");
+      P5.success_criteria.forEach(c => {
+        const row = el("div"); row.style.cssText = "display:flex;gap:8px;align-items:baseline;padding:5px 0;border-top:1px solid var(--rule)";
+        row.appendChild(pill(c.id, c.passed ? "good" : "critical"));
+        row.appendChild(el("div", { html: `<div style="font-size:12.5px">${esc(c.criterion)}</div>` }));
+        box.appendChild(row);
+      });
+      return box;
+    })()),
+  ]));
+
+  if (P5.search_value)
+    h.appendChild(el("div", { style: "margin-top:14px" }, note("What the search bought",
+      `<strong>${esc(P5.search_value.verdict)}</strong> Champion objective ${num(P5.search_value.champion_objective, 4)} ` +
+      `against ${num(P5.search_value.best_baseline_objective, 4)} for the strongest hand-built pipeline ` +
+      `(“${esc(P5.search_value.best_baseline)}”), a gain of ${num(P5.search_value.gain_over_best_baseline, 4)}. ` +
+      `Against the textbook default — StandardScaler and KMeans on the raw columns — the gain is ` +
+      `${num(P5.search_value.gain_over_textbook_default, 4)}.`)));
+}
+
+/* ============================================================== BUSINESS == */
+{
+  const h = section("business", "Phase 1", "Business Understanding", "charter fixed before the data was opened",
+    P1.business_objective);
+  h.appendChild(grid("g2", [
+    card("The problem", null, el("p", { class: "lede", style: "margin:0;font-size:14px", text: P1.problem })),
+    card("Data-mining goal", null, el("div", {}, [
+      el("p", { style: "font-size:13px;color:var(--ink-2)", text: P1.data_mining_goal }),
+      el("p", { style: "font-size:13px;color:var(--ink-2);margin-top:10px", text: P1.why_unsupervised }),
+    ])),
+  ]));
+  h.appendChild(grid("g2", [
+    card("Success criteria", "Set in advance. Phase 5 grades against them without adjustment.",
+      table([
+        { label: "ID", get: r => r.id, cls: "mono" },
+        { label: "Criterion", get: r => esc(r.criterion) },
+        { label: "Why this bar", get: r => `<span style="color:var(--ink-3)">${esc(r.rationale)}</span>` },
+      ], P1.success_criteria)),
+    card("Stakeholders & constraints", null, (() => {
+      const box = el("div");
+      P1.stakeholders.forEach(s => box.appendChild(el("div", { style: "padding:6px 0;border-top:1px solid var(--rule)" }, [
+        el("div", { style: "font-size:12.5px;font-weight:500", text: s.role }),
+        el("div", { style: "font-size:12.5px;color:var(--ink-3)", text: s.needs }),
+      ])));
+      const ul = el("ul", { style: "margin:14px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-2);line-height:1.6" });
+      P1.constraints_and_risks.forEach(c => ul.appendChild(el("li", { text: c })));
+      box.appendChild(el("div", { class: "note-t", style: "margin-top:14px", text: "Constraints & risks" }));
+      box.appendChild(ul);
+      return box;
+    })()),
+  ]));
+}
+
+/* ================================================================== DATA == */
+{
+  const pr = P2.profile, tend = P2.clustering_tendency;
+  const h = section("data", "Phase 2", "Data Understanding", `${P2.quality_issues.length} quality findings`,
+    `Six months of behaviour for ${pr.n_rows.toLocaleString()} active cardholders across ${pr.n_features} fields. ` +
+    `Before any modelling, two questions: <em>is there structure here at all</em>, and <em>what is wrong with the data</em>.`);
+
+  h.appendChild(grid("g4", [
+    tile("Hopkins statistic", num(tend.hopkins, 3), `${esc(tend.interpretation)} — 0.5 would mean uniform noise`, true),
+    tile("Records", pr.n_rows.toLocaleString(), `${pr.memory_mb} MB in memory`),
+    tile("Effective dimensions", String(pr.pca_scree.n_kaiser), `Kaiser criterion; ${pr.pca_scree.n_90pct} components carry 90% of variance`),
+    tile("Missing cells", P2.profile.features.reduce((a, f) => a + f.missing, 0).toLocaleString(),
+      `concentrated in MINIMUM_PAYMENTS (${num(pr.features.find(f => f.feature === "MINIMUM_PAYMENTS").missing_pct, 2)}%)`),
+  ]));
+
+  h.appendChild(grid("", [card("Feature profile",
+    "Distributions are drawn to the 99.5th percentile — at full range every monetary histogram is a single bar at zero with an invisible tail, which is itself the finding.",
+    table([
+      { label: "Feature", get: r => `<span class="mono" style="font-size:11.5px">${esc(r.feature)}</span><div style="color:var(--ink-3);font-size:11px;max-width:34ch">${esc(r.description)}</div>` },
+      { label: "Kind", get: r => `<span class="pill neutral plain">${esc(r.kind)}</span>` },
+      { label: "Distribution", get: r => sparkHist(r.histogram) },
+      { label: "Median", num: true, get: r => num(r.median, 2) },
+      { label: "p95", num: true, get: r => num(r.p95, 1) },
+      { label: "Max", num: true, get: r => num(r.max, 0) },
+      { label: "Skew", num: true, get: r => `<span style="color:${Math.abs(r.skew) > 3 ? "var(--finding)" : "var(--ink-2)"}">${num(r.skew, 1)}</span>` },
+      { label: "Zeros", num: true, get: r => num(r.zeros_pct, 0) + "%" },
+      { label: "Missing", num: true, get: r => r.missing ? `<span style="color:var(--finding)">${num(r.missing_pct, 2)}%</span>` : "—" },
+      { label: "Top 1% share", num: true, get: r => num(r.top1pct_share, 0) + "%" },
+    ], pr.features, { scroll: true }))]));
+
+  h.appendChild(grid("g21", [
+    card("Rank correlation", "Spearman, so the monotone relationships survive the skew that would break Pearson here.",
+      heatmap({ rows: pr.correlation.labels, cols: pr.correlation.labels, values: pr.correlation.matrix,
+        cell: 20, rowLab: 190, w: 720 })),
+    card("Redundancy", "The strongest pairs — every one of them is a reason the raw 17 columns are not 17 independent facts.",
+      hbars(pr.correlation.top_pairs.slice(0, 9).map(p => ({ l: `${p.a} ~ ${p.b}`, v: p.rho })),
+        { fmt: v => num(v, 2), color: r => r.v >= 0 ? "var(--dv-pos)" : "var(--dv-neg)", max: 1 })),
+  ]));
+
+  h.appendChild(grid("", [card("Data quality audit",
+    "Every finding names the Phase-3 action that answers it. A finding with no stated resolution is an unmanaged risk, so the audit refuses to emit one.",
+    (() => {
+      const box = el("div");
+      const order = { blocker: 0, high: 1, medium: 2, low: 3 };
+      [...P2.quality_issues].sort((a, b) => order[a.severity] - order[b.severity]).forEach(i => {
+        const w = el("div", { class: "sev " + i.severity, style: "padding:9px 0 9px 12px;margin-top:8px" });
+        w.appendChild(el("div", { style: "display:flex;gap:8px;align-items:baseline;flex-wrap:wrap" }, [
+          pill(i.id, i.severity === "low" ? "neutral" : i.severity === "medium" ? "warn" : "critical"),
+          el("span", { class: "mono", style: "font-size:11.5px;color:var(--ink-2)", text: i.feature }),
+          el("span", { style: "font-size:12.5px;font-weight:500", text: i.finding }),
+        ]));
+        w.appendChild(el("div", { style: "font-size:12px;color:var(--ink-3);margin-top:3px", text: "Evidence: " + i.evidence }));
+        w.appendChild(el("div", { style: "font-size:12.5px;color:var(--ink-2);margin-top:4px", text: "→ " + i.resolution }));
+        box.appendChild(w);
+      });
+      return box;
+    })())]));
+}
+
+/* =============================================================== PREPARE == */
+{
+  const h = section("prepare", "Phase 3", "Data Preparation", `${P3.ledger.actions.length} logged actions`,
+    `Two layers, deliberately separated. Repairs that are <em>not negotiable</em> happen once, before the search — ` +
+    `otherwise the optimiser can tune a data-quality defect into a feature. Everything genuinely uncertain ` +
+    `(imputation, transform, scaling, reduction) becomes a searched hyperparameter instead of an assumption.`);
+
+  h.appendChild(grid("g2", [
+    card("Variance-stabilising transform", "Mean |skewness| across the 17 source features. Distance-based clustering on the untransformed columns is dominated by a handful of whales.",
+      barChart({ data: P3.transform_effect.map(t => ({ l: t.transform, v: t.mean_abs_skew,
+          color: t.transform === CH.config.transform ? "var(--accent)" : "var(--surface-3)",
+          tip: `<b>${t.transform}</b><br>mean |skew| ${num(t.mean_abs_skew, 2)}<br>max |skew| ${num(t.max_abs_skew, 2)}` })),
+        h: 200, w: 420, ylab: "mean |skewness|", yfmt: v => num(v, 1) })),
+    card("Fixed cleaning ledger", "What changed, on how many records, and why.",
+      table([
+        { label: "Action", get: r => `<span class="mono" style="font-size:11px">${esc(r.action)}</span>` },
+        { label: "Feature", get: r => esc(r.feature) },
+        { label: "Rows", num: true, get: r => r.affected.toLocaleString() },
+        { label: "Detail", get: r => `<span style="color:var(--ink-3)">${esc(r.detail)}</span>` },
+      ], P3.ledger.actions, { scroll: true })),
+  ]));
+
+  h.appendChild(grid("g2", [
+    card("Engineered features", `${P3.ledger.engineered_features.length} ratios derived once and offered to the search. Ratios are capped at their 99.5th percentile — a denominator near zero otherwise produces a value that dominates every distance in the matrix.`,
+      el("div", { class: "chips" }, P3.ledger.engineered_features.map(f => pill(f, "accent", true)))),
+    card("Feature views", "“Use every column” is a hypothesis, not a default, so the view is itself a searched dimension.",
+      table([
+        { label: "View", get: r => `<span class="mono">${esc(r[0])}</span>` },
+        { label: "Columns", num: true, get: r => r[1] },
+        { label: "", get: r => r[0] === CH.config.feature_view ? '<span class="pill accent">champion</span>' : "" },
+      ], Object.entries(P3.feature_views))),
+  ]));
+}
+</script>
+<script>
+"use strict";
+/* ================================================================= MODEL == */
+{
+  const hc = P4.hill_climb, rs = P4.random_search, ev = P4.evaluator_hill_climb, ev2 = P4.evaluator_random_search;
+  const h = section("model", "Phase 4", "Modeling · AutoResearch", `${P4.trials.length} logged trials`,
+    `Algorithm choice and preprocessing are optimised jointly as one conditional space — the CASH formulation ` +
+    `(Thornton et al., 2013) carried to clustering by AutoML4Clust (Tschechlov et al., 2021). ` +
+    `The optimiser is an <em>iterated local search</em>: random restarts, single-dimension moves, ` +
+    `plateau traversal and a tabu memory. Random search over the identical space and budget is the control arm — ` +
+    `a search reported without one is a number, not a finding.`);
+
+  h.appendChild(grid("g4", [
+    tile("Search space", P4.space.total_configurations.toLocaleString(),
+      `${P4.space.preprocessing_combinations.toLocaleString()} preprocessing × ${P4.space.model_combinations.toLocaleString()} model settings across ${P4.space.n_dimensions} dimensions`, true),
+    tile("Hill climb best", num(hc.best_objective, 4), `${hc.restarts.length} restarts · ${ev.unique_evaluations} evaluations · ${hc.wall_seconds}s`),
+    tile("Random search best", num(rs.best_objective, 4), `${ev2.unique_evaluations} evaluations · ${rs.wall_seconds}s`),
+    tile("Preprocessing cache", pct(ev.preprocessing_cache_hit_rate, 0),
+      `${ev.distinct_preprocessing_chains} distinct chains reused across ${ev.unique_evaluations} fits · ${pct(ev.failure_rate, 1)} of configs failed to fit`),
+  ]));
+
+  /* --- the methodological centrepiece --- */
+  h.appendChild(el("div", { style: "margin-top:16px" }, note("The decision that makes the rest of it mean anything",
+    `A candidate is <strong>never scored in the space it chose for itself</strong>. Every partition is judged on the ` +
+    `geometry its labels induce in one fixed space no candidate can influence — all 17 source features, ` +
+    `median-imputed, Yeo-Johnson transformed, standardised, no reduction.<br><br>` +
+    `Without that separation the search stops optimising cluster structure and starts optimising the scoring space: ` +
+    `projecting to two principal components discards exactly the variance that would have made the clusters overlap. ` +
+    `An earlier run of this study did precisely that — it selected <span class="mono">pca_n2</span> and reported a ` +
+    `silhouette of <strong>0.68</strong> that was <strong>0.195</strong> when the same labels were scored against the real features. ` +
+    `The panel below measures the size of that prize across every trial in this run.`)));
+
+  h.appendChild(grid("g21", [
+    card("Anytime performance", "Best objective found so far against evaluations spent. Comparing only final scores hides an optimiser that needed ten times the budget to get there.",
+      lineChart({ w: 700, h: 260, xlab: "evaluations", ylab: "best objective so far",
+        xfmt: v => String(Math.round(v)),
+        series: [
+          { name: "Hill climb", color: "var(--s1)", pts: P4.anytime.hill_climb.map((v, i) => [i + 1, v]) },
+          { name: "Random search", color: "var(--s2)", dash: "5 3", pts: P4.anytime.random_search.map((v, i) => [i + 1, v]) },
+        ] })),
+    card("Read", null, (() => {
+      const gap = hc.best_objective - rs.best_objective;
+      const speed = rs.wall_seconds / Math.max(hc.wall_seconds, 1e-9);
+      return el("div", { style: "font-size:12.5px;color:var(--ink-2);line-height:1.6" }, [
+        el("p", { html: `Final objectives differ by <strong style="color:var(--ink)">${num(Math.abs(gap), 4)}</strong> in favour of ` +
+          `${gap >= 0 ? "the hill climber" : "random search"}.` }),
+        el("p", { style: "margin-top:10px", html: `The hill climber spent <strong style="color:var(--ink)">${num(speed, 1)}×</strong> less wall time for the ` +
+          `same evaluation budget: it concentrates on regions it has already found cheap to fit, while uniform ` +
+          `sampling keeps drawing spectral and iterative-imputer pipelines that cost seconds each. ` +
+          `Equal-budget comparisons in evaluations are not equal-budget comparisons in time, and this is the direction that usually goes unreported.` }),
+        el("p", { style: "margin-top:10px", html: `On a space this large — ${P4.space.total_configurations.toLocaleString()} configurations, of which ` +
+          `${(ev.unique_evaluations + ev2.unique_evaluations).toLocaleString()} were seen — neither optimiser has meaningfully explored it. ` +
+          `What the comparison establishes is that the climb is not <em>worse</em> than chance while being far cheaper.` }),
+      ]);
+    })(), "pad0 card"),
+  ]));
+
+  /* trial scatter */
+  h.appendChild(grid("", [card("Every evaluation",
+    "One mark per trial. Height is the objective; infeasible configurations sit below the rule, pushed there by the static-penalty constraint (Coello Coello, 2002) so that no infeasible solution can outrank a feasible one however good its indices look.",
+    (() => {
+      const w = 980, hh = 300, m = { t: 16, r: 14, b: 32, l: 48 };
+      const { svg, g, iw, ih } = frame(w, hh, m);
+      const ok = P4.trials.filter(t => t.error === null);
+      const xs = scale(0, Math.max(...ok.map((_, i) => i), 1), 0, iw);
+      const lo = Math.max(-1.6, Math.min(...ok.map(t => t.objective))), hi = Math.max(...ok.map(t => t.objective));
+      const ys = scale(lo, hi + 0.05, ih, 0);
+      ticks(lo, hi, 5).forEach(t => {
+        g.appendChild(s_("line", { x1: 0, x2: iw, y1: ys(t), y2: ys(t), class: "gridline" }));
+        g.appendChild(s_("text", { x: -8, y: ys(t) + 3.4, "text-anchor": "end" }, num(t, 2)));
+      });
+      g.appendChild(s_("line", { x1: 0, x2: iw, y1: ys(0), y2: ys(0), class: "axisline" }));
+      const byOpt = { hill_climb: [], random_search: [] };
+      let i = 0;
+      P4.trials.forEach(t => { if (t.error === null) byOpt[t.optimiser].push([i++, t]); });
+      Object.entries(byOpt).forEach(([k, arr], oi) => {
+        arr.forEach(([ix, t]) => {
+          const acc = t.accepted && t.optimiser === "hill_climb";
+          const c = s_("circle", { cx: xs(ix), cy: ys(Math.max(t.objective, lo)), r: acc ? 3 : 1.9,
+            fill: oi === 0 ? "var(--s1)" : "var(--s2)", opacity: acc ? .95 : .4,
+            stroke: acc ? "var(--surface)" : "none", "stroke-width": acc ? 1.2 : 0 });
+          bindTip(c, `<b>${num(t.objective, 4)}</b> · ${t.optimiser.replace("_", " ")}<br>` +
+            `${t.step_kind}${t.move !== "sample" ? " · " + esc(t.move) : ""}<br>` +
+            `k=${t.metrics.k ?? "—"} sil=${num(t.metrics.silhouette, 3)}<br>` +
+            `<span style="color:var(--ink-3)">${esc((t.config.feature_view || "") + " | " + (t.config.transform || "") + " | " + (t.config.scaler || "") + " | " + (t.config.reducer || ""))}<br>${esc(t.config.algorithm)}</span>` +
+            (t.metrics.feasible === false ? "<br><span style='color:var(--finding)'>infeasible</span>" : ""));
+          g.appendChild(c);
+        });
+      });
+      g.appendChild(s_("text", { x: iw, y: ih + 26, "text-anchor": "end", class: "axis-t" }, "trial order (hill climb, then random search)"));
+      const box = el("div"); box.appendChild(svg);
+      box.appendChild(el("div", { class: "legend" }, [
+        el("span", {}, [Object.assign(el("span", { class: "swatch" }), { style: "background:var(--s1)" }), document.createTextNode("hill climb")]),
+        el("span", {}, [Object.assign(el("span", { class: "swatch" }), { style: "background:var(--s2)" }), document.createTextNode("random search")]),
+        el("span", { text: "large marks = accepted moves" }),
+      ]));
+      return box;
+    })())]));
+
+  h.appendChild(grid("g2", [
+    card("Restart trajectories", "Each restart is an independent climb from a random configuration. Flat tails are local optima; the spread between them is why restarts exist.",
+      lineChart({ w: 460, h: 230, xlab: "local steps", ylab: "incumbent objective",
+        xfmt: v => String(Math.round(v)),
+        series: hc.restarts.map((r, i) => ({ name: `restart ${r.restart}`, color: SERIES(i),
+          opacity: .85, pts: r.trace.map((v, j) => [j, v]) })) })),
+    card("Move economics", "Where the climb spent its budget and what it got back.",
+      table([
+        { label: "Restart", num: true, get: r => r.restart },
+        { label: "Steps", num: true, get: r => r.steps },
+        { label: "Improving", num: true, get: r => r.improving_steps },
+        { label: "Sideways", num: true, get: r => r.sideways_moves },
+        { label: "Start", num: true, get: r => num(r.start, 3) },
+        { label: "End", num: true, get: r => num(r.end, 3) },
+        { label: "Gain", num: true, get: r => `<span style="color:${r.gain > 0 ? "var(--good)" : "var(--ink-3)"}">${num(r.gain, 3)}</span>` },
+        { label: "Ended", get: r => `<span class="pill neutral plain">${r.terminated.replace("_", " ")}</span>` },
+      ], hc.restarts)),
+  ]));
+
+  /* optimism */
+  if (P4.optimism_analysis && P4.optimism_analysis.n_trials) {
+    const oa = P4.optimism_analysis;
+    h.appendChild(grid("g21", [
+      card("Optimism of self-scoring", "Silhouette in the candidate's own modelling space minus the same labels' silhouette in the neutral space, by the dimensionality the candidate clustered in.",
+        barChart({ w: 700, h: 240, ylab: "mean optimism (silhouette points)", yfmt: v => num(v, 2),
+          data: Object.entries(oa.by_model_space_dims).map(([d, o]) => ({ l: d + "D", v: o.mean_optimism,
+            color: +d <= 4 ? "var(--finding)" : "var(--accent)",
+            tip: `<b>${d} dimensions</b><br>mean optimism ${num(o.mean_optimism, 3)}<br>${o.n} trials` })) })),
+      card("The prize", null, el("div", { style: "font-size:12.5px;color:var(--ink-2);line-height:1.6" }, [
+        el("p", { html: `<strong style="color:var(--ink)">${pct(oa.pct_inflated / 100, 0)}</strong> of ${oa.n_trials} trials would have scored higher against themselves than against the neutral space; the mean inflation is <strong style="color:var(--ink)">${num(oa.mean_optimism, 3)}</strong> silhouette points.` }),
+        el("p", { style: "margin-top:10px", html: `It decays monotonically with dimensionality — which is the mechanism, not a coincidence. Fewer retained components means less of the variance that would have put points on the wrong side of a boundary.` }),
+        el("p", { style: "margin-top:10px", html: `Worst case in this run:` }),
+        el("div", { class: "mono-block", style: "margin-top:6px;white-space:pre-wrap", text: oa.worst_case.pipeline }),
+        el("p", { style: "margin-top:8px", html: `silhouette <strong style="color:var(--finding)">${num(oa.worst_case.self_silhouette, 3)}</strong> against itself, <strong style="color:var(--ink)">${num(oa.worst_case.neutral_silhouette, 3)}</strong> against the features. A perfect score, and worth nothing.` }),
+      ])),
+    ]));
+  }
+
+  /* dimension importance */
+  if (P4.dimension_importance.length)
+    h.appendChild(grid("g21", [
+      card("Which decisions mattered", "Share of objective variance attributable to each search dimension — a one-way η², the model-free cousin of fANOVA (Hutter et al., 2014). Hill climbing samples non-uniformly, so these are observational effects over the trajectory; the random-search arm is pooled in to dilute that bias.",
+        hbars(P4.dimension_importance.slice(0, 12).map(d => ({ l: d.dimension, v: d.eta_squared,
+          tip: `<b>${esc(d.dimension)}</b><br>η² = ${num(d.eta_squared, 3)}<br>best: ${esc(d.best_value)} (${num(d.best_mean, 3)})<br>worst: ${esc(d.worst_value)} (${num(d.worst_mean, 3)})<br>${d.n_observed} trials over ${d.n_values} values` })),
+          { fmt: v => num(v, 3) })),
+      card("Best value per dimension", null,
+        table([
+          { label: "Dimension", get: r => `<span class="mono" style="font-size:11px">${esc(r.dimension)}</span>` },
+          { label: "Best", get: r => `<span class="mono" style="font-size:11px;color:var(--accent)">${esc(r.best_value)}</span>` },
+          { label: "Worst", get: r => `<span class="mono" style="font-size:11px;color:var(--ink-3)">${esc(r.worst_value)}</span>` },
+          { label: "Δ", num: true, get: r => num(r.best_mean - r.worst_mean, 3) },
+        ], P4.dimension_importance.slice(0, 12))),
+    ]));
+
+  /* leaderboard */
+  h.appendChild(grid("", [card("Leaderboard", "Top configurations by search objective, de-duplicated on the canonical pipeline hash.",
+    table([
+      { label: "#", num: true, get: r => r.rank },
+      { label: "Obj", num: true, get: r => `<strong>${num(r.objective, 4)}</strong>` },
+      { label: "Src", get: r => `<span class="pill ${r.optimiser === "hill_climb" ? "accent" : "neutral"} plain">${r.optimiser === "hill_climb" ? "HC" : "RS"}</span>` },
+      { label: "k", num: true, get: r => r.metrics.k ?? "—" },
+      { label: "Sil", num: true, get: r => num(r.metrics.silhouette, 3) },
+      { label: "Self-sil", num: true, get: r => `<span style="color:var(--ink-3)">${num(r.metrics.self_silhouette, 3)}</span>` },
+      { label: "DB", num: true, get: r => num(r.metrics.davies_bouldin, 2) },
+      { label: "Min seg", num: true, get: r => pct(r.metrics.min_cluster_frac, 1) },
+      { label: "Pipeline", get: r => `<span class="mono" style="font-size:11px">${esc(r.pipeline)}</span>` },
+      { label: "s", num: true, get: r => num(r.elapsed_s, 2) },
+    ], P4.leaderboard, { scroll: true }))]));
+
+  /* transfer + finalists */
+  const ts = P4.transfer_study || {};
+  h.appendChild(grid("g12", [
+    card("Subsample → full book", "Does the ranking transfer?", el("div", { style: "font-size:12.5px;color:var(--ink-2);line-height:1.6" }, [
+      ts.spearman_full_range !== undefined ? el("div", {}, [
+        el("div", { class: "tile", style: "padding:0;border:0;background:none" }, [
+          el("div", { class: "lab", text: "Spearman ρ, full range" }),
+          el("div", { class: "val", style: "font-size:30px", text: num(ts.spearman_full_range, 3) }),
+          el("div", { class: "sub", html: `${ts.n_probed} configurations refit on all ${P2.provenance.rows.toLocaleString()} records, stratified across the observed objective range` }),
+        ]),
+        el("p", { style: "margin-top:12px", html: `<strong style="color:var(--ink)">${esc(ts.verdict)}</strong>` }),
+        el("p", { style: "margin-top:10px", html: `Top-band ρ is <span class="mono">${num(ts.spearman_top_band, 3)}</span>. ${esc(ts.caveat)}` }),
+      ]) : el("p", { text: "Transfer study unavailable for this run." }),
+      el("p", { style: "margin-top:10px", html: `${P4.finalist_refit.n_feasible_on_full}/${P4.finalist_refit.n_refit} finalists remain feasible at full scale; mean objective change on refit is <span class="mono">${num(P4.finalist_refit.mean_objective_drop, 3)}</span>. A configuration whose smallest segment holds 4% of a 4,000-row sample can hold 1% of the book, which is why the champion is chosen here rather than at the end of the search.` }),
+    ])),
+    card("Finalists refit on the full book", "Re-ranked where it counts. The champion is the best feasible row, not the search winner.",
+      table([
+        { label: "Search #", num: true, get: r => r.search_rank },
+        { label: "Search obj", num: true, get: r => num(r.search_objective, 4) },
+        { label: "Full obj", num: true, get: r => r.error ? "—" : `<strong>${num(r.full_objective, 4)}</strong>` },
+        { label: "Δ", num: true, get: r => r.error ? "—" : `<span style="color:${r.delta >= 0 ? "var(--good)" : "var(--finding)"}">${num(r.delta, 3)}</span>` },
+        { label: "k", num: true, get: r => r.k ?? "—" },
+        { label: "Min seg", num: true, get: r => r.error ? "—" : pct(r.min_cluster_frac, 1) },
+        { label: "State", get: r => r.error ? '<span class="pill critical">error</span>' : (r.feasible ? '<span class="pill good">feasible</span>' : '<span class="pill warn">infeasible</span>') },
+        { label: "Pipeline", get: r => `<span class="mono" style="font-size:11px">${esc(r.pipeline)}</span>` },
+      ], P4.finalist_refit.finalists, { scroll: true })),
+  ]));
+
+  /* objective definition */
+  h.appendChild(grid("g2", [
+    card("Objective", "Three indices on a common scale, then constraints.", (() => {
+      const box = el("div");
+      box.appendChild(el("div", { class: "mono-block", text:
+`score = 0.50·(sil+1)/2  +  0.30·1/(1+DB)  +  0.20·CH/(CH+κ)
+        − penalty(min segment size, dominance, balance, noise, k)
+        − 1.0  if any business constraint is violated
+
+κ = ${num(P4.objective.calibration.kappa_ch, 1)}   (frozen from a calibration draw, before the search)` }));
+      box.appendChild(el("p", { style: "font-size:12.5px;color:var(--ink-2);margin-top:10px;line-height:1.6",
+        html: `Index choice follows Arbelaitz et al. (2013), whose comparison of 30 validity indices over 740 datasets ` +
+        `puts silhouette, Davies–Bouldin and Calinski–Harabasz among the consistently strongest. CH is unbounded, so it ` +
+        `cannot be averaged with a bounded index directly; the saturating map with a κ frozen <em>before</em> the search ` +
+        `keeps the objective stationary, which a hill climber requires — normalising against the running history would ` +
+        `mean comparing scores computed on two different scales.` }));
+      return box;
+    })()),
+    card("Why constrained at all", null, el("div", { style: "font-size:12.5px;color:var(--ink-2);line-height:1.6" }, [
+      el("p", { html: `Internal indices are documented to favour small k and spherical, equal-sized clusters ` +
+        `(Milligan & Cooper, 1985; Vendramin et al., 2010). Left unconstrained, the objective here is maximised by a ` +
+        `partition holding most of the book in one blob plus a handful of outlier pockets — silhouette 1.0, business value nil.` }),
+      el("p", { style: "margin-top:10px", html: `The constraints are the charter's, not the statistician's: no segment below ` +
+        `${pct(RUN.meta.run_config.search.min_cluster_frac, 0)} of the book, no segment above 60%, at least ` +
+        `${RUN.meta.run_config.search.min_k_business} treatments, no more than ${pct(RUN.meta.run_config.search.max_noise_frac, 0)} of accounts unassigned.` }),
+      el("p", { style: "margin-top:10px", html: `Handling is the static-penalty method: feasible solutions strictly dominate ` +
+        `infeasible ones, while a graded penalty inside the infeasible region still points the climber back toward feasibility.` }),
+    ])),
+  ]));
+}
+</script>
+<script>
+"use strict";
+/* ============================================================== EVALUATE == */
+{
+  const st = P5.stability, gap = P5.gap_statistic, dep = P5.deployed || {};
+  const h = section("evaluate", "Phase 5", "Evaluation", `${st.rounds_completed} resampling replicates`,
+    `Internal indices answer “is this partition geometrically tidy?”. They do not answer the two questions that ` +
+    `decide whether a segmentation ships: <em>is it real</em> — would a different sample of the same book give the ` +
+    `same segments — and <em>is it self-flattering</em>. Both are tested here.`);
+
+  /* the charter loop */
+  if (P5.champion_snapshot && P5.champion_snapshot.failed.length) {
+    const cs = P5.champion_snapshot, cc = P5.charter_compliance;
+    h.appendChild(el("div", { style: "margin-top:14px" }, note("The objective-optimal model failed the brief",
+      `The search champion — <span class="mono">${esc(cs.pipeline)}</span> — maximises the objective ` +
+      `(${num(cs.metrics.objective, 4)}) and fails <strong>${cs.failed.join(", ")}</strong>. ` +
+      (cs.failed.includes("SC-2")
+        ? `Its weakest segment has a bootstrap Jaccard of <strong>${num(Math.min(...Object.values(cs.per_cluster_jaccard)), 3)}</strong>, ` +
+          `inside Hennig's “dissolved” band: the segment does not survive being refit on a different sample of the book, ` +
+          `so there is nothing there to budget a campaign against. `
+        : "") +
+      `CRISP-DM draws an arrow from Evaluation back to Business Understanding for exactly this case, and this run walks it: ` +
+      `${cc.n_evaluated} shortlisted pipelines were graded against the whole charter and ` +
+      `${cc.n_compliant} satisfy every criterion. ` +
+      `<strong>${esc(cc.verdict)}</strong>`)));
+  }
+
+  if (dep.differs_from_champion)
+    h.appendChild(grid("g2", [
+      card("Objective-optimal champion", "Wins the search. Not deployed.", el("div", {}, [
+        el("div", { class: "mono-block", style: "white-space:pre-wrap", text: P5.champion_snapshot.pipeline }),
+        (() => { const dl = el("dl", { class: "kv", style: "margin-top:10px" });
+          [["Objective", num(P5.champion_snapshot.metrics.objective, 4)],
+           ["Silhouette", num(P5.champion_snapshot.reference_space.silhouette, 3)],
+           ["Mean ARI", num(P5.champion_snapshot.ari_mean, 3)],
+           ["Weakest Jaccard", num(Math.min(...Object.values(P5.champion_snapshot.per_cluster_jaccard)), 3)],
+           ["Failed", P5.champion_snapshot.failed.join(", ")],
+          ].forEach(([k, v]) => { dl.appendChild(el("dt", { text: k })); dl.appendChild(el("dd", { text: String(v) })); });
+          return dl; })(),
+      ])),
+      card("Deployed model", `${esc(dep.role)} — satisfies the whole charter.`, el("div", {}, [
+        el("div", { class: "mono-block", style: "white-space:pre-wrap", text: dep.pipeline }),
+        (() => { const dl = el("dl", { class: "kv", style: "margin-top:10px" });
+          [["Objective", num(dep.metrics.objective, 4)],
+           ["Silhouette", num(P5.reference_space.silhouette, 3)],
+           ["Mean ARI", num(st.ari_mean, 3)],
+           ["Weakest Jaccard", num(Math.min(...Object.values(st.per_cluster_jaccard).map(v => v.mean)), 3)],
+           ["Cost of compliance", num(dep.metrics.objective - P5.champion_snapshot.metrics.objective, 4) + " objective"],
+          ].forEach(([k, v]) => { dl.appendChild(el("dt", { text: k })); dl.appendChild(el("dd", { text: String(v) })); });
+          return dl; })(),
+      ])),
+    ]));
+
+  /* success criteria */
+  h.appendChild(grid("", [card("Charter results", "Graded on the reference-space silhouette, not the modelling-space one — grading a model in the space that was tuned to flatter it is how a project passes its own exam.",
+    table([
+      { label: "", get: r => pill(r.passed ? "PASS" : "FAIL", r.passed ? "good" : "critical") },
+      { label: "ID", get: r => `<span class="mono">${r.id}</span>` },
+      { label: "Criterion", get: r => esc(r.criterion) },
+      { label: "Evidence", get: r => `<span class="mono" style="font-size:11px">${esc(r.evidence)}</span>` },
+      { label: "Why this bar", get: r => `<span style="color:var(--ink-3);font-size:11.5px">${esc(r.rationale)}</span>` },
+    ], P5.success_criteria))]));
+
+  /* space comparison + silhouette */
+  h.appendChild(grid("g2", [
+    card("Modelling space vs reference space", "The same labels, scored twice. The gap is the price of dimensionality reduction, and it belongs in the report rather than in a footnote.",
+      table([
+        { label: "Index", get: r => r[0] },
+        { label: `Modelling (${CM.model_space_dims}-D)`, num: true, get: r => r[1] },
+        { label: "Reference (17-D)", num: true, get: r => `<strong>${r[2]}</strong>` },
+      ], [
+        ["Silhouette", num(CM.self_silhouette, 4), num(P5.reference_space.silhouette, 4)],
+        ["Davies–Bouldin", "—", num(P5.reference_space.davies_bouldin, 3)],
+        ["Calinski–Harabasz", "—", num(P5.reference_space.calinski_harabasz, 0)],
+      ])),
+    card("Per-segment silhouette", "Rousseeuw's original diagnostic. A healthy mean can hide a segment whose members mostly sit on the wrong side of a boundary.",
+      (() => { const b = el("div"); b.appendChild(silhouettePlot(P5.silhouette_profile, NAMES, 460));
+        b.appendChild(table([
+          { label: "Segment", get: r => `<span style="color:${SERIES(r.cluster)}">${esc(NAMES[r.cluster] ?? r.cluster)}</span>` },
+          { label: "n", num: true, get: r => r.n.toLocaleString() },
+          { label: "mean s", num: true, get: r => num(r.mean, 3) },
+          { label: "% negative", num: true, get: r => num(r.pct_negative, 1) + "%" },
+        ], P5.silhouette_profile.per_cluster)); return b; })()),
+  ]));
+
+  /* stability */
+  h.appendChild(grid("g21", [
+    card("Cluster-wise stability", `Best Jaccard overlap of each segment against ${st.rounds_completed} independent refits. Hennig (2007): above 0.85 highly stable, 0.60–0.85 a real but fuzzy pattern, below 0.60 dissolved.`,
+      (() => { const b = el("div");
+        b.appendChild(hbars(Object.entries(st.per_cluster_jaccard).map(([k, v]) => ({
+          l: NAMES[+k] ?? ("Segment " + k), v: v.mean,
+          tip: `<b>${esc(NAMES[+k] ?? k)}</b><br>mean Jaccard ${num(v.mean, 3)} ± ${num(v.std, 3)}<br>min ${num(v.min, 3)}<br>${esc(v.verdict)}` })),
+          { max: 1, color: r => r.v > 0.85 ? "var(--good)" : r.v > 0.6 ? "var(--warn)" : "var(--critical)" }));
+        b.appendChild(el("div", { class: "legend" }, [
+          el("span", {}, [Object.assign(el("span", { class: "swatch" }), { style: "background:var(--good)" }), document.createTextNode("highly stable")]),
+          el("span", {}, [Object.assign(el("span", { class: "swatch" }), { style: "background:var(--warn)" }), document.createTextNode("stable pattern")]),
+          el("span", {}, [Object.assign(el("span", { class: "swatch" }), { style: "background:var(--critical)" }), document.createTextNode("dissolved")]),
+        ]));
+        return b; })()),
+    card("Partition stability", null, el("div", {}, [
+      tile("Mean ARI", num(st.ari_mean, 3), `95% CI ${st.ari_ci95.map(v => num(v, 3)).join(" – ")}`),
+      el("div", { style: "margin-top:10px" }, (() => { const dl = el("dl", { class: "kv" });
+        [["NMI", num(st.nmi_mean, 3)], ["Refit size", `${st.subsample_size.toLocaleString()} (${pct(st.subsample_frac, 0)})`],
+         ["Co-assignment", num(st.mean_within_cluster_coassignment, 3)],
+         ["Point agreement", pct(st.point_agreement.mean, 1)],
+         ["Unstable accounts", `${num(st.point_agreement.pct_below_0_8, 1)}% agree on <80% of refits`],
+        ].forEach(([k, v]) => { dl.appendChild(el("dt", { text: k })); dl.appendChild(el("dd", { text: String(v) })); });
+        return dl; })()),
+      el("p", { style: "font-size:12px;color:var(--ink-3);margin-top:10px;line-height:1.55",
+        html: "Every replicate refits the <em>whole</em> pipeline, preprocessing included. Refitting only the clusterer would leak the full-data scaling into each replicate and inflate stability." }),
+    ])),
+  ]));
+
+  /* k-sweep small multiples + gap */
+  const sw = P5.k_sweep.filter(r => !r.error);
+  h.appendChild(grid("g21", [
+    card("How many segments?", esc(P5.k_sweep_note || ""), (() => {
+      const b = el("div");
+      const specs = [
+        { key: "silhouette", label: "silhouette (reference space)", color: "var(--s1)" },
+        { key: "objective", label: "constrained objective", color: "var(--s3)" },
+        { key: "ari_mean", label: "bootstrap ARI", color: "var(--s2)" },
+      ];
+      specs.forEach(sp => {
+        b.appendChild(el("div", { style: "font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:10px 0 -4px", text: sp.label }));
+        b.appendChild(lineChart({ w: 700, h: 132, xfmt: v => String(Math.round(v)), dots: true,
+          series: [{ name: sp.label, color: sp.color, pts: sw.map(r => [r.k, r[sp.key]]), dots: true }] }));
+      });
+      b.appendChild(el("p", { style: "font-size:12px;color:var(--ink-3);margin-top:8px;line-height:1.55",
+        html: `Three different answers. Silhouette declines monotonically past k=${sw[0].k} — the small-k bias that Milligan &amp; Cooper documented in 1985 — while stability stays high everywhere, which is precisely von Luxburg's (2010) warning that stability is not a monotone signal for k. The constrained objective breaks the tie by refusing partitions the business cannot operate.` }));
+      return b;
+    })()),
+    card("Gap statistic", "An independent, null-referenced read on k (Tibshirani, Walther & Hastie, 2001).",
+      (() => {
+        const b = el("div");
+        b.appendChild(lineChart({ w: 380, h: 210, xfmt: v => String(Math.round(v)), dots: true, ylab: "Gap(k)",
+          band: gap.k.map((k, i) => [k, gap.gap[i] - gap.s_k[i], gap.gap[i] + gap.s_k[i]]),
+          series: [{ name: "Gap", color: "var(--s7)", pts: gap.k.map((k, i) => [k, gap.gap[i]]), dots: true }] }));
+        b.appendChild(el("p", { style: "font-size:12px;color:var(--ink-2);margin-top:8px;line-height:1.55",
+          html: gap.chosen_k
+            ? `Rule — ${esc(gap.rule)} — selects <strong>k = ${gap.chosen_k}</strong>.`
+            : `The rule (${esc(gap.rule)}) never fires: the gap keeps rising to k=${gap.k[gap.k.length - 1]} without stabilising. ` +
+              `That is a finding, not a missing number — on this book the structure is not a set of compact, well-separated blobs, ` +
+              `so a criterion built to detect them declines to answer. Shaded band is ±s<sub>k</sub> over ${gap.b_refs} Monte-Carlo reference draws.` }));
+        return b;
+      })()),
+  ]));
+
+  /* baselines + shootout */
+  h.appendChild(grid("g2", [
+    card("Baselines", "What the search had to beat. All scored in the neutral space on the full book.",
+      table([
+        { label: "Pipeline", get: r => `<div style="font-weight:500">${esc(r.name)}</div><div style="color:var(--ink-3);font-size:11.5px;max-width:36ch">${esc(r.why)}</div>` },
+        { label: "Obj", num: true, get: r => r.error ? "—" : num(r.objective, 4) },
+        { label: "Sil", num: true, get: r => r.error ? "—" : num(r.silhouette, 3) },
+        { label: "k", num: true, get: r => r.k ?? "—" },
+        { label: "", get: r => r.error ? '<span class="pill critical">error</span>' : (r.feasible ? "" : '<span class="pill warn">infeasible</span>') },
+      ], P5.baselines)),
+    card("Algorithm shootout", "Champion preprocessing held fixed; only the clusterer swapped. Answers how much of the result is the preprocessing and how much is the algorithm.",
+      table([
+        { label: "Algorithm", get: r => `<span class="mono" style="font-size:11.5px">${esc(r.algorithm)}</span>` },
+        { label: "Family", get: r => `<span class="pill neutral plain">${esc(r.family)}</span>` },
+        { label: "Obj", num: true, get: r => r.error ? "—" : num(r.objective, 4) },
+        { label: "Sil", num: true, get: r => r.error ? "—" : num(r.silhouette, 3) },
+        { label: "k", num: true, get: r => r.k ?? "—" },
+        { label: "Noise", num: true, get: r => r.error ? "—" : pct(r.noise_frac, 0) },
+        { label: "Ind. fid.", num: true, get: r => r.error ? "—" : pct(r.inductive_fidelity, 1) },
+        { label: "s", num: true, get: r => r.error ? "—" : num(r.fit_seconds, 2) },
+      ], P5.algorithm_shootout)),
+  ]));
+
+  /* the separation/stability frontier */
+  const CCX = P5.charter_compliance;
+  if (CCX && CCX.frontier && CCX.frontier.length) {
+    h.appendChild(grid("g21", [
+      card("Separation against reproducibility", "Every shortlisted pipeline, refit on the full book. The dashed lines are the charter's two bars; the top-right quadrant is the only compliant region.",
+        (() => {
+          const w = 700, hh = 320, m = { t: 16, r: 16, b: 40, l: 52 };
+          const { svg, g, iw, ih } = frame(w, hh, m);
+          const fr = CCX.frontier;
+          const x0 = Math.min(0.15, ...fr.map(f => f.silhouette)), x1 = Math.max(0.33, ...fr.map(f => f.silhouette));
+          const y0 = 0, y1 = 1;
+          const xs = scale(x0, x1, 0, iw), ys = scale(y0, y1, ih, 0);
+          axes(g, iw, ih, xs, ys, ticks(x0, x1, 5).map(v => ({ v, l: num(v, 2) })), ticks(y0, y1, 5),
+               { yfmt: v => num(v, 1), ylab: "weakest segment Jaccard (SC-2)" });
+          g.appendChild(s_("rect", { x: xs(0.25), y: ys(1), width: iw - xs(0.25), height: ys(0.6) - ys(1),
+            fill: "var(--good)", opacity: .07 }));
+          [[0.25, "v", "SC-1 · 0.25"], [0.6, "h", "SC-2 · 0.60"]].forEach(([v, dir, lab]) => {
+            g.appendChild(dir === "v"
+              ? s_("line", { x1: xs(v), x2: xs(v), y1: 0, y2: ih, stroke: "var(--finding)", "stroke-width": 1.2, "stroke-dasharray": "4 3" })
+              : s_("line", { x1: 0, x2: iw, y1: ys(v), y2: ys(v), stroke: "var(--finding)", "stroke-width": 1.2, "stroke-dasharray": "4 3" }));
+            g.appendChild(dir === "v"
+              ? s_("text", { x: xs(v) + 4, y: 10, fill: "var(--finding)" }, lab)
+              : s_("text", { x: iw, y: ys(v) - 4, "text-anchor": "end", fill: "var(--finding)" }, lab));
+          });
+          const fam = [...new Set(fr.map(f => f.family))];
+          fr.forEach(f => {
+            const c = s_("circle", { cx: xs(f.silhouette), cy: ys(f.min_jaccard),
+              r: 5 + 7 * f.noise_frac, fill: SERIES(fam.indexOf(f.family)), opacity: .78,
+              stroke: "var(--surface)", "stroke-width": 1.5 });
+            bindTip(c, `<b>${esc(f.algorithm)}</b> · k=${f.k}<br>silhouette ${num(f.silhouette, 3)}<br>weakest Jaccard ${num(f.min_jaccard, 3)}<br>unassigned ${pct(f.noise_frac, 1)}<br>objective ${num(f.objective, 4)}<br><span style="color:var(--ink-3)">${esc(f.pipeline)}</span>`);
+            g.appendChild(c);
+          });
+          g.appendChild(s_("text", { x: iw, y: ih + 30, "text-anchor": "end", class: "axis-t" },
+            "reference-space silhouette (SC-1) — mark size = share of book left unassigned"));
+          const b = el("div"); b.appendChild(svg);
+          b.appendChild(el("div", { class: "legend" }, fam.map((k, i) => {
+            const sw = el("span", { class: "swatch" }); sw.style.background = SERIES(i);
+            return el("span", {}, [sw, document.createTextNode(k)]);
+          })));
+          return b;
+        })()),
+      card("The trade-off", null, el("div", { style: "font-size:12.5px;color:var(--ink-2);line-height:1.6" }, (() => {
+        const rev = CCX.charter_revision;
+        if (!rev) return [el("p", { html: `<strong style="color:var(--ink)">${esc(CCX.verdict)}</strong>` })];
+        return [
+          el("p", { html: `<strong style="color:var(--ink)">${esc(CCX.verdict)}</strong>` }),
+          el("p", { style: "margin-top:10px", text: rev.argument }),
+          el("div", { class: "tile", style: "margin-top:12px;padding:12px 0 0;border:0;border-top:1px solid var(--rule);background:none" }, [
+            el("div", { class: "lab", text: "Achievable ceiling, fully reproducible partitions" }),
+            el("div", { class: "val", style: "font-size:28px", text: num(rev.observed_ceiling, 3) }),
+            el("div", { class: "sub", html: `across ${rev.n_stable_candidates} candidates whose every segment survives resampling. ` +
+              `The ${rev.n_separated_but_unstable} candidates that clear 0.25 leave ${pct(rev.mean_noise_of_unstable, 0)} of the book unassigned on average.` }),
+          ]),
+          el("p", { style: "margin-top:12px", html: `<strong style="color:var(--ink)">Recommendation.</strong> ${esc(rev.recommendation)}` }),
+        ];
+      })())),
+    ]));
+  }
+
+  /* charter compliance table */
+  if (P5.charter_compliance)
+    h.appendChild(grid("", [card("Charter compliance shortlist",
+      `Each candidate refit on the full book, then graded on all five computable criteria with ${P5.charter_compliance.rounds_per_candidate} stability replicates apiece. SC-6 (latency) is verified in Phase 6 on the shipped model.`,
+      table([
+        { label: "", get: r => r.error ? pill("ERR", "critical") : pill(r.compliant ? "PASS" : `${r.n_failed} FAIL`, r.compliant ? "good" : "warn") },
+        { label: "Pipeline", get: r => `<span class="mono" style="font-size:11px">${esc(r.pipeline)}</span>` },
+        { label: "Obj", num: true, get: r => r.error ? "—" : num(r.objective, 4) },
+        { label: "Sil", num: true, get: r => r.error ? "—" : num(r.silhouette, 3) },
+        { label: "k", num: true, get: r => r.k ?? "—" },
+        { label: "ARI", num: true, get: r => r.error ? "—" : num(r.ari_mean, 3) },
+        { label: "Min Jaccard", num: true, get: r => r.error ? "—" : `<span style="color:${r.min_jaccard >= 0.6 ? "var(--good)" : "var(--critical)"}">${num(r.min_jaccard, 3)}</span>` },
+        { label: "Min seg", num: true, get: r => r.error ? "—" : pct(r.min_share, 1) },
+        { label: "Fidelity", num: true, get: r => r.error ? "—" : pct(r.surrogate_fidelity, 1) },
+        { label: "Failed", get: r => r.error ? esc(r.error) : (r.compliant ? "—" : `<span class="mono" style="font-size:11px;color:var(--finding)">${Object.entries(r.checks).filter(([, v]) => !v).map(([k]) => k).join(" ")}</span>`) },
+      ], P5.charter_compliance.candidates, { scroll: true }))]));
+}
+</script>
+<script>
+"use strict";
+/* ============================================================== SEGMENTS == */
+{
+  const profs = SEG.profiles, ec = SEG.economics, sur = SEG.surrogate;
+  const covered = profs.reduce((a, p) => a + p.share, 0);
+  const h = section("segments", "§", "The segments", `${profs.length} segments · ${SEG.surrogate.n_leaves}-leaf surrogate`,
+    `A cluster id is not a deliverable. Each segment gets a quantitative profile, a rule set a human can apply ` +
+    `without the model, a named persona with a recommended action, and an explicit unit-economics estimate — ` +
+    `so segments can be ranked by <em>value</em> rather than by size.`);
+
+  if (covered < 0.995)
+    h.appendChild(el("div", { style: "margin-top:14px" }, note("Unassigned at fit time",
+      `The segments above cover ${pct(covered, 1)} of the book. The remaining ${pct(1 - covered, 1)} were left ` +
+      `unlabelled by the density model, which is allowed to abstain. At scoring time nothing is unlabelled — ` +
+      `the induced nearest-centroid rule assigns every account — but those records sit furthest from any centroid ` +
+      `and should be read as the low-confidence tail, not as a segment.`, true)));
+
+  /* scatter with projection toggle */
+  h.appendChild(grid("", [(() => {
+    const c = el("div", { class: "card" });
+    const head = el("div", { style: "display:flex;align-items:baseline;gap:12px;flex-wrap:wrap" });
+    head.appendChild(el("div", { class: "card-t", text: "Segment geometry" }));
+    const tg = el("div", { class: "toggle", style: "margin-left:auto" });
+    const host = el("div", { style: "margin-top:12px" });
+    const cap = el("div", { class: "card-s" });
+    const draw = which => {
+      host.innerHTML = "";
+      if (which === "pca") {
+        const p = SEG.projection.pca;
+        host.appendChild(scatterPlot({ x: p.x, y: p.y, label: p.label, names: NAMES, w: 980, h: 420,
+          xlab: `PC1 · ${pct(p.explained_variance[0], 1)} of variance`, ylab: "PC2" }));
+        cap.innerHTML = `${p.n_plotted.toLocaleString()} accounts, first two principal components of the modelling space ` +
+          `(${pct(p.explained_variance[0] + p.explained_variance[1], 1)} of its variance). PCA preserves global geometry, ` +
+          `so distance between groups is meaningful — but separation living in higher components is invisible here.`;
+      } else {
+        const t = SEG.projection.tsne;
+        if (t.error) { host.appendChild(el("p", { text: "t-SNE unavailable: " + t.error })); return; }
+        host.appendChild(scatterPlot({ x: t.x, y: t.y, label: t.label, names: NAMES, w: 980, h: 420,
+          xlab: "t-SNE 1", ylab: "t-SNE 2", r: 2.6 }));
+        cap.innerHTML = `${t.x.length.toLocaleString()}-account sample, perplexity 30. t-SNE shows local neighbourhoods ` +
+          `and makes <em>inter-cluster distance and cluster size meaningless</em>. It sits beside PCA rather than replacing it: ` +
+          `reading it alone is how people talk themselves into clusters that are not there.`;
+      }
+    };
+    ["pca", "tsne"].forEach((k, i) => {
+      const b = el("button", { text: k === "pca" ? "PCA" : "t-SNE", class: i === 0 ? "on" : "" });
+      b.onclick = () => { [...tg.children].forEach(x => x.classList.remove("on")); b.classList.add("on"); draw(k); };
+      tg.appendChild(b);
+    });
+    head.appendChild(tg); c.appendChild(head); c.appendChild(cap); c.appendChild(host);
+    c.appendChild(legendFor(NAMES, IDS));
+    draw("pca");
+    return c;
+  })()]));
+
+  /* segment cards */
+  const ecBy = Object.fromEntries(ec.map(e => [e.cluster, e]));
+  h.appendChild(grid(profs.length >= 4 ? "g2" : "g" + Math.min(profs.length, 3), profs.map(p => {
+    const e = ecBy[p.cluster] || {};
+    const c = el("div", { class: "card" });
+    c.appendChild(el("div", { style: "display:flex;align-items:center;gap:8px;flex-wrap:wrap" }, [
+      Object.assign(el("span", { class: "seg-dot" }), { style: `background:${SERIES(p.cluster)}` }),
+      el("div", { class: "card-t", text: p.persona }),
+      pill(`${p.risk_posture} risk`, p.risk_posture === "low" ? "good" : p.risk_posture === "high" ? "critical" : "warn"),
+    ]));
+    c.appendChild(el("div", { class: "card-s", style: "margin-top:8px", text: p.thesis }));
+    const stats = el("div", { style: "display:flex;gap:18px;margin-top:12px;flex-wrap:wrap" });
+    [["Accounts", p.n.toLocaleString()], ["Share", pct(p.share, 1)],
+     ["Value index", e.value_index !== undefined ? e.value_index + "×" : "—"],
+     ["Contribution", money(e.annual_contribution)]].forEach(([k, v]) =>
+      stats.appendChild(el("div", {}, [
+        el("div", { class: "lab", style: "font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)", text: k }),
+        el("div", { style: "font-family:var(--mono);font-size:15px;margin-top:2px", text: v }),
+      ])));
+    c.appendChild(stats);
+    c.appendChild(el("div", { style: "margin-top:12px" }, hbars(p.signature.map(s => ({
+      l: s.feature, v: s.z, tip: `<b>${esc(s.feature)}</b><br>segment mean ${num(s.mean, 2)}<br>book mean ${num(s.book_mean, 2)}<br>z = ${num(s.z, 2)}` })),
+      { fmt: v => (v > 0 ? "+" : "") + num(v, 2), color: r => r.v >= 0 ? "var(--dv-pos)" : "var(--dv-neg)" })));
+    c.appendChild(el("div", { style: "margin-top:12px;padding-top:10px;border-top:1px solid var(--rule)" }, [
+      el("div", { class: "note-t", style: "color:var(--accent)", text: "Recommended action" }),
+      el("div", { style: "font-size:12.5px;color:var(--ink-2);line-height:1.55", text: p.action }),
+    ]));
+    return c;
+  })));
+
+  /* z heatmap + economics */
+  const zFeat = [...new Set(profs.flatMap(p => p.signature.map(s => s.feature)))].slice(0, 16);
+  h.appendChild(grid("g21", [
+    card("Behavioural signature", "Standardised deviation from the book average. Comparable across features in a way that dollar means are not.",
+      heatmap({ rows: profs.map(p => `${p.cluster} · ${p.persona}`), cols: zFeat,
+        values: profs.map(p => zFeat.map(f => p.z[f] ?? 0)), cell: 26, rowLab: 210, w: 720,
+        tipFor: (i, j, v) => `<b>${esc(profs[i].persona)}</b><br>${esc(zFeat[j])}<br>z = ${num(v, 2)}` })),
+    card("Where the money is", esc(SEG.economics_assumptions.note),
+      (() => { const b = el("div");
+        b.appendChild(hbars(ec.map(e => ({ l: NAMES[e.cluster] ?? ("Segment " + e.cluster), v: e.contribution_per_account,
+          tip: `<b>${esc(NAMES[e.cluster])}</b><br>${money(e.annual_contribution)} total (${pct(e.share_of_contribution, 1)})<br>${money(e.contribution_per_account)}/account<br>interchange ${money(e.interchange)} · fees ${money(e.cash_advance_fees)} · interest ${money(e.net_interest)}` })),
+          { fmt: v => money(v), color: r => r.v >= 0 ? "var(--accent)" : "var(--critical)" }));
+        const dl = el("dl", { class: "kv", style: "margin-top:12px" });
+        [["Interchange", pct(SEG.economics_assumptions.interchange_rate, 1)],
+         ["Cash-advance fee", pct(SEG.economics_assumptions.cash_advance_fee, 1)],
+         ["Purchase APR", pct(SEG.economics_assumptions.purchase_apr, 1)],
+         ["Servicing", "$" + SEG.economics_assumptions.annual_servicing_cost + "/yr"],
+        ].forEach(([k, v]) => { dl.appendChild(el("dt", { text: k })); dl.appendChild(el("dd", { text: v })); });
+        b.appendChild(dl); return b; })()),
+  ]));
+
+  /* surrogate + boundary */
+  h.appendChild(grid("g21", [
+    card(`Surrogate rules — ${pct(sur.fidelity, 1)} fidelity`,
+      "A depth-4 tree fitted to the model's <em>own assignments</em>. Fidelity is agreement with the model, not accuracy against truth — a low-fidelity tree is a nice story about a model that is doing something else.",
+      el("div", { class: "mono-block", style: "max-height:340px;overflow:auto;white-space:pre", text: sur.rules_text })),
+    card("What drives assignment", null, (() => { const b = el("div");
+      b.appendChild(hbars(sur.feature_importance.slice(0, 10).map(f => ({ l: f.feature, v: f.importance })),
+        { fmt: v => num(v, 3) }));
+      b.appendChild(el("div", { class: "note-t", style: "margin-top:16px;color:var(--accent)", text: "Boundary accounts" }));
+      const ba = SEG.boundary_accounts;
+      b.appendChild(el("p", { style: "font-size:12.5px;color:var(--ink-2);line-height:1.55",
+        html: `<strong style="color:var(--ink)">${num(ba.pct_low_margin, 1)}%</strong> of accounts sit in the bottom decile of ` +
+          `nearest/second-nearest centroid gap` + (ba.pct_low_margin_and_unstable !== undefined
+            ? `, and <strong style="color:var(--ink)">${num(ba.pct_low_margin_and_unstable, 1)}%</strong> are both close to a boundary ` +
+              `and unstable across refits (${ba.n_flagged.toLocaleString()} accounts).` : ".") +
+          ` These flip between monthly refreshes; their measured “segment response” is noise. The scoring artifact exposes ` +
+          `a confidence flag so campaigns can exclude them or hold them out.` }));
+      return b; })()),
+  ]));
+}
+
+/* ================================================================ DEPLOY == */
+{
+  const card_ = P6.model_card, lat = P6.latency, drifts = P6.drift;
+  const h = section("deploy", "Phase 6", "Deployment & monitoring", "scoring artifact + drift controls",
+    `A segmentation is deployed as a <em>function</em>, not as a column in a CSV. The artifact carries its own ` +
+    `feature engineering, so a caller passes the raw source schema and cannot reimplement the ratios slightly wrong — ` +
+    `training/serving skew is the most common way a segmentation quietly stops working.`);
+
+  const last = lat.measurements[lat.measurements.length - 1];
+  h.appendChild(grid("g4", [
+    tile("p95 latency", num(last.per_record_ms_p95, 4) + " ms", `per record at batch ${last.batch_size} · SC-6 bar is 5 ms`, true),
+    tile("Single-record", num(lat.measurements[0].total_ms_p50, 2) + " ms", "batch of one — almost entirely fixed overhead"),
+    tile("Artifact", RUN.meta.artifacts.model, "joblib bundle: preprocessing + assigner + reference stats"),
+    tile("Inductive fidelity", pct((P5.deployed || CH).inductive_fidelity, 2), "agreement of the deployable rule with the fitted labels"),
+  ]));
+
+  h.appendChild(grid("g2", [
+    card("Scoring latency", "Batch size is reported because it dominates. Quoting only the batch-of-1000 number hides the latency of the real-time decisioning path.",
+      table([
+        { label: "Batch", num: true, get: r => r.batch_size },
+        { label: "Total p50", num: true, get: r => num(r.total_ms_p50, 2) + " ms" },
+        { label: "Total p95", num: true, get: r => num(r.total_ms_p95, 2) + " ms" },
+        { label: "Per record p50", num: true, get: r => num(r.per_record_ms_p50, 4) },
+        { label: "Per record p95", num: true, get: r => num(r.per_record_ms_p95, 4) },
+      ], lat.measurements)),
+    card("Monitoring design", "Unsupervised learning has no delayed ground truth — nothing ever arrives to tell you the model went stale. Everything must be inferred from the inputs and the geometry.",
+      el("div", {}, [
+        el("div", { class: "flow", style: "margin-bottom:10px" }, [
+          el("div", { class: "step", text: "1 · input drift (PSI per feature)" }),
+          el("div", { class: "arrow", text: "→" }),
+          el("div", { class: "step", text: "2 · segment mix" }),
+          el("div", { class: "arrow", text: "→" }),
+          el("div", { class: "step", text: "3 · distance to centroid" }),
+        ]),
+        el("p", { style: "font-size:12.5px;color:var(--ink-2);line-height:1.6",
+          html: `PSI bins on the <em>training</em> deciles — the point is movement relative to what the model was fitted on. ` +
+            `The 0.10 / 0.25 bands are a credit-scoring convention, a trigger for investigation rather than a hypothesis test. ` +
+            `Segment mix moves before any single feature does; mean distance to centroid rises when new records stop fitting ` +
+            `the segments they are being forced into.` }),
+      ])),
+  ]));
+
+  h.appendChild(grid("g2", drifts.map(d => card(
+    d.label, null, el("div", {}, [
+      el("div", { style: "display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap" }, [
+        pill(d.alert ? "ALERT" : "HEALTHY", d.alert ? "critical" : "good"),
+        el("span", { style: "font-size:12.5px;color:var(--ink-2)", text: d.verdict }),
+      ]),
+      barChart({ w: 460, h: 200, rotate: true, ylab: "PSI", yfmt: v => num(v, 2),
+        thresholds: [{ v: 0.25, l: "significant", color: "var(--critical)" }, { v: 0.10, l: "moderate", color: "var(--warn)" }],
+        data: d.feature_psi.slice(0, 12).map(f => ({ l: f.feature.length > 16 ? f.feature.slice(0, 15) + "…" : f.feature,
+          v: f.psi ?? 0, color: f.verdict === "significant" ? "var(--critical)" : f.verdict === "moderate" ? "var(--warn)" : "var(--accent)",
+          tip: `<b>${esc(f.feature)}</b><br>PSI ${num(f.psi, 3)} — ${esc(f.verdict)}` })) }),
+      (() => { const dl = el("dl", { class: "kv", style: "margin-top:10px" });
+        [["Records", d.n_records.toLocaleString()],
+         ["Significant / moderate", `${d.n_significant} / ${d.n_moderate}`],
+         ["Segment-mix PSI", num(d.segment_mix_psi, 3)],
+         ["Distance ratio", d.distance_ratio + "× training mean"],
+        ].forEach(([k, v]) => { dl.appendChild(el("dt", { text: k })); dl.appendChild(el("dd", { text: String(v) })); });
+        return dl; })(),
+    ])))));
+
+  h.appendChild(el("div", { style: "margin-top:14px" }, note("Positive control",
+    `The second panel is a deliberately shifted book — high-spend accounts over-sampled, cash advances and balances ` +
+    `inflated. <strong>A monitor that has never been observed to alarm is an untested monitor</strong>, so the shift ships with ` +
+    `the model as a regression test. Note also which feature it does <em>not</em> catch: CASH_ADVANCE is 52% exact zeros, ` +
+    `so its training deciles collapse onto a point mass and PSI stays low even after a 75% inflation. That is a real ` +
+    `limitation of PSI on zero-inflated features, and it is why the monitor reads three signals rather than one.`)));
+
+  /* model card */
+  h.appendChild(grid("", [card("Model card", "Structure follows Mitchell et al. (FAT* 2019).", (() => {
+    const b = el("div");
+    const sect = (t, node) => {
+      b.appendChild(el("div", { class: "note-t", style: "margin-top:16px;color:var(--accent)", text: t }));
+      b.appendChild(node);
+    };
+    const dlOf = obj => { const dl = el("dl", { class: "kv" });
+      Object.entries(obj).forEach(([k, v]) => {
+        dl.appendChild(el("dt", { text: k.replace(/_/g, " ") }));
+        dl.appendChild(el("dd", { html: Array.isArray(v) ? "<ul style='margin:0;padding-left:16px'>" + v.map(x => `<li>${esc(typeof x === "object" ? JSON.stringify(x) : x)}</li>`).join("") + "</ul>"
+          : (typeof v === "object" && v !== null) ? `<span class="mono" style="font-size:11px">${esc(JSON.stringify(v))}</span>` : esc(v) }));
+      });
+      return dl; };
+    sect("Model details", dlOf(card_.model_details));
+    sect("Intended use", dlOf(card_.intended_use));
+    sect("Factors", dlOf(card_.factors));
+    sect("Metrics", dlOf(card_.metrics));
+    sect("Training data", dlOf(card_.training_data));
+    sect("Ethical considerations", el("ul", { style: "margin:0;padding-left:18px;font-size:12.5px;color:var(--ink-2);line-height:1.6" },
+      card_.ethical_considerations.map(x => el("li", { text: x }))));
+    sect("Caveats & recommendations", el("ul", { style: "margin:0;padding-left:18px;font-size:12.5px;color:var(--ink-2);line-height:1.6" },
+      card_.caveats_and_recommendations.map(x => el("li", { text: x }))));
+    return b;
+  })())]));
+}
+
+/* ============================================================== RESEARCH == */
+{
+  const cites = RUN.research.citations;
+  const h = section("research", "¶", "Research provenance", `${cites.length} sources`,
+    `Every method used, the paper it comes from, and the function that implements it — so a claim on a panel can be ` +
+    `traced to the code that produced it. The <em>deviation</em> line is the one that matters most, and the one usually missing: ` +
+    `where this project departs from the paper, and why.`);
+
+  const labels = { process: "Process", automl: "AutoML & CASH", search: "Search heuristics",
+    validity: "Validity indices", stability: "Stability & agreement", algorithms: "Clustering algorithms",
+    interpretability: "Interpretability", operations: "Operations" };
+  RUN.research.topics.forEach(topic => {
+    const rows = cites.filter(c => c.topic === topic);
+    if (!rows.length) return;
+    h.appendChild(el("div", { style: "margin-top:20px" }, card(labels[topic] || topic, null, (() => {
+      const box = el("div");
+      rows.forEach(c => {
+        const w = el("div", { class: "cite" });
+        w.appendChild(el("div", { class: "cite-h", html: `${esc(c.authors)} <span class="yr">(${c.year})</span> — ${esc(c.title)}` }));
+        w.appendChild(el("div", { class: "cite-v", text: c.venue }));
+        const dl = el("dl", { class: "cite-row" });
+        dl.appendChild(el("dt", { text: "Used for" })); dl.appendChild(el("dd", { text: c.used_for }));
+        dl.appendChild(el("dt", { text: "Implemented" })); dl.appendChild(el("dd", { class: "impl", text: c.implemented_in }));
+        dl.appendChild(el("dt", { text: "Deviation" })); dl.appendChild(el("dd", { class: "dev", text: c.deviation }));
+        w.appendChild(dl);
+        box.appendChild(w);
+      });
+      return box;
+    })())));
+  });
+
+  h.appendChild(el("div", { style: "margin-top:22px" }, card("Reproducing this run", null, el("div", {}, [
+    el("div", { class: "mono-block", text:
+`pip install -r requirements.txt
+PYTHONPATH=src python -m ccseg.cli run              # full study  ->  artifacts/run.json
+PYTHONPATH=src python -m ccseg.cli run --quick      # smoke test, ~40s
+python dashboard/build_dashboard.py                 # rebuild this page
+pytest tests/ -q                                    # invariants` }),
+    (() => { const dl = el("dl", { class: "kv", style: "margin-top:12px" });
+      [["Seed", RUN.meta.seed], ["Wall time", RUN.meta.wall_seconds + "s"],
+       ["Python", RUN.meta.versions.python], ["scikit-learn", RUN.meta.versions.sklearn],
+       ["numpy / pandas", `${RUN.meta.versions.numpy} / ${RUN.meta.versions.pandas}`],
+       ["Platform", RUN.meta.versions.platform],
+       ["Source checksum", RUN.phase2_data.provenance.sha256],
+      ].forEach(([k, v]) => { dl.appendChild(el("dt", { text: k })); dl.appendChild(el("dd", { text: String(v) })); });
+      return dl; })(),
+  ]))));
+}
+
+/* ================================================================== nav === */
+{
+  const links = [...document.querySelectorAll(".nav a")];
+  const secs = links.map(a => document.querySelector(a.getAttribute("href")));
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (!e.isIntersecting) return;
+      const i = secs.indexOf(e.target);
+      links.forEach((a, j) => a.classList.toggle("on", j === i)); });
+  }, { rootMargin: "-15% 0px -70% 0px", threshold: 0 });
+  secs.forEach(s => s && io.observe(s));
+  links.forEach(a => a.addEventListener("click", ev => {
+    ev.preventDefault();
+    document.querySelector(a.getAttribute("href")).scrollIntoView({ behavior: "smooth", block: "start" });
+  }));
+}
+</script>

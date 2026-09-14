@@ -1,0 +1,22 @@
+[
+  {
+    "check": "row_count",
+    "status": "PASS",
+    "detail": "4 rows"
+  },
+  {
+    "check": "fully_null_columns",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "check": "duplicate_rows",
+    "status": "PASS",
+    "detail": ""
+  },
+  {
+    "check": "column_names",
+    "status": "PASS",
+    "detail": ""
+  }
+]

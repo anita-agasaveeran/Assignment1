@@ -1,0 +1,195 @@
+{
+  "cohort": {
+    "month1_retention_mean": 20.616666666666664,
+    "month1_min": 11.1,
+    "month1_max": 36.6,
+    "largest_cohort": "2010-12",
+    "largest_cohort_size": 885,
+    "cohorts_below_100": [
+      "2011-12"
+    ],
+    "dec2010_month1": 36.6,
+    "dec2010_final": 26.6
+  },
+  "segmentation": {
+    "k": 4,
+    "silhouette": 0.3810512458686194,
+    "silhouette_by_k": {
+      "2": 0.406973677509241,
+      "3": 0.4140192502706912,
+      "4": 0.3810512458686194,
+      "5": 0.34026097860834353,
+      "6": 0.3284872654804772,
+      "7": 0.29717421144757705
+    },
+    "profiles": [
+      {
+        "segment": 0,
+        "customers": 1447,
+        "recency": 30.0,
+        "frequency": 4.0,
+        "monetary": 1339.41,
+        "revenue": 2413117.99,
+        "revenue_share": 27.1,
+        "cust_share": 33.4,
+        "name": "Loyal",
+        "strategy": "Monetise"
+      },
+      {
+        "segment": 1,
+        "customers": 1392,
+        "recency": 51.0,
+        "frequency": 1.0,
+        "monetary": 348.35,
+        "revenue": 546901.18,
+        "revenue_share": 6.1,
+        "cust_share": 32.1,
+        "name": "New / Low-value",
+        "strategy": "Activate"
+      },
+      {
+        "segment": 2,
+        "customers": 941,
+        "recency": 255.0,
+        "frequency": 1.0,
+        "monetary": 298.11,
+        "revenue": 367180.86,
+        "revenue_share": 4.1,
+        "cust_share": 21.7,
+        "name": "Lapsed",
+        "strategy": "Win-Back"
+      },
+      {
+        "segment": 3,
+        "customers": 558,
+        "recency": 10.0,
+        "frequency": 12.0,
+        "monetary": 4628.52,
+        "revenue": 5584207.87,
+        "revenue_share": 62.7,
+        "cust_share": 12.9,
+        "name": "Champions",
+        "strategy": "Retain & Expand"
+      }
+    ]
+  },
+  "funnel": {
+    "steps": [
+      {
+        "step": "Placed 1st order",
+        "users": 4338,
+        "step_conv": NaN,
+        "overall_conv": 100.0,
+        "dropped": 0
+      },
+      {
+        "step": "Placed 2nd order",
+        "users": 2845,
+        "step_conv": 65.6,
+        "overall_conv": 65.6,
+        "dropped": 1493
+      },
+      {
+        "step": "Placed 3rd order",
+        "users": 2010,
+        "step_conv": 70.7,
+        "overall_conv": 46.3,
+        "dropped": 835
+      },
+      {
+        "step": "Placed 5th order",
+        "users": 1114,
+        "step_conv": 55.4,
+        "overall_conv": 25.7,
+        "dropped": 896
+      },
+      {
+        "step": "Placed 10th order",
+        "users": 391,
+        "step_conv": 35.1,
+        "overall_conv": 9.0,
+        "dropped": 723
+      }
+    ],
+    "aov": 480.8659563997409,
+    "median_days_to_2nd": 50.0,
+    "uk_conv": 65.56122448979592,
+    "row_conv": 65.78947368421053,
+    "biggest_dropoff_customers": 1493,
+    "biggest_dropoff_value": 717932.8729048131
+  },
+  "time_series": {
+    "adf_stat": -2.4980563260919246,
+    "adf_p": 0.11594795815565057,
+    "stationary": false,
+    "seasonal_strength": 0.5512168476019366,
+    "trend_strength": 0.43412653281910696,
+    "zero_days": 68,
+    "n_anomalies": 2,
+    "top_anomalies": [
+      {
+        "date": "2011-09-20",
+        "revenue": 103435.81,
+        "z": 4.609387407408269
+      },
+      {
+        "date": "2011-01-18",
+        "revenue": 87589.11,
+        "z": 4.536002764705982
+      }
+    ],
+    "arima_mape": 28.099541878584805,
+    "arima_mae": 14770.51677046695,
+    "forecast_7d": 227929.06565185572,
+    "forecast_7d_lo": 43031.19208268392,
+    "forecast_7d_hi": 412826.93922102754
+  },
+  "root_cause": {
+    "nov": 1461756.25,
+    "dec": 433668.01,
+    "mom_pct": -0.7033239912605128,
+    "zscore": -1.509301806413266,
+    "days_in_dec": 9,
+    "prorated": 1493745.3677777778,
+    "prorated_vs_nov": 0.021884030102678143,
+    "orders_nov": 3462,
+    "orders_dec": 1015,
+    "aov_nov": 422.22884170999424,
+    "aov_dec": 427.2591231527094,
+    "verdict": "partial-month data artefact, not a business event"
+  },
+  "ab_test": {
+    "simulated": true,
+    "measured_base_rate": 0.6558321807284463,
+    "n_control": 8000,
+    "n_treatment": 7840,
+    "conv_control": 5324,
+    "conv_treatment": 5474,
+    "srm_p": 0.20362782709360205,
+    "p_control": 0.6655,
+    "p_treatment": 0.6982142857142857,
+    "z": 4.419213397745742,
+    "p_value": 9.906079560861869e-06,
+    "ci": [
+      0.018217884800610606,
+      0.04721068662796078
+    ],
+    "significant": true,
+    "decision": "SHIP"
+  },
+  "business_metrics": {
+    "gmv": 8911407.904,
+    "orders": 18532,
+    "customers": 4338,
+    "aov": 480.8659563997409,
+    "orders_per_customer": 4.272014753342554,
+    "revenue_per_customer": 2054.2664601198708,
+    "repeat_rate": 0.6558321807284463,
+    "return_rate": 0.10063645381976671,
+    "months": 12.253613666228645,
+    "ltv_12m_gross_profit": 924.4199070539419,
+    "assumed_gross_margin": 0.45,
+    "cac": null,
+    "cac_note": "no marketing spend in the dataset; LTV:CAC not computable"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "model_details": {
+    "name": "ARMLab market-basket rule set",
+    "version": "9ac2d9f86318",
+    "type": "Association rule set (unsupervised pattern mining)",
+    "algorithm": "FP-Growth (Han, Pei & Yin, SIGMOD 2000), from scratch",
+    "hyperparameters": {
+      "min_support": 0.009885895323766809,
+      "min_confidence": 0.3602419215696581,
+      "min_lift": 2.907744637179179,
+      "max_antecedent_len": 1,
+      "max_itemset_len": 2
+    },
+    "tuning": "stochastic hill climbing with random restarts",
+    "provenance": {
+      "run_fingerprint": "9ac2d9f86318",
+      "generated_at_utc": "2026-09-02T01:03:09+00:00",
+      "git_sha": "4ea6c51",
+      "python": "3.14.7",
+      "platform": "macOS-26.3.1-arm64-arm-64bit-Mach-O",
+      "cpu_count": 14,
+      "config": {
+        "paths": {
+          "raw": "data/raw",
+          "interim": "data/interim",
+          "processed": "data/processed",
+          "artifacts": "artifacts/armlab",
+          "reports": "reports"
+        },
+        "data": {
+          "source_name": "online_retail",
+          "source_file": "Online Retail.xlsx",
+          "source_url": "https://archive.ics.uci.edu/static/public/352/online+retail.zip",
+          "kaggle_ref": "carrie1/ecommerce-data",
+          "basket_key": "InvoiceNo",
+          "item_key": "StockCode",
+          "label_key": "Description",
+          "drop_cancellations": true,
+          "drop_non_positive_quantity": true,
+          "drop_non_positive_price": true,
+          "drop_service_codes": true,
+          "countries": [],
+          "min_basket_size": 2,
+          "max_basket_size": 200,
+          "min_item_support_count": 30,
+          "split_strategy": "temporal",
+          "holdout_fraction": 0.3,
+          "random_seed": 20260901
+        },
+        "mining": {
+          "algorithm": "fpgrowth",
+          "min_support": 0.02,
+          "min_confidence": 0.3,
+          "min_lift": 1.05,
+          "min_leverage": 0.0,
+          "max_itemset_len": 4,
+          "max_antecedent_len": 3,
+          "top_k": 500
+        },
+        "stats": {
+          "alpha": 0.05,
+          "correction": "bh",
+          "min_holdout_count": 5
+        },
+        "autoresearch": {
+          "enabled": true,
+          "max_evaluations": 60,
+          "restarts": 3,
+          "neighbours_per_step": 4,
+          "initial_step": 0.5,
+          "step_decay": 0.75,
+          "min_step": 0.05,
+          "patience": 6,
+          "tabu_size": 40,
+          "seed": 20260901,
+          "w_validated_yield": 0.35,
+          "w_effect_size": 0.25,
+          "w_coverage": 0.2,
+          "w_parsimony": 0.1,
+          "w_cost": 0.1
+        }
+      }
+    }
+  },
+  "intended_use": {
+    "primary": "Cross-sell and bundle recommendations, planogram adjacency, and basket-builder promotions for an online gift retailer.",
+    "users": "Merchandising analysts; a recommender service consuming the rules as a cold-start co-purchase prior.",
+    "out_of_scope": [
+      "Causal claims -- these are associations from observational transaction data with no intervention.",
+      "Individual-level targeting: rules are population-level and the dataset's CustomerID is missing on ~25% of rows.",
+      "Any market outside the training period/geography without refit."
+    ]
+  },
+  "data": {
+    "source": "Online Retail (UCI ML Repository 352; Kaggle carrie1/ecommerce-data), Chen, Sain & Guo 2012",
+    "period": [
+      "2010-12-01 08:26:00",
+      "2011-12-09 12:50:00"
+    ],
+    "n_invoices_raw": 25900,
+    "n_items_raw": 4070,
+    "countries": 38,
+    "known_issues": [
+      {
+        "gate": "description_complete",
+        "status": "warn",
+        "detail": "1,454 missing Description (0.2683%)"
+      },
+      {
+        "gate": "customer_id_complete",
+        "status": "warn",
+        "detail": "135,080 missing CustomerID (24.9267%) -- guest checkouts"
+      },
+      {
+        "gate": "quantity_positive",
+        "status": "warn",
+        "detail": "10,624 rows with Quantity <= 0 (returns)"
+      },
+      {
+        "gate": "price_positive",
+        "status": "warn",
+        "detail": "2,517 rows with UnitPrice <= 0"
+      },
+      {
+        "gate": "no_credit_notes",
+        "status": "warn",
+        "detail": "9,288 credit-note invoices (prefix 'C')"
+      },
+      {
+        "gate": "no_exact_duplicates",
+        "status": "warn",
+        "detail": "5,268 fully duplicated rows"
+      }
+    ]
+  },
+  "metrics": {
+    "objective_value": 0.8028766402999166,
+    "objective_terms": {
+      "validated_yield": 0.9653844526057135,
+      "effect_size": 0.6964206461857156,
+      "coverage": 0.8168674698795181,
+      "parsimony": 0.6972704714640199,
+      "cost": 0.5778637921918233
+    },
+    "n_rules": 500,
+    "n_holdout_validated": 403,
+    "replication_rate": 0.806,
+    "holdout_coverage": 0.8168674698795181,
+    "firing_precision": 0.4551124471477335,
+    "lift_rank_spearman": 0.8619959979987596,
+    "empirical_fdr_vs_null": 0.0
+  },
+  "ethical_considerations": [
+    "Association rules can encode sensitive inferences when items are proxies for protected attributes; this catalogue is giftware, but the same pipeline on pharmacy or grocery data would need review.",
+    "Rules used for dynamic pricing can produce discriminatory outcomes even when no protected attribute is present in the data."
+  ],
+  "caveats": [
+    "Support thresholds systematically exclude long-tail products; the rule set is silent about ~95% of the catalogue by design.",
+    "The holdout is temporal, so seasonal drift is measured but not corrected. Rules mined on Jan-Sep are tested on Oct-Dec, which spans the retailer's Christmas peak.",
+    "Wholesale-sized baskets were removed; rules do not describe B2B purchasing."
+  ]
+}

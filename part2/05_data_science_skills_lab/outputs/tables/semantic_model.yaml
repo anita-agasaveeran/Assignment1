@@ -1,0 +1,82 @@
+# Semantic layer - Online Retail
+# Produced by the semantic-model-builder skill (CRISP-DM Phase 2).
+version: 2
+
+entities:
+  - name: customer
+    description: A person or business that has placed at least one non-cancelled order.
+    type: primary
+    expr: CustomerID
+    source: customers
+    row_count: 4338
+  - name: order
+    description: One invoice header. Grain of the `invoices` table.
+    type: primary
+    expr: InvoiceNo
+    source: invoices
+    row_count: 18532
+  - name: product
+    description: One stock code in the catalogue.
+    type: primary
+    expr: StockCode
+    source: products
+    row_count: 3665
+
+dimensions:
+  - name: order_date
+    type: time
+    type_params: {time_granularity: day}
+    expr: InvoiceDate
+    source: invoices
+    description: Timestamp the invoice was raised. Range 2010-12-01 to 2011-12-09.
+  - name: country
+    type: categorical
+    expr: Country
+    source: invoices
+    description: Billing country. 38 distinct values; United Kingdom is ~90% of orders.
+  - name: product_category
+    type: categorical
+    expr: StockCode
+    source: products
+    description: No true category column exists in this source; StockCode is the finest available grain.
+
+metrics:
+  - name: gross_revenue
+    label: Gross Revenue
+    description: >
+      Sum of quantity x unit price across all non-cancelled invoice lines from
+      identified customers. GROSS - not net of returns, and excludes shipping and tax.
+    type: simple
+    type_params: {measure: line_revenue}
+    expr: SUM(Quantity * UnitPrice)
+    source: invoice_lines
+    grain: invoice line
+    current_value: 8911407.9
+    owner: Analytics
+    edge_cases:
+      - Cancellations (InvoiceNo prefixed 'C') are excluded upstream by the mart.
+      - Transactions with a null CustomerID (~25% of raw rows) are excluded upstream.
+      - A small number of raw rows carry UnitPrice = 0 (samples/adjustments); excluded.
+    known_gotchas:
+      - Reconciles to the raw source only after the two exclusions above are applied.
+        See outputs/reports/metric_reconciliation.md.
+
+  - name: average_order_value
+    label: AOV
+    description: Gross revenue divided by distinct order count, at invoice grain.
+    type: ratio
+    type_params: {numerator: gross_revenue, denominator: order_count}
+    expr: SUM(InvoiceRevenue) / COUNT(DISTINCT InvoiceNo)
+    source: invoices
+    grain: invoice
+    current_value: 480.87
+    owner: Analytics
+
+  - name: order_count
+    label: Orders
+    description: Count of distinct non-cancelled invoices.
+    type: simple
+    type_params: {measure: invoice_no, agg: count_distinct}
+    expr: COUNT(DISTINCT InvoiceNo)
+    source: invoices
+    owner: Analytics

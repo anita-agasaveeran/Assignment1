@@ -1,0 +1,101 @@
+{
+  "provenance": {
+    "run_fingerprint": "9ac2d9f86318",
+    "generated_at_utc": "2026-09-02T01:00:52+00:00",
+    "git_sha": "4ea6c51",
+    "python": "3.14.7",
+    "platform": "macOS-26.3.1-arm64-arm-64bit-Mach-O",
+    "cpu_count": 14,
+    "config": {
+      "paths": {
+        "raw": "data/raw",
+        "interim": "data/interim",
+        "processed": "data/processed",
+        "artifacts": "artifacts/armlab",
+        "reports": "reports"
+      },
+      "data": {
+        "source_name": "online_retail",
+        "source_file": "Online Retail.xlsx",
+        "source_url": "https://archive.ics.uci.edu/static/public/352/online+retail.zip",
+        "kaggle_ref": "carrie1/ecommerce-data",
+        "basket_key": "InvoiceNo",
+        "item_key": "StockCode",
+        "label_key": "Description",
+        "drop_cancellations": true,
+        "drop_non_positive_quantity": true,
+        "drop_non_positive_price": true,
+        "drop_service_codes": true,
+        "countries": [],
+        "min_basket_size": 2,
+        "max_basket_size": 200,
+        "min_item_support_count": 30,
+        "split_strategy": "temporal",
+        "holdout_fraction": 0.3,
+        "random_seed": 20260901
+      },
+      "mining": {
+        "algorithm": "fpgrowth",
+        "min_support": 0.02,
+        "min_confidence": 0.3,
+        "min_lift": 1.05,
+        "min_leverage": 0.0,
+        "max_itemset_len": 4,
+        "max_antecedent_len": 3,
+        "top_k": 500
+      },
+      "stats": {
+        "alpha": 0.05,
+        "correction": "bh",
+        "min_holdout_count": 5
+      },
+      "autoresearch": {
+        "enabled": true,
+        "max_evaluations": 60,
+        "restarts": 3,
+        "neighbours_per_step": 4,
+        "initial_step": 0.5,
+        "step_decay": 0.75,
+        "min_step": 0.05,
+        "patience": 6,
+        "tabu_size": 40,
+        "seed": 20260901,
+        "w_validated_yield": 0.35,
+        "w_effect_size": 0.25,
+        "w_coverage": 0.2,
+        "w_parsimony": 0.1,
+        "w_cost": 0.1
+      }
+    }
+  },
+  "preparation": {
+    "n_transactions": 17982,
+    "n_items": 2547,
+    "avg_basket_size": 23.632243354465576,
+    "density": 0.009278462251458805,
+    "strategy": "temporal",
+    "holdout_fraction": 0.3,
+    "explore_n": 12587,
+    "holdout_n": 5395,
+    "explore_start": "2010-12-01T08:26:00.000000000",
+    "explore_end": "2011-09-27T08:57:00.000000000",
+    "holdout_start": "2011-09-27T09:05:00.000000000",
+    "holdout_end": "2011-12-09T12:50:00.000000000",
+    "rationale": "Exploratory / holdout split.\n\nTemporal by default.  Webb (2007, *Discovering Significant Patterns*, Mach.\nLearn. 68:1-33) shows that testing a rule on the same data that suggested it\ninflates the false-discovery rate arbitrarily; the holdout must be untouched\nduring search.  For retail we go further and split on *time*, because a\nrandom split lets December co-purchases vouch for a rule discovered in\nDecember.\n"
+  },
+  "phases_completed": 6,
+  "seconds_total": 136.68267870799173,
+  "n_rules": 500,
+  "n_validated": 403,
+  "coverage": 0.8168674698795181,
+  "baseline_objective": 0.7157080024151565,
+  "champion_objective": 0.8028766402999166,
+  "champion_params": {
+    "min_support": 0.009885895323766809,
+    "min_confidence": 0.3602419215696581,
+    "min_lift": 2.907744637179179,
+    "max_antecedent_len": 1,
+    "max_itemset_len": 2
+  },
+  "autoresearch_enabled": true
+}

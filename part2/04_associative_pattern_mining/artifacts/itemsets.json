@@ -1,0 +1,937 @@
+{
+  "min_support": 0.009885895323766809,
+  "min_count": 125,
+  "n_itemsets": 1534,
+  "per_level": {
+    "1": 724,
+    "2": 810
+  },
+  "algorithm_stats": {
+    "algorithm": "fpgrowth",
+    "n_transactions": 12587,
+    "min_count": 125,
+    "nodes_created": 197379,
+    "conditional_trees": 211,
+    "max_depth": 2,
+    "candidates_generated": 1534,
+    "itemsets_found": 1534,
+    "passes": 0,
+    "seconds": 0.5715059170033783,
+    "per_level": {
+      "1": 724,
+      "2": 810
+    }
+  },
+  "top": [
+    {
+      "items": [
+        "JUMBO BAG RED RETROSPOT",
+        "JUMBO BAG PINK POLKADOT"
+      ],
+      "codes": [
+        "85099B",
+        "22386"
+      ],
+      "size": 2,
+      "count": 612,
+      "support": 0.04862159370779376
+    },
+    {
+      "items": [
+        "ROSES REGENCY TEACUP AND SAUCER",
+        "GREEN REGENCY TEACUP AND SAUCER"
+      ],
+      "codes": [
+        "22699",
+        "22697"
+      ],
+      "size": 2,
+      "count": 545,
+      "support": 0.04329864145546993
+    },
+    {
+      "items": [
+        "JUMBO BAG RED RETROSPOT",
+        "JUMBO STORAGE BAG SUKI"
+      ],
+      "codes": [
+        "85099B",
+        "21931"
+      ],
+      "size": 2,
+      "count": 510,
+      "support": 0.0405179947564948
+    },
+    {
+      "items": [
+        "JUMBO BAG RED RETROSPOT",
+        "JUMBO SHOPPER VINTAGE RED PAISLEY"
+      ],
+      "codes": [
+        "85099B",
+        "22411"
+      ],
+      "size": 2,
+      "count": 484,
+      "support": 0.038452371494398986
+    },
+    {
+      "items": [
+        "LUNCH BAG RED RETROSPOT",
+        "LUNCH BAG SUKI DESIGN"
+      ],
+      "codes": [
+        "20725",
+        "22383"
+      ],
+      "size": 2,
+      "count": 475,
+      "support": 0.03773734805751967
+    },
+    {
+      "items": [
+        "LUNCH BAG RED RETROSPOT",
+        "LUNCH BAG PINK POLKADOT"
+      ],
+      "codes": [
+        "20725",
+        "22384"
+      ],
+      "size": 2,
+      "count": 465,
+      "support": 0.036942877572098194
+    },
+    {
+      "items": [
+        "GREEN REGENCY TEACUP AND SAUCER",
+        "PINK REGENCY TEACUP AND SAUCER"
+      ],
+      "codes": [
+        "22697",
+        "22698"
+      ],
+      "size": 2,
+      "count": 443,
+      "support": 0.03519504250417097
+    },
+    {
+      "items": [
+        "LUNCH BAG RED RETROSPOT",
+        "LUNCH BAG  BLACK SKULL."
+      ],
+      "codes": [
+        "20725",
+        "20727"
+      ],
+      "size": 2,
+      "count": 436,
+      "support": 0.034638913164375944
+    },
+    {
+      "items": [
+        "LUNCH BAG  BLACK SKULL.",
+        "LUNCH BAG PINK POLKADOT"
+      ],
+      "codes": [
+        "20727",
+        "22384"
+      ],
+      "size": 2,
+      "count": 417,
+      "support": 0.03312941924207516
+    },
+    {
+      "items": [
+        "LUNCH BAG RED RETROSPOT",
+        "LUNCH BAG CARS BLUE"
+      ],
+      "codes": [
+        "20725",
+        "20728"
+      ],
+      "size": 2,
+      "count": 417,
+      "support": 0.03312941924207516
+    },
+    {
+      "items": [
+        "ROSES REGENCY TEACUP AND SAUCER",
+        "PINK REGENCY TEACUP AND SAUCER"
+      ],
+      "codes": [
+        "22699",
+        "22698"
+      ],
+      "size": 2,
+      "count": 416,
+      "support": 0.03304997219353301
+    },
+    {
+      "items": [
+        "JUMBO BAG RED RETROSPOT",
+        "JUMBO  BAG BAROQUE BLACK WHITE"
+      ],
+      "codes": [
+        "85099B",
+        "85099C"
+      ],
+      "size": 2,
+      "count": 416,
+      "support": 0.03304997219353301
+    },
+    {
+      "items": [
+        "LUNCH BAG SUKI DESIGN",
+        "LUNCH BAG CARS BLUE"
+      ],
+      "codes": [
+        "22383",
+        "20728"
+      ],
+      "size": 2,
+      "count": 415,
+      "support": 0.03297052514499086
+    },
+    {
+      "items": [
+        "LUNCH BAG SUKI DESIGN",
+        "LUNCH BAG  BLACK SKULL."
+      ],
+      "codes": [
+        "22383",
+        "20727"
+      ],
+      "size": 2,
+      "count": 415,
+      "support": 0.03297052514499086
+    },
+    {
+      "items": [
+        "LUNCH BAG CARS BLUE",
+        "LUNCH BAG PINK POLKADOT"
+      ],
+      "codes": [
+        "20728",
+        "22384"
+      ],
+      "size": 2,
+      "count": 402,
+      "support": 0.03193771351394296
+    },
+    {
+      "items": [
+        "JUMBO BAG RED RETROSPOT",
+        "LUNCH BAG RED RETROSPOT"
+      ],
+      "codes": [
+        "85099B",
+        "20725"
+      ],
+      "size": 2,
+      "count": 402,
+      "support": 0.03193771351394296
+    },
+    {
+      "items": [
+        "LUNCH BAG RED RETROSPOT",
+        "LUNCH BAG SPACEBOY DESIGN"
+      ],
+      "codes": [
+        "20725",
+        "22382"
+      ],
+      "size": 2,
+      "count": 399,
+      "support": 0.03169937236831652
+    },
+    {
+      "items": [
+        "JUMBO STORAGE BAG SUKI",
+        "JUMBO SHOPPER VINTAGE RED PAISLEY"
+      ],
+      "codes": [
+        "21931",
+        "22411"
+      ],
+      "size": 2,
+      "count": 398,
+      "support": 0.031619925319774374
+    },
+    {
+      "items": [
+        "JUMBO BAG RED RETROSPOT",
+        "JUMBO BAG SCANDINAVIAN BLUE PAISLEY"
+      ],
+      "codes": [
+        "85099B",
+        "21928"
+      ],
+      "size": 2,
+      "count": 391,
+      "support": 0.031063795979979342
+    },
+    {
+      "items": [
+        "JUMBO BAG PINK POLKADOT",
+        "JUMBO STORAGE BAG SUKI"
+      ],
+      "codes": [
+        "22386",
+        "21931"
+      ],
+      "size": 2,
+      "count": 390,
+      "support": 0.030984348931437197
+    },
+    {
+      "items": [
+        "LUNCH BAG  BLACK SKULL.",
+        "LUNCH BAG CARS BLUE"
+      ],
+      "codes": [
+        "20727",
+        "20728"
+      ],
+      "size": 2,
+      "count": 389,
+      "support": 0.03090490188289505
+    },
+    {
+      "items": [
+        "LUNCH BAG RED RETROSPOT",
+        "LUNCH BAG WOODLAND"
+      ],
+      "codes": [
+        "20725",
+        "20726"
+      ],
+      "size": 2,
+      "count": 382,
+      "support": 0.030348772543100023
+    },
+    {
+      "items": [
+        "LUNCH BAG SUKI DESIGN",
+        "LUNCH BAG SPACEBOY DESIGN"
+      ],
+      "codes": [
+        "22383",
+        "22382"
+      ],
+      "size": 2,
+      "count": 380,
+      "support": 0.03018987844601573
+    },
+    {
+      "items": [
+        "JUMBO BAG RED RETROSPOT",
+        "JUMBO BAG WOODLAND ANIMALS"
+      ],
+      "codes": [
+        "85099B",
+        "20712"
+      ],
+      "size": 2,
+      "count": 376,
+      "support": 0.029872090251847144
+    },
+    {
+      "items": [
+        "REGENCY CAKESTAND 3 TIER",
+        "ROSES REGENCY TEACUP AND SAUCER"
+      ],
+      "codes": [
+        "22423",
+        "22699"
+      ],
+      "size": 2,
+      "count": 370,
+      "support": 0.029395407960594262
+    },
+    {
+      "items": [
+        "SPACEBOY LUNCH BOX",
+        "DOLLY GIRL LUNCH BOX"
+      ],
+      "codes": [
+        "22629",
+        "22630"
+      ],
+      "size": 2,
+      "count": 367,
+      "support": 0.029157066814967825
+    },
+    {
+      "items": [
+        "JUMBO BAG RED RETROSPOT",
+        "JUMBO BAG STRAWBERRY"
+      ],
+      "codes": [
+        "85099B",
+        "85099F"
+      ],
+      "size": 2,
+      "count": 366,
+      "support": 0.02907761976642568
+    },
+    {
+      "items": [
+        "HEART OF WICKER SMALL",
+        "HEART OF WICKER LARGE"
+      ],
+      "codes": [
+        "22469",
+        "22470"
+      ],
+      "size": 2,
+      "count": 361,
+      "support": 0.028680384523714943
+    },
+    {
+      "items": [
+        "PARTY BUNTING",
+        "SPOTTY BUNTING"
+      ],
+      "codes": [
+        "47566",
+        "23298"
+      ],
+      "size": 2,
+      "count": 361,
+      "support": 0.028680384523714943
+    },
+    {
+      "items": [
+        "JUMBO BAG PINK POLKADOT",
+        "JUMBO SHOPPER VINTAGE RED PAISLEY"
+      ],
+      "codes": [
+        "22386",
+        "22411"
+      ],
+      "size": 2,
+      "count": 361,
+      "support": 0.028680384523714943
+    },
+    {
+      "items": [
+        "WOODEN PICTURE FRAME WHITE FINISH",
+        "WOODEN FRAME ANTIQUE WHITE"
+      ],
+      "codes": [
+        "82482",
+        "82494L"
+      ],
+      "size": 2,
+      "count": 359,
+      "support": 0.02852149042663065
+    },
+    {
+      "items": [
+        "LUNCH BAG SUKI DESIGN",
+        "LUNCH BAG PINK POLKADOT"
+      ],
+      "codes": [
+        "22383",
+        "22384"
+      ],
+      "size": 2,
+      "count": 359,
+      "support": 0.02852149042663065
+    },
+    {
+      "items": [
+        "ALARM CLOCK BAKELIKE RED",
+        "ALARM CLOCK BAKELIKE GREEN"
+      ],
+      "codes": [
+        "22727",
+        "22726"
+      ],
+      "size": 2,
+      "count": 355,
+      "support": 0.028203702232462064
+    },
+    {
+      "items": [
+        "LUNCH BAG  BLACK SKULL.",
+        "LUNCH BAG SPACEBOY DESIGN"
+      ],
+      "codes": [
+        "20727",
+        "22382"
+      ],
+      "size": 2,
+      "count": 353,
+      "support": 0.028044808135377772
+    },
+    {
+      "items": [
+        "JUMBO BAG RED RETROSPOT",
+        "JUMBO BAG PINK VINTAGE PAISLEY"
+      ],
+      "codes": [
+        "85099B",
+        "21929"
+      ],
+      "size": 2,
+      "count": 351,
+      "support": 0.027885914038293477
+    },
+    {
+      "items": [
+        "JUMBO BAG RED RETROSPOT",
+        "JUMBO BAG APPLES"
+      ],
+      "codes": [
+        "85099B",
+        "23199"
+      ],
+      "size": 2,
+      "count": 351,
+      "support": 0.027885914038293477
+    },
+    {
+      "items": [
+        "LUNCH BAG SPACEBOY DESIGN",
+        "LUNCH BAG WOODLAND"
+      ],
+      "codes": [
+        "22382",
+        "20726"
+      ],
+      "size": 2,
+      "count": 350,
+      "support": 0.02780646698975133
+    },
+    {
+      "items": [
+        "REGENCY CAKESTAND 3 TIER",
+        "GREEN REGENCY TEACUP AND SAUCER"
+      ],
+      "codes": [
+        "22423",
+        "22697"
+      ],
+      "size": 2,
+      "count": 347,
+      "support": 0.02756812584412489
+    },
+    {
+      "items": [
+        "LUNCH BAG SPACEBOY DESIGN",
+        "LUNCH BAG CARS BLUE"
+      ],
+      "codes": [
+        "22382",
+        "20728"
+      ],
+      "size": 2,
+      "count": 347,
+      "support": 0.02756812584412489
+    },
+    {
+      "items": [
+        "LUNCH BAG CARS BLUE",
+        "LUNCH BAG WOODLAND"
+      ],
+      "codes": [
+        "20728",
+        "20726"
+      ],
+      "size": 2,
+      "count": 337,
+      "support": 0.026773655358703425
+    },
+    {
+      "items": [
+        "LUNCH BAG SPACEBOY DESIGN",
+        "LUNCH BAG PINK POLKADOT"
+      ],
+      "codes": [
+        "22382",
+        "22384"
+      ],
+      "size": 2,
+      "count": 335,
+      "support": 0.02661476126161913
+    },
+    {
+      "items": [
+        "JUMBO BAG VINTAGE DOILY",
+        "LUNCH BAG VINTAGE DOILY"
+      ],
+      "codes": [
+        "23203",
+        "23209"
+      ],
+      "size": 2,
+      "count": 334,
+      "support": 0.026535314213076984
+    },
+    {
+      "items": [
+        "LUNCH BAG SUKI DESIGN",
+        "LUNCH BAG WOODLAND"
+      ],
+      "codes": [
+        "22383",
+        "20726"
+      ],
+      "size": 2,
+      "count": 332,
+      "support": 0.026376420115992692
+    },
+    {
+      "items": [
+        "JUMBO BAG RED RETROSPOT",
+        "JUMBO BAG VINTAGE DOILY"
+      ],
+      "codes": [
+        "85099B",
+        "23203"
+      ],
+      "size": 2,
+      "count": 330,
+      "support": 0.026217526018908397
+    },
+    {
+      "items": [
+        "JUMBO BAG VINTAGE DOILY",
+        "JUMBO BAG VINTAGE LEAF"
+      ],
+      "codes": [
+        "23203",
+        "23202"
+      ],
+      "size": 2,
+      "count": 329,
+      "support": 0.02613807897036625
+    },
+    {
+      "items": [
+        "PACK OF 72 RETROSPOT CAKE CASES",
+        "60 TEATIME FAIRY CAKE CASES"
+      ],
+      "codes": [
+        "21212",
+        "84991"
+      ],
+      "size": 2,
+      "count": 328,
+      "support": 0.026058631921824105
+    },
+    {
+      "items": [
+        "JUMBO STORAGE BAG SUKI",
+        "JUMBO BAG WOODLAND ANIMALS"
+      ],
+      "codes": [
+        "21931",
+        "20712"
+      ],
+      "size": 2,
+      "count": 327,
+      "support": 0.025979184873281956
+    },
+    {
+      "items": [
+        "LUNCH BAG  BLACK SKULL.",
+        "LUNCH BAG WOODLAND"
+      ],
+      "codes": [
+        "20727",
+        "20726"
+      ],
+      "size": 2,
+      "count": 326,
+      "support": 0.02589973782473981
+    },
+    {
+      "items": [
+        "RED RETROSPOT CHARLOTTE BAG",
+        "CHARLOTTE BAG PINK POLKADOT"
+      ],
+      "codes": [
+        "20724",
+        "22356"
+      ],
+      "size": 2,
+      "count": 323,
+      "support": 0.02566139667911337
+    },
+    {
+      "items": [
+        "WHITE HANGING HEART T-LIGHT HOLDER",
+        "RED HANGING HEART T-LIGHT HOLDER"
+      ],
+      "codes": [
+        "85123A",
+        "21733"
+      ],
+      "size": 2,
+      "count": 322,
+      "support": 0.025581949630571223
+    },
+    {
+      "items": [
+        "RED RETROSPOT CHARLOTTE BAG",
+        "CHARLOTTE BAG SUKI DESIGN"
+      ],
+      "codes": [
+        "20724",
+        "22355"
+      ],
+      "size": 2,
+      "count": 319,
+      "support": 0.025343608484944786
+    },
+    {
+      "items": [
+        "RED RETROSPOT CHARLOTTE BAG",
+        "STRAWBERRY CHARLOTTE BAG"
+      ],
+      "codes": [
+        "20724",
+        "20723"
+      ],
+      "size": 2,
+      "count": 318,
+      "support": 0.025264161436402637
+    },
+    {
+      "items": [
+        "LUNCH BAG RED RETROSPOT",
+        "LUNCH BAG APPLE DESIGN"
+      ],
+      "codes": [
+        "20725",
+        "23206"
+      ],
+      "size": 2,
+      "count": 318,
+      "support": 0.025264161436402637
+    },
+    {
+      "items": [
+        "JUMBO BAG PINK POLKADOT",
+        "JUMBO BAG WOODLAND ANIMALS"
+      ],
+      "codes": [
+        "22386",
+        "20712"
+      ],
+      "size": 2,
+      "count": 317,
+      "support": 0.02518471438786049
+    },
+    {
+      "items": [
+        "RED RETROSPOT CHARLOTTE BAG",
+        "WOODLAND CHARLOTTE BAG"
+      ],
+      "codes": [
+        "20724",
+        "20719"
+      ],
+      "size": 2,
+      "count": 311,
+      "support": 0.024708032096607612
+    },
+    {
+      "items": [
+        "WHITE HANGING HEART T-LIGHT HOLDER",
+        "PARTY BUNTING"
+      ],
+      "codes": [
+        "85123A",
+        "47566"
+      ],
+      "size": 2,
+      "count": 307,
+      "support": 0.024390243902439025
+    },
+    {
+      "items": [
+        "LUNCH BAG SUKI DESIGN",
+        "LUNCH BAG APPLE DESIGN"
+      ],
+      "codes": [
+        "22383",
+        "23206"
+      ],
+      "size": 2,
+      "count": 305,
+      "support": 0.02423134980535473
+    },
+    {
+      "items": [
+        "JUMBO BAG RED RETROSPOT",
+        "JUMBO BAG SPACEBOY DESIGN"
+      ],
+      "codes": [
+        "85099B",
+        "22385"
+      ],
+      "size": 2,
+      "count": 304,
+      "support": 0.024151902756812584
+    },
+    {
+      "items": [
+        "LUNCH BAG PINK POLKADOT",
+        "LUNCH BAG WOODLAND"
+      ],
+      "codes": [
+        "22384",
+        "20726"
+      ],
+      "size": 2,
+      "count": 304,
+      "support": 0.024151902756812584
+    },
+    {
+      "items": [
+        "JUMBO STORAGE BAG SUKI",
+        "JUMBO  BAG BAROQUE BLACK WHITE"
+      ],
+      "codes": [
+        "21931",
+        "85099C"
+      ],
+      "size": 2,
+      "count": 303,
+      "support": 0.02407245570827044
+    },
+    {
+      "items": [
+        "JUMBO BAG PINK POLKADOT",
+        "JUMBO  BAG BAROQUE BLACK WHITE"
+      ],
+      "codes": [
+        "22386",
+        "85099C"
+      ],
+      "size": 2,
+      "count": 301,
+      "support": 0.023913561611186143
+    },
+    {
+      "items": [
+        "JUMBO SHOPPER VINTAGE RED PAISLEY",
+        "JUMBO BAG PINK VINTAGE PAISLEY"
+      ],
+      "codes": [
+        "22411",
+        "21929"
+      ],
+      "size": 2,
+      "count": 299,
+      "support": 0.02375466751410185
+    },
+    {
+      "items": [
+        "REGENCY CAKESTAND 3 TIER",
+        "PARTY BUNTING"
+      ],
+      "codes": [
+        "22423",
+        "47566"
+      ],
+      "size": 2,
+      "count": 296,
+      "support": 0.02351632636847541
+    },
+    {
+      "items": [
+        "LUNCH BAG VINTAGE DOILY",
+        "LUNCH BAG APPLE DESIGN"
+      ],
+      "codes": [
+        "23209",
+        "23206"
+      ],
+      "size": 2,
+      "count": 295,
+      "support": 0.023436879319933265
+    },
+    {
+      "items": [
+        "ALARM CLOCK BAKELIKE RED",
+        "ALARM CLOCK BAKELIKE PINK"
+      ],
+      "codes": [
+        "22727",
+        "22728"
+      ],
+      "size": 2,
+      "count": 294,
+      "support": 0.02335743227139112
+    },
+    {
+      "items": [
+        "JAM MAKING SET PRINTED",
+        "JAM MAKING SET WITH JARS"
+      ],
+      "codes": [
+        "22961",
+        "22960"
+      ],
+      "size": 2,
+      "count": 293,
+      "support": 0.02327798522284897
+    },
+    {
+      "items": [
+        "JUMBO SHOPPER VINTAGE RED PAISLEY",
+        "JUMBO  BAG BAROQUE BLACK WHITE"
+      ],
+      "codes": [
+        "22411",
+        "85099C"
+      ],
+      "size": 2,
+      "count": 292,
+      "support": 0.023198538174306824
+    },
+    {
+      "items": [
+        "JUMBO BAG RED RETROSPOT",
+        "LUNCH BAG SUKI DESIGN"
+      ],
+      "codes": [
+        "85099B",
+        "22383"
+      ],
+      "size": 2,
+      "count": 292,
+      "support": 0.023198538174306824
+    },
+    {
+      "items": [
+        "JUMBO SHOPPER VINTAGE RED PAISLEY",
+        "JUMBO BAG SCANDINAVIAN BLUE PAISLEY"
+      ],
+      "codes": [
+        "22411",
+        "21928"
+      ],
+      "size": 2,
+      "count": 290,
+      "support": 0.023039644077222532
+    },
+    {
+      "items": [
+        "JUMBO SHOPPER VINTAGE RED PAISLEY",
+        "JUMBO BAG WOODLAND ANIMALS"
+      ],
+      "codes": [
+        "22411",
+        "20712"
+      ],
+      "size": 2,
+      "count": 287,
+      "support": 0.02280130293159609
+    }
+  ]
+}

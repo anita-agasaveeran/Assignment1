@@ -1,0 +1,9 @@
+# Pinned to what this project was developed and validated against (Python 3.14).
+numpy>=2.0
+pandas>=2.2
+scikit-learn>=1.5      # >=1.3 required: sklearn.cluster.HDBSCAN ships natively
+scipy>=1.11
+matplotlib>=3.8
+joblib>=1.3
+kagglehub>=0.3         # anonymous public-dataset download, no API token needed
+pytest>=8.0

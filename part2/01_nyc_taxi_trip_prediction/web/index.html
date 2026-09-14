@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NYC Taxi · Trip Duration Estimator</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚕</text></svg>">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">🚕</span>
+    <div>
+      <h1>NYC Taxi Trip Duration</h1>
+      <p>Gradient-boosted estimates from 2016 yellow-cab records · CRISP-DM end to end</p>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <a class="ghost-link" href="/docs" target="_blank" rel="noopener">API docs</a>
+    <div id="health" class="pill pill-muted"><span class="dot"></span><span>connecting…</span></div>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- ------------------------------------------------------------------ -->
+  <aside class="panel" id="controls">
+    <section class="card">
+      <h2>Plan a trip</h2>
+      <p class="hint" id="click-hint">Click the map to set the <b>pickup</b>, then click again for the <b>dropoff</b>. Drag either marker to adjust.</p>
+
+      <div class="endpoint" data-role="pickup">
+        <span class="endpoint-dot pickup"></span>
+        <div class="endpoint-body">
+          <label for="pickup-select">Pickup</label>
+          <select id="pickup-select" class="place-select"><option value="">— pick a landmark —</option></select>
+          <div class="coords" id="pickup-coords">not set</div>
+        </div>
+      </div>
+
+      <div class="endpoint" data-role="dropoff">
+        <span class="endpoint-dot dropoff"></span>
+        <div class="endpoint-body">
+          <label for="dropoff-select">Dropoff</label>
+          <select id="dropoff-select" class="place-select"><option value="">— pick a landmark —</option></select>
+          <div class="coords" id="dropoff-coords">not set</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="when">Departure</label>
+          <input type="datetime-local" id="when">
+        </div>
+        <div class="field field-sm">
+          <label for="pax">Riders</label>
+          <select id="pax">
+            <option>1</option><option>2</option><option>3</option>
+            <option>4</option><option>5</option><option>6</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button id="estimate" class="btn btn-primary">Estimate duration</button>
+        <button id="swap" class="btn btn-ghost" title="Swap pickup and dropoff">⇅</button>
+        <button id="clear" class="btn btn-ghost" title="Clear both points">Clear</button>
+      </div>
+      <div id="form-error" class="error" hidden></div>
+    </section>
+
+    <section class="card result" id="result" hidden>
+      <div class="result-head">
+        <div>
+          <div class="result-label">Estimated duration<span id="res-stale" class="stale-badge" hidden>outdated</span></div>
+          <div class="result-big"><span id="res-min">–</span><span class="unit">min</span></div>
+          <div class="result-range" id="res-range"></div>
+        </div>
+        <div class="result-eta">
+          <div class="result-label">Arrive by</div>
+          <div class="eta" id="res-eta">–</div>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric"><span id="res-grid">–</span><label>grid km</label></div>
+        <div class="metric"><span id="res-straight">–</span><label>straight km</label></div>
+        <div class="metric"><span id="res-speed">–</span><label>km/h</label></div>
+      </div>
+      <ul class="notes" id="res-notes"></ul>
+    </section>
+
+    <section class="card" id="layers-card">
+      <h2>Map layers</h2>
+      <label class="toggle"><input type="checkbox" id="layer-density"> <span>Pickup density <em>(12k sampled trips)</em></span></label>
+      <label class="toggle"><input type="checkbox" id="layer-zones"> <span>Learned zones <em>(40 KMeans centroids)</em></span></label>
+    </section>
+  </aside>
+
+  <!-- ------------------------------------------------------------------ -->
+  <section class="stage">
+    <div id="map"></div>
+    <div class="map-legend">
+      <span><i class="sw pickup"></i>pickup</span>
+      <span><i class="sw dropoff"></i>dropoff</span>
+      <span><i class="sw route"></i>estimated path</span>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------------ -->
+  <aside class="panel" id="insights">
+    <nav class="tabs" role="tablist">
+      <button class="tab is-active" data-tab="when" role="tab">When to go</button>
+      <button class="tab" data-tab="data" role="tab">The data</button>
+      <button class="tab" data-tab="model" role="tab">The model</button>
+    </nav>
+
+    <div class="tabpanel is-active" data-panel="when">
+      <section class="card">
+        <h2>Departure hour sweep</h2>
+        <p class="hint">The same trip, leaving at each hour of the day. Estimate a trip to fill this in.</p>
+        <div id="sweep-chart" class="chart"></div>
+        <div id="sweep-summary" class="callout" hidden></div>
+      </section>
+      <section class="card">
+        <h2>Citywide speed by hour</h2>
+        <p class="hint">Median km/h across the training set — the congestion clock the model learns.</p>
+        <div id="speed-chart" class="chart"></div>
+      </section>
+    </div>
+
+    <div class="tabpanel" data-panel="data">
+      <section class="card">
+        <h2>Dataset</h2>
+        <div id="data-kpis" class="kpi-grid"></div>
+      </section>
+      <section class="card">
+        <h2>Duration distribution</h2>
+        <p class="hint">Right-skewed, which is why the model is fitted on log1p(duration).</p>
+        <div id="duration-chart" class="chart"></div>
+      </section>
+      <section class="card">
+        <h2>Demand by weekday × hour</h2>
+        <div id="heat-chart" class="chart"></div>
+      </section>
+      <section class="card">
+        <h2>Cleaning audit</h2>
+        <p class="hint">Every row dropped in Phase 3, and the rule that dropped it.</p>
+        <div id="audit-table"></div>
+      </section>
+    </div>
+
+    <div class="tabpanel" data-panel="model">
+      <section class="card">
+        <h2>Held-out performance</h2>
+        <p class="hint">Scored on the most recent 20% of trips — trained on the past, tested on the future.</p>
+        <div id="metrics-table"></div>
+      </section>
+      <section class="card">
+        <h2>What the model leans on</h2>
+        <p class="hint">Permutation importance on held-out trips. Bar widths are square-rooted so the ranking below the leader stays readable; printed values are raw.</p>
+        <div id="importance-chart" class="chart"></div>
+      </section>
+      <section class="card" id="interval-card">
+        <h2>Interval calibration</h2>
+        <div id="interval-note" class="callout"></div>
+      </section>
+    </div>
+  </aside>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/map.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

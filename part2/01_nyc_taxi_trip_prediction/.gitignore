@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+logs_*.txt
+
+# ~300 MB of raw and intermediate data. `make data` rebuilds it from NYC Open
+# Data; the cleaned table is deterministic given the same shards.
+data/raw/
+data/interim/
+data/processed/
+
+# The 4.3 MB model bundle, its metrics and the dashboard stats ARE committed:
+# together they are ~5 MB and let a fresh clone run `make serve` immediately,
+# without a 6-minute download-and-train cycle first.

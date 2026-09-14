@@ -1,0 +1,11 @@
+--- patches/retention_matrix.py.orig	2026-09-01 17:39:10
++++ /Users/anitaagasaveeran/.claude/skills/cohort-analysis/scripts/retention_matrix.py	2026-09-01 17:39:10
+@@ -56,7 +56,7 @@
+     parser = argparse.ArgumentParser(description="Compute cohort retention matrix.")
+     parser.add_argument("--input", required=True, help="CSV from cohort_builder.py")
+     parser.add_argument("--format", choices=["pct", "count", "rate"], default="pct",
+-                        help="Output format: pct (%), count (users), rate (0-1 float)")
++                        help="Output format: pct (%%), count (users), rate (0-1 float)")
+     parser.add_argument("--output", help="Optional CSV output path")
+     args = parser.parse_args()
+ 

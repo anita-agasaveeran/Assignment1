@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# ~220 MB of raw + processed data. `python scripts/download_data.py` re-fetches
+# both datasets and verifies their SHA-256; `scripts/run_all.py` rebuilds the rest.
+data/

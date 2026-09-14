@@ -1,0 +1,16 @@
+# Core (required)
+torch>=2.6            # MPS/CUDA/CPU; bf16 autocast + scaled_dot_product_attention
+numpy>=1.26
+PyYAML>=6.0
+
+# Dashboard + serving
+fastapi>=0.110
+uvicorn>=0.27
+pydantic>=2.6
+
+# Tests
+pytest>=8.0
+
+# Nothing else is required. The tokenizer, MinHash/LSH deduplication, the
+# Muon optimizer and every dashboard chart are implemented in this repository
+# rather than pulled from a dependency, so the project runs fully offline.

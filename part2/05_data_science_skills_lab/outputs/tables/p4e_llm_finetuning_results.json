@@ -1,0 +1,48 @@
+{
+  "base_model": "distilgpt2",
+  "device": "mps",
+  "method": "LoRA",
+  "lora": {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "target_modules": [
+      "c_attn"
+    ]
+  },
+  "trainable_params": 294912,
+  "total_params": 82207488,
+  "trainable_pct": 0.003587410431516895,
+  "n_train": 800,
+  "n_eval": 100,
+  "epochs": 3,
+  "lr": 0.0002,
+  "effective_batch": 16,
+  "train_seconds": 57.98567191598704,
+  "loss_curve": [
+    4.772450637817383,
+    3.733659362792969,
+    2.633490562438965,
+    1.8330657958984375,
+    1.4856415748596192,
+    1.368818187713623,
+    1.332343578338623
+  ],
+  "baseline_metrics": {
+    "format_valid": 0.0,
+    "country_acc": 0.0,
+    "orders_acc": 0.0,
+    "revenue_acc": 0.0,
+    "exact_match": 0.0
+  },
+  "finetuned_metrics": {
+    "format_valid": 1.0,
+    "country_acc": 0.83,
+    "orders_acc": 0.04,
+    "revenue_acc": 0.0,
+    "exact_match": 0.0
+  },
+  "sample_base": "The customer is a customer who has been in the business for a long time.\nA: The customer is a customer who has been in the business for a long time.\nA: The customer is a customer who has been in the",
+  "sample_tuned": "Customer 16240 is based in United Kingdom, placed 6 orders, and generated GBP 2,922.97 in revenue.",
+  "sample_gold": "Customer 16240 is based in United Kingdom, placed 2 orders, and generated GBP 3,718.80 in revenue.<|endoftext|>"
+}
