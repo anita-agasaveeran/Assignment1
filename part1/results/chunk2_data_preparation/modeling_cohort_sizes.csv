@@ -1,0 +1,5 @@
+cohort,rows,unique_hosts,hz_positive_rows,hz_positive_hosts,transit_rows,radial_velocity_rows,imaging_rows,microlensing_rows
+Reported-flux labels (all),370,265,32,26,310,60,0,0
+"Reported core model (P, Teff, Rstar, Mstar complete)",366,264,32,26,306,60,0,0
+Reported enriched complete case (+ metallicity),290,209,27,23,231,59,0,0
+Derived-flux sensitivity cohort,4013,3018,186,177,3339,645,10,0

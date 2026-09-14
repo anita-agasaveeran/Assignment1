@@ -1,0 +1,6 @@
+first_model,second_model,host_mean_logloss_improvement,one_sided_sign_flip_p,two_sided_sign_flip_p,n_hosts,n_sign_flips,comparison
+Period-only curved,Full stellar structure,0.05814428224684746,0.0005599944000559995,0.0011299887001129988,264,100000,"Joint stellar block, unadjusted"
+Period + method,Method-adjusted full,0.05471239811849157,0.0007499925000749992,0.0014399856001439985,264,100000,"Joint stellar block, method-adjusted"
+Chunk 4 interaction,Full stellar structure,0.00906299989583947,0.12303876961230388,0.24554754452455477,264,100000,Add stellar radius and mass
+Full stellar structure,Method-adjusted full,-0.0023366486930827862,1.0,9.99990000099999e-06,264,100000,Add discovery method
+Chunk 4 interaction,Method-adjusted full,0.006726351202756686,0.1972180278197218,0.3930560694393056,264,100000,Full Chunk 5 change versus Chunk 4

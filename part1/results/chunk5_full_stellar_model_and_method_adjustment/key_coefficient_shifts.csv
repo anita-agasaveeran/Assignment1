@@ -1,0 +1,5 @@
+comparison,first_model,second_model,term,first_estimate,second_estimate,shift_estimate,relative_shift_percent,ci_low,ci_high,bootstrap_probability_shift_positive,n_bootstrap
+Add radius and mass,Chunk 4 interaction,Full stellar structure,z_log_teff,-1.7722081544990944,-0.2252041005472977,1.5470040539517966,87.29245771860526,0.6309148223870589,2.3866352917671634,1.0,500
+Add radius and mass,Chunk 4 interaction,Full stellar structure,period_x_teff,0.3675924231375061,0.073867228138746,-0.29372519499876,-79.90512766605246,-0.5455471902862518,-0.03951423511892,0.01,500
+Add discovery method,Full stellar structure,Method-adjusted full,z_log_teff,-0.2252041005472977,-0.2225600885716791,0.0026440119756185,1.1740514356501517,-0.0642266518018323,0.1001894129638169,0.592,500
+Add discovery method,Full stellar structure,Method-adjusted full,period_x_teff,0.073867228138746,0.0816869117470038,0.0078196836082578,10.586133804249409,-0.1102162781218829,0.1093937897725561,0.522,500

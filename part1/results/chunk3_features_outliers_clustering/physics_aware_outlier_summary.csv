@@ -1,0 +1,21 @@
+flag,cohort,planets,hosts,reported_hz_planets,derived_hz_planets,transit_planets,radial_velocity_planets,imaging_planets
+Giant / evolved host,Full catalog,192,172,0,12,16,176,0
+Giant / evolved host,Reported core model,0,0,0,0,0,0,0
+Giant / evolved host,Derived-flux available,185,165,0,12,16,169,0
+Giant / evolved host,Mass-period clusterable,185,166,0,12,9,176,0
+Compact remnant / hot subdwarf,Full catalog,18,12,0,1,1,0,1
+Compact remnant / hot subdwarf,Reported core model,1,1,0,0,1,0,0
+Compact remnant / hot subdwarf,Derived-flux available,7,5,0,1,1,0,0
+Compact remnant / hot subdwarf,Mass-period clusterable,13,9,0,1,1,0,0
+Ultra-short period (<1 day),Full catalog,114,111,0,0,106,1,0
+Ultra-short period (<1 day),Reported core model,10,10,0,0,10,0,0
+Ultra-short period (<1 day),Derived-flux available,100,99,0,0,97,1,0
+Ultra-short period (<1 day),Mass-period clusterable,34,33,0,0,29,1,0
+High-mass companion (>13 Mjup),Full catalog,74,73,0,2,9,35,21
+High-mass companion (>13 Mjup),Reported core model,3,3,0,0,3,0,0
+High-mass companion (>13 Mjup),Derived-flux available,43,42,0,2,9,30,3
+High-mass companion (>13 Mjup),Mass-period clusterable,52,51,0,2,9,35,2
+"Extreme wide period (>100,000 days)",Full catalog,4,4,0,0,0,0,4
+"Extreme wide period (>100,000 days)",Reported core model,0,0,0,0,0,0,0
+"Extreme wide period (>100,000 days)",Derived-flux available,2,2,0,0,0,0,2
+"Extreme wide period (>100,000 days)",Mass-period clusterable,4,4,0,0,0,0,4

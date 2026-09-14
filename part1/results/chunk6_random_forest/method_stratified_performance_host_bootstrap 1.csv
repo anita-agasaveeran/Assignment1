@@ -1,0 +1,55 @@
+model,metric,estimate,ci_low,ci_high,bootstrap_median,n_bootstrap,discovery_method,record_type,comparison,first_model,second_model,delta_estimate,bootstrap_probability_second_better,direction
+Method-adjusted full,PR-AUC,0.5818910161929871,0.3967320922924838,0.8577109588228271,0.6094717731290216,2500,Transit,model_metric,,,,,,
+Method-adjusted full,ROC-AUC,0.9779403220256959,0.9592456960380162,0.9924585653975808,0.9789331319271762,2500,Transit,model_metric,,,,,,
+Method-adjusted full,Recall,0.8451041858749769,0.6248507997135355,1.0,0.8578800185630024,2500,Transit,model_metric,,,,,,
+Method-adjusted full,Precision,0.5683988589854893,0.3609940882466106,0.7745817630578321,0.572039942938659,2500,Transit,model_metric,,,,,,
+Method-adjusted full,F1,0.6796678036482278,0.4870237205942791,0.8315160178218781,0.6830127798010345,2500,Transit,model_metric,,,,,,
+Method-adjusted full,MCC,0.6717683689269569,0.48751235880558785,0.8267509710624593,0.6768712090625492,2500,Transit,model_metric,,,,,,
+Method-adjusted full,Balanced accuracy,0.9036425436150807,0.7957561966158242,0.9871184604206443,0.9096755518509188,2500,Transit,model_metric,,,,,,
+Method-adjusted full,Log loss,0.10296371546554514,0.07095683119600177,0.13936191819464783,0.10278529274693171,2500,Transit,model_metric,,,,,,
+Method-adjusted full,Brier score,0.032629232870820514,0.020232769420410045,0.04725165588919368,0.032571116134041136,2500,Transit,model_metric,,,,,,
+Nested shallow random forest,PR-AUC,0.5101599000576417,0.32482943861511077,0.7946921179056924,0.537321558600505,2500,Transit,model_metric,,,,,,
+Nested shallow random forest,ROC-AUC,0.9630099458627925,0.9322554016996427,0.9872049644180301,0.9640634634699421,2500,Transit,model_metric,,,,,,
+Nested shallow random forest,Recall,0.8119122257053292,0.5749855902815847,1.0,0.8160367525943849,2500,Transit,model_metric,,,,,,
+Nested shallow random forest,Precision,0.5316348708041536,0.30919523054695996,0.7408083515185845,0.5331115506159039,2500,Transit,model_metric,,,,,,
+Nested shallow random forest,F1,0.6425392192630428,0.4212359102922886,0.8071601422660282,0.6433182542210896,2500,Transit,model_metric,,,,,,
+Nested shallow random forest,MCC,0.6327901295595526,0.415993861578649,0.7972938431591907,0.6366531407454941,2500,Transit,model_metric,,,,,,
+Nested shallow random forest,Balanced accuracy,0.884878485892429,0.7611684754193722,0.979643252221695,0.8868385372301293,2500,Transit,model_metric,,,,,,
+Nested shallow random forest,Log loss,0.1174547120882968,0.08119740045398133,0.1589562917510502,0.11722288657492788,2500,Transit,model_metric,,,,,,
+Nested shallow random forest,Brier score,0.036341723648975095,0.02254255466334352,0.05232861473795939,0.03634637377688919,2500,Transit,model_metric,,,,,,
+,PR-AUC,,-0.24730980402067376,0.06929364866603228,,2500,Transit,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.07173111613534544,0.17,Nested shallow random forest minus Method-adjusted full; positive favors second
+,ROC-AUC,,-0.03878872409955608,0.0036854474182464203,,2500,Transit,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.01493037616290338,0.0576,Nested shallow random forest minus Method-adjusted full; positive favors second
+,Recall,,-0.2767258167410939,0.20664462457337915,,2500,Transit,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.03319196016964776,0.3184,Nested shallow random forest minus Method-adjusted full; positive favors second
+,Precision,,-0.21114559681841896,0.1324391220444311,,2500,Transit,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.03676398818133564,0.3252,Nested shallow random forest minus Method-adjusted full; positive favors second
+,F1,,-0.20981565344167355,0.12808649592169585,,2500,Transit,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.03712858438518496,0.324,Nested shallow random forest minus Method-adjusted full; positive favors second
+,MCC,,-0.2266998390751011,0.1401985702236338,,2500,Transit,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.0389782393674043,0.3272,Nested shallow random forest minus Method-adjusted full; positive favors second
+,Balanced accuracy,,-0.13997044989887952,0.09979192502349703,,2500,Transit,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.01876405772265166,0.352,Nested shallow random forest minus Method-adjusted full; positive favors second
+,Log loss,,-0.026815306031700282,-0.002993617581038675,,2500,Transit,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.014490996622751662,0.0048,Method-adjusted full minus Nested shallow random forest; positive favors second
+,Brier score,,-0.008515904004729295,0.0008395427793887153,,2500,Transit,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.0037124907781545813,0.0544,Method-adjusted full minus Nested shallow random forest; positive favors second
+Method-adjusted full,PR-AUC,0.5894871128935862,0.36294013459694036,0.878398519970177,0.6190381154792501,2500,Radial Velocity,model_metric,,,,,,
+Method-adjusted full,ROC-AUC,0.8624607658505964,0.7194551900412107,0.9785407685693346,0.8695514830866131,2500,Radial Velocity,model_metric,,,,,,
+Method-adjusted full,Recall,0.7333333333333333,0.3877551020408163,1.0,0.75,2500,Radial Velocity,model_metric,,,,,,
+Method-adjusted full,Precision,0.4429530201342282,0.2018929912390488,0.7094758995944769,0.4429530201342282,2500,Radial Velocity,model_metric,,,,,,
+Method-adjusted full,F1,0.5523012552301254,0.29007713884992986,0.7695424836601309,0.5541805850794616,2500,Radial Velocity,model_metric,,,,,,
+Method-adjusted full,MCC,0.42472339196855086,0.1085502559501795,0.7113365991437787,0.434854957161547,2500,Radial Velocity,model_metric,,,,,,
+Method-adjusted full,Balanced accuracy,0.7494350282485875,0.5658394493525344,0.917618211610487,0.7546685845914521,2500,Radial Velocity,model_metric,,,,,,
+Method-adjusted full,Log loss,0.3826732283855269,0.22913353586609325,0.5601277339240385,0.37914181311653694,2500,Radial Velocity,model_metric,,,,,,
+Method-adjusted full,Brier score,0.11804810747444604,0.0612185617591367,0.18233099288349983,0.11635360454067592,2500,Radial Velocity,model_metric,,,,,,
+Nested shallow random forest,PR-AUC,0.45763364986024774,0.2638463559338122,0.7345023419909231,0.49348714573223135,2500,Radial Velocity,model_metric,,,,,,
+Nested shallow random forest,ROC-AUC,0.7659133709981166,0.588971521402001,0.9398449948719259,0.7747949999541884,2500,Radial Velocity,model_metric,,,,,,
+Nested shallow random forest,Recall,0.4888888888888889,0.204989103362391,0.8191363636363639,0.5,2500,Radial Velocity,model_metric,,,,,,
+Nested shallow random forest,Precision,0.5176470588235295,0.2222222222222222,0.8220776255707763,0.52,2500,Radial Velocity,model_metric,,,,,,
+Nested shallow random forest,F1,0.5028571428571429,0.23188405797101447,0.738192447766916,0.5069147919189344,2500,Radial Velocity,model_metric,,,,,,
+Nested shallow random forest,MCC,0.38120286240623946,0.08565159134138266,0.6824897246896569,0.3911601879832781,2500,Radial Velocity,model_metric,,,,,,
+Nested shallow random forest,Balanced accuracy,0.6865348399246705,0.5409640762463342,0.8620763049285887,0.6916719209751996,2500,Radial Velocity,model_metric,,,,,,
+Nested shallow random forest,Log loss,0.42792593942380847,0.26356637790641946,0.6205255465091991,0.4216003858696391,2500,Radial Velocity,model_metric,,,,,,
+Nested shallow random forest,Brier score,0.13962980818744802,0.0767018087813363,0.2145376647829966,0.13767783868180442,2500,Radial Velocity,model_metric,,,,,,
+,PR-AUC,,-0.27451583182756306,-0.019321469858719312,,2500,Radial Velocity,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.1318534630333385,0.006,Nested shallow random forest minus Method-adjusted full; positive favors second
+,ROC-AUC,,-0.2017837619674175,-0.011276152901241981,,2500,Radial Velocity,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.09654739485247976,0.0016,Nested shallow random forest minus Method-adjusted full; positive favors second
+,Recall,,-0.511455630513752,0.0,,2500,Radial Velocity,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.2444444444444444,0.0,Nested shallow random forest minus Method-adjusted full; positive favors second
+,Precision,,-0.14735274707144025,0.3335818189547499,,2500,Radial Velocity,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,0.07469403868930125,0.7324,Nested shallow random forest minus Method-adjusted full; positive favors second
+,F1,,-0.2780228758169934,0.16472609216624848,,2500,Radial Velocity,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.04944411237298252,0.3428,Nested shallow random forest minus Method-adjusted full; positive favors second
+,MCC,,-0.3175548905930864,0.21879294153538698,,2500,Radial Velocity,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.043520529562311394,0.3992,Nested shallow random forest minus Method-adjusted full; positive favors second
+,Balanced accuracy,,-0.2097824476952384,0.07084613725360056,,2500,Radial Velocity,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.06290018832391708,0.2016,Nested shallow random forest minus Method-adjusted full; positive favors second
+,Log loss,,-0.14540327255554256,0.05971429568624432,,2500,Radial Velocity,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.045252711038281546,0.1964,Method-adjusted full minus Nested shallow random forest; positive favors second
+,Brier score,,-0.059509983494592286,0.012981675246661752,,2500,Radial Velocity,paired_contrast,Random forest versus method-adjusted logistic,Method-adjusted full,Nested shallow random forest,-0.021581700713001986,0.1224,Method-adjusted full minus Nested shallow random forest; positive favors second

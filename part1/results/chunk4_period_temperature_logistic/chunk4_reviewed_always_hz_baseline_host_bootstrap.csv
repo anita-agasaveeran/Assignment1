@@ -1,0 +1,5 @@
+model,metric,estimate,ci_low,ci_high,bootstrap_median,n_bootstrap
+Always-HZ screening rule,Recall,1.0,1.0,1.0,1.0,3000
+Always-HZ screening rule,Precision,0.07668650793650793,0.04823232323232323,0.1072012536075036,0.07664141414141415,3000
+Always-HZ screening rule,F1,0.14244909241684325,0.09202601782702963,0.19364366265747346,0.14237129119268208,3000
+Always-HZ screening rule,MCC,0.0,0.0,0.0,0.0,3000

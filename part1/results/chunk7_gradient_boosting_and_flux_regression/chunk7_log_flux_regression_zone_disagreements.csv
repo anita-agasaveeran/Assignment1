@@ -1,0 +1,5 @@
+planet_name,planet_host,discovery_method_group,observed_flux_earth,predicted_flux_earth,flux_zone_reported,regression_zone,target_log_flux,mean_predicted_log_flux
+GJ 3323 b,GJ 3323,Radial Velocity,2.5799999999999996,1.2474606477103356,too_hot,habitable_zone,0.4116197059632301,0.0960268542939717
+Kepler-1704 b,Kepler-1704,Transit,0.34,0.6565000793242931,too_cold,habitable_zone,-0.4685210829577448,-0.1827652170991009
+Kepler-436 b,Kepler-436,Transit,1.6899999999999997,2.595505251921734,habitable_zone,too_hot,0.2278867046136735,0.4142219119967292
+Kepler-439 b,Kepler-439,Transit,1.8299999999999998,1.6530092976809965,too_hot,habitable_zone,0.2624510897304294,0.2182752963543847

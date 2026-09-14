@@ -1,0 +1,2 @@
+first_model,second_model,host_mean_logloss_improvement,one_sided_sign_flip_p,two_sided_sign_flip_p,n_hosts,n_sign_flips
+Method-adjusted full,Nested shallow random forest,-0.019018797352017495,0.982340176598234,0.035389646103538966,264,100000

@@ -1,0 +1,3 @@
+sensitivity,removed_planets,remaining_planets,adjusted_rand_index_vs_full_solution
+Remove outer 0.5% of both log mass and log period,37,1813,0.9839771857834518
+"Remove >13 Jupiter masses or period >100,000 days",55,1795,0.9443241943663493

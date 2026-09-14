@@ -1,0 +1,5 @@
+cluster_label,planets,hosts,median_mass_earth,mass_q25_earth,mass_q75_earth,median_period_days,period_q25_days,period_q75_days,transit_share,radial_velocity_share,imaging_share,microlensing_share,reported_label_available,reported_hz_planets,derived_label_available,derived_hz_planets
+Low-mass short-period,441,274,6.49,3.7,10.44,8.041,4.049219,14.03,0.5941043083900227,0.3900226757369615,0.0,0.0,126,11,348,13
+Intermediate-mass moderate-period,255,200,22.5,13.05,53.25,57.32,34.333,130.137,0.39215686274509803,0.5607843137254902,0.0,0.00784313725490196,25,5,153,23
+Hot/warm giants,589,581,305.1168,177.9848,607.0553,3.646706,2.70339,5.2072,0.8607809847198642,0.12224108658743633,0.0,0.0,81,0,557,0
+Long-period giants,565,490,826.32,451.3186,2000.0,871.0,416.0,1928.0,0.03008849557522124,0.9061946902654867,0.01415929203539823,0.010619469026548672,11,2,432,84

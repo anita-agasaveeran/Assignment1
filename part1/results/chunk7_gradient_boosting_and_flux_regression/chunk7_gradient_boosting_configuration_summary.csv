@@ -1,0 +1,4 @@
+name,complexity_rank,max_depth,learning_rate,n_estimators,subsample,median_inner_pr_auc,median_inner_log_loss,median_inner_log_loss_se,within_one_se_rate,selected_outer_folds,positive_host_leaf_fraction,max_features,point_best_outer_folds
+Stumps / very conservative,1,1,0.03,120,0.8,0.3403508136048427,0.1865014601002932,0.02929298286936305,0.9555555555555556,86,0.5,4,2
+Shallow / low rate,2,2,0.03,100,0.8,0.42933512000491203,0.17509082046669527,0.030871362995815853,1.0,4,0.45,3,53
+Shallow / moderate rate,3,2,0.05,80,0.75,0.4355776580488546,0.1740124481320833,0.0316569193711952,1.0,0,0.35,3,35

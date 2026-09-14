@@ -1,0 +1,13 @@
+model,metric,estimate,ci_low,ci_high,n_bootstrap
+Physics-form ridge log-flux regression,Three-zone accuracy,0.9867424242424242,0.9734848484848485,0.9981060606060606,3000
+Physics-form ridge log-flux regression,Three-zone macro recall,0.9522768266651579,0.8776271176480382,0.9992823937082427,3000
+Physics-form ridge log-flux regression,HZ recall,0.9506056685875574,0.8421586594132027,1.0,3000
+Physics-form ridge log-flux regression,HZ precision,0.8850323004489214,0.7423500541915208,1.0,3000
+Physics-form ridge log-flux regression,HZ F1,0.9166477659333182,0.8187382118144236,0.987197100647076,3000
+Physics-form ridge log-flux regression,HZ MCC,0.9101417414041613,0.8080847682092475,0.9862689365951999,3000
+Training-mean log-flux baseline,Three-zone accuracy,0.8799332611832611,0.8427561327561328,0.9144778138528138,3000
+Training-mean log-flux baseline,Three-zone macro recall,0.3333333333333333,0.3333333333333333,0.3333333333333333,3000
+Training-mean log-flux baseline,HZ recall,0.0,0.0,0.0,3000
+Training-mean log-flux baseline,HZ precision,0.0,0.0,0.0,3000
+Training-mean log-flux baseline,HZ F1,0.0,0.0,0.0,3000
+Training-mean log-flux baseline,HZ MCC,0.0,0.0,0.0,3000

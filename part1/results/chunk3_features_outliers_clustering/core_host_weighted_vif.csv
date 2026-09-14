@@ -1,0 +1,5 @@
+feature,display_label,host_weighted_vif
+log10_orbital_period_days,log Period,1.020698550651024
+log10_stellar_teff_k,log Temperature,7.7603855761289084
+log10_stellar_radius_solar,log Radius,5.3954379832817745
+log10_stellar_mass_solar,log Mass,11.157398987217134

@@ -1,0 +1,25 @@
+target,discovery_method_group,cluster_label,eligible_planets,eligible_hosts,positive_planets,hz_rate
+hz_reported,Transit,Low-mass short-period,86,53,3,0.03488372093023256
+hz_reported,Transit,Intermediate-mass moderate-period,13,12,2,0.15384615384615385
+hz_reported,Transit,Hot/warm giants,80,80,0,0.0
+hz_reported,Transit,Long-period giants,4,4,0,0.0
+hz_reported,Radial Velocity,Low-mass short-period,40,27,8,0.2
+hz_reported,Radial Velocity,Intermediate-mass moderate-period,12,9,3,0.25
+hz_reported,Radial Velocity,Hot/warm giants,1,1,0,0.0
+hz_reported,Radial Velocity,Long-period giants,7,7,2,0.2857142857142857
+hz_derived,Transit,Low-mass short-period,239,144,4,0.016736401673640166
+hz_derived,Transit,Intermediate-mass moderate-period,75,62,8,0.10666666666666667
+hz_derived,Transit,Hot/warm giants,493,487,0,0.0
+hz_derived,Transit,Long-period giants,17,17,2,0.11764705882352941
+hz_derived,Radial Velocity,Low-mass short-period,107,82,9,0.08411214953271028
+hz_derived,Radial Velocity,Intermediate-mass moderate-period,74,59,15,0.20270270270270271
+hz_derived,Radial Velocity,Hot/warm giants,58,58,0,0.0
+hz_derived,Radial Velocity,Long-period giants,406,367,80,0.19704433497536947
+hz_derived,Imaging,Low-mass short-period,0,0,0,
+hz_derived,Imaging,Intermediate-mass moderate-period,0,0,0,
+hz_derived,Imaging,Hot/warm giants,0,0,0,
+hz_derived,Imaging,Long-period giants,3,3,0,0.0
+hz_derived,Other methods,Low-mass short-period,2,1,0,0.0
+hz_derived,Other methods,Intermediate-mass moderate-period,4,4,0,0.0
+hz_derived,Other methods,Hot/warm giants,6,6,0,0.0
+hz_derived,Other methods,Long-period giants,6,5,2,0.3333333333333333

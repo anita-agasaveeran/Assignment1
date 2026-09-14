@@ -1,0 +1,13 @@
+check,passed
+core_rows_366,True
+core_hosts_264,True
+core_positive_hosts_26,True
+gb_long_rows_5490,True
+gb_each_row_15_predictions,True
+gb_90_outer_folds,True
+gb_exact_prior_test_membership,True
+gb_positive_hosts_per_test_fold_min_3,True
+regression_each_model_366_rows,True
+regression_each_row_15_repeats,True
+no_nan_gb_probabilities,True
+no_nan_regression_predictions,True

@@ -1,0 +1,24 @@
+column,missing_percent_all,missing_percent_reported_flux_subset,planned_treatment,reviewer_rationale
+No.,0.0,0.0,Drop,Administrative row key only.
+Planet Name,0.0,0.0,Retain as identifier; drop as predictor,High-cardinality identifier with no generalizable physical meaning.
+Planet Host,0.0,0.0,Retain only as grouping key,Used by host-grouped cross-validation; never one-hot encoded.
+Num Stars,0.0,0.0,Optional complete-case contextual feature,Complete; no imputation. Excluded from the minimal physical model to keep interpretation focused.
+Num Planets,0.0,0.0,Bias/context model only,"Complete, but known multiplicity depends on survey completeness and follow-up."
+Discovery Method,0.0,0.0,Bias and interaction models only,"Complete; one-hot encode inside each training fold. It represents selection, not a physical cause of HZ membership."
+Discovery Year,0.0,0.0,Bias model only,Complete; center/scale inside each training fold to capture changing survey capability.
+Discovery Facility,0.0,0.0,Drop from main models; descriptive/coarsened sensitivity only,Sixty-three sparse levels would overfit the small labeled cohort and proxy specific missions.
+Orbital Period Days,3.541,0.0,Use; no statistical imputation,Central hypothesis variable and complete in the reported-flux cohort. Apply deterministic log10 transform.
+Orbit Semi-Major Axis,39.607,7.027,Exclude from primary period model; physics-fill only for derived-flux target,"Median imputation is physically inappropriate. Use catalog value when present, otherwise Kepler-derived value from period and stellar mass, with provenance flag."
+Mass,56.153,34.324,Exclude from primary classifier; observed-only clustering/sensitivity,"High, method-dependent missingness and heterogeneous mass provenance. Do not invent planet masses globally."
+Eccentricity,62.689,31.351,Exclude from primary classifier; method-specific observed-only sensitivity,Unknown is not circular. Never replace missing values with zero; optional foldwise imputation plus indicator only as a predictive sensitivity.
+Insolation Flux,91.913,0.0,Target only; never statistically impute,Missing target remains unlabeled. Physics-derived flux is a separate sensitivity target with explicit provenance.
+Equilibrium Temperature,79.781,36.216,Drop from leakage-safe HZ classifier,Near-direct transformation/proxy of insolation and highly incomplete. Use only in descriptive or partial-ESI sensitivity analyses.
+Spectral Type,79.716,53.243,Drop from predictive models; descriptive only,"Very incomplete, inconsistent granularity, and largely redundant with effective temperature. Do not infer a pseudo-observed class from temperature."
+Stellar Effective Temperature,7.628,1.081,Use; no statistical imputation in primary model,Central physical variable. Four labeled rows are missing and are dropped as one host group; required for derived flux.
+Stellar Radius,9.77,0.0,Use; no statistical imputation in primary model,Complete in the labeled cohort and enters luminosity quadratically. Do not median-fill for derived target construction.
+Stellar Mass,15.978,0.0,Use; no statistical imputation in primary model,Complete in the labeled cohort and required for Kepler conversion when semi-major axis is absent.
+Stellar Metallicity,29.967,21.622,Exclude from minimal core; complete-case and fold-imputed sensitivity models,Moderate MNAR missingness. Any imputer and missingness indicator are fit within training folds; indicator is interpreted as observation-process information.
+Stellar Metallicity Ratio,30.23,21.622,Clean notation for audit; drop from models,"Measurement convention, not an independent physical predictor; paired with metallicity and incomplete."
+Stellar Surface Gravity,13.18,15.946,Drop measured value from primary model; calculate from stellar mass/radius for QA,Redundant with mass and radius. Statistical imputation would add a noisy duplicate.
+Distance,2.273,4.865,Drop from astrophysical model; foldwise median plus missing indicator in bias model,Selection variable with low missingness. Apply log10 transform before scaling when used.
+Gaia Magnitude,3.825,2.162,Drop from astrophysical model; foldwise median plus missing indicator in bias model,Selection/characterization variable with low missingness; standardize inside folds.

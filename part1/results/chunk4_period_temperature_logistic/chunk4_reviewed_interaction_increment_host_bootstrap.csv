@@ -1,0 +1,10 @@
+metric,delta_estimate,ci_low,ci_high,bootstrap_probability_interaction_better,direction,n_bootstrap
+PR-AUC,0.0277887914545914,-0.005833090007451272,0.07610302691737224,0.9326666666666666,interaction minus additive; positive favors interaction,3000
+ROC-AUC,0.004150007732636407,-0.0006619537593105546,0.010186343526369757,0.95,interaction minus additive; positive favors interaction,3000
+Recall,0.07291544160884389,0.0,0.19578172875389538,0.951,interaction minus additive; positive favors interaction,3000
+Precision,0.0020392899728273184,-0.057828611201820805,0.06440981365234816,0.512,interaction minus additive; positive favors interaction,3000
+F1,0.024137129114168654,-0.036302846944364475,0.10403940949761667,0.7436666666666667,interaction minus additive; positive favors interaction,3000
+MCC,0.032116059720385226,-0.034190492691502476,0.12159055010102869,0.7826666666666666,interaction minus additive; positive favors interaction,3000
+Balanced accuracy,0.0330389841741241,-0.004408418783259071,0.09538889291967609,0.9313333333333333,interaction minus additive; positive favors interaction,3000
+Log loss,0.00336713942709993,-0.0009805598552212141,0.008016107940954082,0.932,additive minus interaction; positive favors interaction,3000
+Brier score,0.0010470419868247455,-0.0006529286097172278,0.0028682207698791365,0.881,additive minus interaction; positive favors interaction,3000
